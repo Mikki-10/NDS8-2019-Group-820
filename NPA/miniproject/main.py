@@ -84,8 +84,8 @@ def main():
 
     # Do some calculations
     iterations = 10000
-    print("Optimize waiting time:\n")
-    load_matrix_1 = copy.deepcopy(load_matrix) 
+    #print("Optimize waiting time:\n")
+    #load_matrix_1 = copy.deepcopy(load_matrix) 
     load_matrix_2 = copy.deepcopy(load_matrix)
     #waiting_time(iterations, load_matrix_1, capacity_matrix, input_trafic)
     print("Loadbalance:\n")
@@ -98,8 +98,8 @@ def waiting_time(iterations, load_matrix, capacity_matrix, input_trafic):
     #iterations = 100
     delta=load_matrix[0][1]/iterations
     delta_2 = load_matrix[4][5]/iterations
-    wait_times_12 = 999999999999999999999999999999999999999999999999999999999999999999999999
-    wait_times_56 = 999999999999999999999999999999999999999999999999999999999999999999999999
+    wait_times_12 = 999999
+    wait_times_56 = 999999
 
     for i in range(1, iterations):
        # Move trafic
