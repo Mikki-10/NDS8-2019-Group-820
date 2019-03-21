@@ -95,38 +95,37 @@ def main():
 
 def waiting_time(iterations, load_matrix, capacity_matrix, input_trafic):
     # Move trafic and optimize the waiting time
-    #iterations = 100
     delta=load_matrix[0][1]/iterations
     delta_2 = load_matrix[4][5]/iterations
     wait_times_12 = 999999
     wait_times_56 = 999999
 
     for i in range(1, iterations):
-       # Move trafic
-        load_matrix[0][1] = load_matrix[0][1] - delta
-        load_matrix[4][5] = load_matrix[4][5] - delta_2
+        # Move trafic
+        load_matrix[0][1] = load_matrix[0][1] - delta # Move trafic from the link between 1 and 2 to "someware else"
+        load_matrix[4][5] = load_matrix[4][5] - delta_2 # Move trafic from the link between 5 and 6 to "someware else"
         
-        load_matrix[0][2] = input_trafic - load_matrix[0][1]
-        load_matrix[3][1] = input_trafic - load_matrix[0][1]
-        load_matrix[4][2] = input_trafic - load_matrix[4][5]
-        load_matrix[3][5] = input_trafic - load_matrix[4][5]
-        load_matrix[2][3] = input_trafic-load_matrix[0][1]+input_trafic-load_matrix[4][5]
+        load_matrix[0][2] = input_trafic - load_matrix[0][1] # Calculate the load on the link between 1 to 3
+        load_matrix[3][1] = input_trafic - load_matrix[0][1] # Calculate the load on the link between 4 to 2
+        load_matrix[4][2] = input_trafic - load_matrix[4][5] # Calculate the load on the link between 5 to 3
+        load_matrix[3][5] = input_trafic - load_matrix[4][5] # Calculate the load on the link between 4 to 6
+        load_matrix[2][3] = (input_trafic-load_matrix[0][1])+(input_trafic-load_matrix[4][5]) # Calculate the load on the link between 3 to 4
 
     
-        # Calculate waiting time
-        w12 = 1 / input_trafic * (
+        # Calculate waiting time 
+        w12 = 1 / input_trafic * ( # w12 = waiting time from all links from 1 to 2 
             ( load_matrix[0][1] / (capacity_matrix[0][1] - load_matrix[0][1]) ) +
             ( load_matrix[2][3] / (capacity_matrix[2][3] - load_matrix[2][3]) ) +
             ( load_matrix[0][2] / (capacity_matrix[0][2] - load_matrix[0][2]) ) +
             ( load_matrix[3][1] / (capacity_matrix[3][1] - load_matrix[3][1]) ))
 
-        w56 = 1 / input_trafic * (
+        w56 = 1 / input_trafic * ( # w56 = waiting time from all links from 5 to 6
             ( load_matrix[4][5] / (capacity_matrix[4][5] - load_matrix[4][5]) ) +
             ( load_matrix[2][3] / (capacity_matrix[2][3] - load_matrix[2][3]) ) +
             ( load_matrix[4][2] / (capacity_matrix[4][2] - load_matrix[4][2]) ) +
             ( load_matrix[3][5] / (capacity_matrix[3][5] - load_matrix[3][5]) ))
 
-
+        # Check if the new wating time is better and save the state
         if wait_times_12 > w12:
             wait_times_12 = w12
             wait_times_56 = w56
@@ -145,48 +144,45 @@ def waiting_time(iterations, load_matrix, capacity_matrix, input_trafic):
 
 def loadbalance(iterations, load_matrix, capacity_matrix, input_trafic):
     # Move trafic by loadbalance and calculate the wathing time
-    #iterations = 100
-    delta = load_matrix[0][1]/iterations
-    delta_2 = load_matrix[4][5]/iterations
-    wait_times_12 = 999999
-    wait_times_56 = 999999
+    delta = load_matrix[0][1]/iterations # Set a delta used to define how mouch data there is moved
+    delta_2 = load_matrix[4][5]/iterations # Set a delta used to define how mouch data there is moved
 
     for i in range(1, iterations):
         # Move trafic
-        a_1 = capacity_matrix[0][1] / ((capacity_matrix[0][1] - load_matrix[0][1])**2)
-        a_3 = capacity_matrix[2][3] / ((capacity_matrix[2][3] - load_matrix[2][3])**2)
-        a_2 = capacity_matrix[4][5] / ((capacity_matrix[4][5] - load_matrix[4][5])**2)
+        a_1 = capacity_matrix[0][1] / ((capacity_matrix[0][1] - load_matrix[0][1])**2) # Calculate the load on the link
+        a_3 = capacity_matrix[2][3] / ((capacity_matrix[2][3] - load_matrix[2][3])**2) # Calculate the load on the link
+        a_2 = capacity_matrix[4][5] / ((capacity_matrix[4][5] - load_matrix[4][5])**2) # Calculate the load on the link
 
         if a_1 > a_3:
-            load_matrix[0][1] = load_matrix[0][1] - delta
+            load_matrix[0][1] = load_matrix[0][1] - delta # Move trafic from the link between 1 and 2 to "someware else"
         if a_3 > a_1:
-            load_matrix[0][1] = load_matrix[0][1] + delta
+            load_matrix[0][1] = load_matrix[0][1] + delta # Move trafic to the link between 1 and 2
         if a_2 > a_3:
-            load_matrix[4][5] = load_matrix[4][5] - delta_2
+            load_matrix[4][5] = load_matrix[4][5] - delta_2 # Move trafic from the link between 5 and 6 to "someware else"
         if a_3 > a_2:
-            load_matrix[4][5] = load_matrix[4][5] + delta_2
+            load_matrix[4][5] = load_matrix[4][5] + delta_2 # Move trafic to the link between 5 and 6
 
-        load_matrix[0][2] = input_trafic - load_matrix[0][1]
-        load_matrix[3][1] = input_trafic - load_matrix[0][1]
-        load_matrix[4][2] = input_trafic - load_matrix[4][5]
-        load_matrix[3][5] = input_trafic - load_matrix[4][5]
-        load_matrix[2][3] = (input_trafic - load_matrix[0][1]) + (input_trafic - load_matrix[4][5])
+        load_matrix[0][2] = input_trafic - load_matrix[0][1] # Calculate the load on the link between 1 to 3
+        load_matrix[3][1] = input_trafic - load_matrix[0][1] # Calculate the load on the link between 4 to 2
+        load_matrix[4][2] = input_trafic - load_matrix[4][5] # Calculate the load on the link between 5 to 3
+        load_matrix[3][5] = input_trafic - load_matrix[4][5] # Calculate the load on the link between 4 to 6
+        load_matrix[2][3] = (input_trafic-load_matrix[0][1])+(input_trafic-load_matrix[4][5]) # Calculate the load on the link between 3 to 4
 
-        # Calculate waiting time
-        w12 = 1 / input_trafic * (
+        # Calculate waiting time 
+        w12 = 1 / input_trafic * ( # w12 = waiting time from all links from 1 to 2 
             ( load_matrix[0][1] / (capacity_matrix[0][1] - load_matrix[0][1]) ) +
             ( load_matrix[2][3] / (capacity_matrix[2][3] - load_matrix[2][3]) ) +
             ( load_matrix[0][2] / (capacity_matrix[0][2] - load_matrix[0][2]) ) +
             ( load_matrix[3][1] / (capacity_matrix[3][1] - load_matrix[3][1]) ))
 
-        w56 = 1 / input_trafic * (
+        w56 = 1 / input_trafic * ( # w56 = waiting time from all links from 5 to 6
             ( load_matrix[4][5] / (capacity_matrix[4][5] - load_matrix[4][5]) ) +
             ( load_matrix[2][3] / (capacity_matrix[2][3] - load_matrix[2][3]) ) +
             ( load_matrix[4][2] / (capacity_matrix[4][2] - load_matrix[4][2]) ) +
             ( load_matrix[3][5] / (capacity_matrix[3][5] - load_matrix[3][5]) ))
 
-        wait_times_12 = w12
-        wait_times_56 = w56
+        wait_times_12 = w12 # w12 = waiting time from all links from 1 to 2
+        wait_times_56 = w56 # w56 = waiting time from all links from 5 to 6
 
         #print(load_matrix)
 
@@ -200,6 +196,18 @@ def loadbalance(iterations, load_matrix, capacity_matrix, input_trafic):
 
 
 
+
+if __name__ == "__main__":
+  main()
+
+
+
+
+
+
+
+
+
 # Calculate the load and latency for the inital route
        # Calculate load
     # Define route
@@ -207,10 +215,6 @@ def loadbalance(iterations, load_matrix, capacity_matrix, input_trafic):
     # Put load on the route
 
     # Calculate latency
-
-if __name__ == "__main__":
-  main()
-
 
 # Calculate shortest paths for inital routes (dijsktra)
 
