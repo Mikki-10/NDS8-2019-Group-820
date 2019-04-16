@@ -1,0 +1,21 @@
+version: '2'
+services:
+  ldap-service:
+    container_name: ldap
+    image: osixia/openldap
+    hostname: ldap-service
+    ports:
+      - 389:389
+      - 636:636
+    volumes:
+      - ./data/ldap:/var/lib/ldap
+      - ./data/slapd.d:/etc/ldap/slapd.d
+  
+  phpLDAPadmin:
+    container_name: phpLDAPadmin
+    image: osixia/phpldapadmin
+    hostname: phpldapadmin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap-service
+    ports:
+      - 443:443
