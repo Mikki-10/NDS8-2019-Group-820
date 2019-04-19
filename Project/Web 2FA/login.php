@@ -1,0 +1,56 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set("display_errors", true);
+
+require_once "lib/session.php";
+require_once "lib/config.php";
+require_once "lib/DB.php";
+
+
+if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["password"]) && user_login($_POST["username"], $_POST["password"]) === "login ok") 
+{
+	php_session_set_session($_POST["username"]);
+
+	php_session_redirect($msg = NULL);
+}
+else
+{
+	?>
+	<form action="/login.php" method="post">
+	  	<fieldset>
+		    <input type="text" name="username" value="testuser">
+		    <input type="password" name="password" value="test">
+		    <input type="submit" name="login" value="Submit">
+	  	</fieldset>
+	</form>
+	<?php
+}
+
+function user_login($username, $password)
+{
+	$DB = new DB();
+	$respons = $DB->get_user($username);
+
+	//echo "<pre>"; var_dump($respons); echo "</pre>";
+	
+	if (isset($respons) && $respons != "" && $respons != null && $respons["username"] == $username) 
+	{
+		if (password_verify($password, $respons["password"])) 
+		{
+		    echo 'Password is valid!';
+		    return "login ok";
+		} 
+		else
+		{
+		    echo 'Invalid password.';
+		    return FALSE;
+		}
+	}
+	else
+	{
+		echo "Error";
+	}
+}
+
+?>
