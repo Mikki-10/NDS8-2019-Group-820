@@ -93,6 +93,7 @@ class Assignment1 extends Assignment {
                 vg.printer.highlightRootNode(this.graph.root, true);
                 this.graph.root = this.graph.findNodeById(newRootIndex);
                 vg.printer.highlightRootNode(this.graph.root);
+                getElem('npa_rootnode').innerHTML = this.graph.root.id;
 
                 runApp(); // if dijkstra or kruskal is currently running, recalculate with new root
             }
