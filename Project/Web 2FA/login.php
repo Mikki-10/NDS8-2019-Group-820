@@ -6,13 +6,12 @@ ini_set("display_errors", true);
 require_once "lib/session.php";
 require_once "lib/config.php";
 require_once "lib/DB.php";
+require_once "lib/LDAP.php";
 
 
-if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["password"]) && user_login($_POST["username"], $_POST["password"]) === "login ok") 
+if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["password"])) 
 {
-	php_session_set_session($_POST["username"]);
-
-	php_session_redirect($msg = NULL);
+	user_login($_POST["username"], $_POST["password"]);
 }
 else
 {
@@ -27,6 +26,17 @@ else
 	<?php
 }
 
+function user_login($username, $password)
+{
+	if ($LDAP->check_login($username, $password) === "login ok") 
+	{
+		php_session_set_session($_POST["username"]);
+
+		php_session_redirect($msg = NULL);
+	}
+}
+
+/*
 function user_login($username, $password)
 {
 	$DB = new DB();
@@ -52,5 +62,6 @@ function user_login($username, $password)
 		echo "Error";
 	}
 }
+*/
 
 ?>

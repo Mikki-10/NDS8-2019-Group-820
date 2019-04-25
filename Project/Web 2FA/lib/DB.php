@@ -132,7 +132,13 @@ class DB
 	    }	
 	    else
 	    {
-	    	return false;
+	    	$dbtable = "users";
+		    $sqlstruktur = 'username';
+		    $sqlvalues = ':username';
+		    $data = array(':username' => $username);
+		    $this->add($sqlstruktur, $sqlvalues, $data, $dbtable);
+
+		    return $this->get_user($username);
 	    }
 	}
 
@@ -207,7 +213,14 @@ class DB
 	    $stmt->execute();
 	    $ssh_login = $stmt->fetchAll();
 
-	    return $ssh_login[0];
+	    if (isset($ssh_login) && isset($ssh_login[0])) 
+	    {
+	    	return $ssh_login[0];
+	    }
+	    else
+	    {
+	    	return false;
+	    }
 	}
 
 	function get_ssh_login_username($id)

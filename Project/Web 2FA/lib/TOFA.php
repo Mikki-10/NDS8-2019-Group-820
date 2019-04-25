@@ -46,6 +46,8 @@ class TOFA
 			$voiceit_data = $this->myVoiceIt->createUser();
 			$voiceit_data = json_decode($voiceit_data, true);
 			$DB->set_voiceit_user($username, $voiceit_data["userId"]);
+			$LDAP = new LDAP();
+			$LDAP->add_voiceit($username, $value);
 			return $voiceit_data["userId"];
 		}
 	}
