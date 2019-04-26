@@ -4,7 +4,7 @@ version: '2'
 services:
   influxdb:
     container_name: influxdb
-    image: influxdb
+    image: influxdb:1.7.4
     hostname: influxdb
     volumes:
       # Mount for influxdb data directory
