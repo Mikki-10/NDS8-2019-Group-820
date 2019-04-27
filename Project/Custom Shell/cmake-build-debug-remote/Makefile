@@ -123,32 +123,86 @@ NDStest/fast:
 	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/build
 .PHONY : NDStest/fast
 
-main.o: main.c.o
+LDAPClient.o: LDAPClient.cpp.o
+
+.PHONY : LDAPClient.o
+
+# target to build an object file
+LDAPClient.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.o
+.PHONY : LDAPClient.cpp.o
+
+LDAPClient.i: LDAPClient.cpp.i
+
+.PHONY : LDAPClient.i
+
+# target to preprocess a source file
+LDAPClient.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.i
+.PHONY : LDAPClient.cpp.i
+
+LDAPClient.s: LDAPClient.cpp.s
+
+.PHONY : LDAPClient.s
+
+# target to generate assembly for a file
+LDAPClient.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.s
+.PHONY : LDAPClient.cpp.s
+
+Shell.o: Shell.cpp.o
+
+.PHONY : Shell.o
+
+# target to build an object file
+Shell.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.o
+.PHONY : Shell.cpp.o
+
+Shell.i: Shell.cpp.i
+
+.PHONY : Shell.i
+
+# target to preprocess a source file
+Shell.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.i
+.PHONY : Shell.cpp.i
+
+Shell.s: Shell.cpp.s
+
+.PHONY : Shell.s
+
+# target to generate assembly for a file
+Shell.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.s
+.PHONY : Shell.cpp.s
+
+main.o: main.cpp.o
 
 .PHONY : main.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.c.o
-.PHONY : main.c.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-main.i: main.c.i
+main.i: main.cpp.i
 
 .PHONY : main.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.c.i
-.PHONY : main.c.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-main.s: main.c.s
+main.s: main.cpp.s
 
 .PHONY : main.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.c.s
-.PHONY : main.c.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -159,6 +213,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... NDStest"
 	@echo "... edit_cache"
+	@echo "... LDAPClient.o"
+	@echo "... LDAPClient.i"
+	@echo "... LDAPClient.s"
+	@echo "... Shell.o"
+	@echo "... Shell.i"
+	@echo "... Shell.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

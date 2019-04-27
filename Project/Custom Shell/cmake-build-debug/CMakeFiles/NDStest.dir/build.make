@@ -57,30 +57,60 @@ include CMakeFiles/NDStest.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/NDStest.dir/flags.make
 
-CMakeFiles/NDStest.dir/main.c.o: CMakeFiles/NDStest.dir/flags.make
-CMakeFiles/NDStest.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/NDStest.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/NDStest.dir/main.c.o   -c /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.c
+CMakeFiles/NDStest.dir/main.cpp.o: CMakeFiles/NDStest.dir/flags.make
+CMakeFiles/NDStest.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NDStest.dir/main.cpp.o"
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/main.cpp.o -c /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp
 
-CMakeFiles/NDStest.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/NDStest.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.c > CMakeFiles/NDStest.dir/main.c.i
+CMakeFiles/NDStest.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/main.cpp.i"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp > CMakeFiles/NDStest.dir/main.cpp.i
 
-CMakeFiles/NDStest.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/NDStest.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.c -o CMakeFiles/NDStest.dir/main.c.s
+CMakeFiles/NDStest.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/main.cpp.s"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp -o CMakeFiles/NDStest.dir/main.cpp.s
+
+CMakeFiles/NDStest.dir/Shell.cpp.o: CMakeFiles/NDStest.dir/flags.make
+CMakeFiles/NDStest.dir/Shell.cpp.o: ../Shell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NDStest.dir/Shell.cpp.o"
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/Shell.cpp.o -c /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp
+
+CMakeFiles/NDStest.dir/Shell.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/Shell.cpp.i"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp > CMakeFiles/NDStest.dir/Shell.cpp.i
+
+CMakeFiles/NDStest.dir/Shell.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/Shell.cpp.s"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp -o CMakeFiles/NDStest.dir/Shell.cpp.s
+
+CMakeFiles/NDStest.dir/LDAPClient.cpp.o: CMakeFiles/NDStest.dir/flags.make
+CMakeFiles/NDStest.dir/LDAPClient.cpp.o: ../LDAPClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/LDAPClient.cpp.o -c /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.cpp
+
+CMakeFiles/NDStest.dir/LDAPClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/LDAPClient.cpp.i"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.cpp > CMakeFiles/NDStest.dir/LDAPClient.cpp.i
+
+CMakeFiles/NDStest.dir/LDAPClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/LDAPClient.cpp.s"
+	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.cpp -o CMakeFiles/NDStest.dir/LDAPClient.cpp.s
 
 # Object files for target NDStest
 NDStest_OBJECTS = \
-"CMakeFiles/NDStest.dir/main.c.o"
+"CMakeFiles/NDStest.dir/main.cpp.o" \
+"CMakeFiles/NDStest.dir/Shell.cpp.o" \
+"CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
 
 # External object files for target NDStest
 NDStest_EXTERNAL_OBJECTS =
 
-NDStest.exe: CMakeFiles/NDStest.dir/main.c.o
+NDStest.exe: CMakeFiles/NDStest.dir/main.cpp.o
+NDStest.exe: CMakeFiles/NDStest.dir/Shell.cpp.o
+NDStest.exe: CMakeFiles/NDStest.dir/LDAPClient.cpp.o
 NDStest.exe: CMakeFiles/NDStest.dir/build.make
 NDStest.exe: CMakeFiles/NDStest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable NDStest.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable NDStest.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NDStest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

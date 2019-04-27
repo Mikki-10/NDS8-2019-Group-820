@@ -6,19 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/nds/andrej_shell_test/main.c
-sys/wait.h
--
-unistd.h
+/home/nds/andrej_shell_test/header.h
+stdio.h
 -
 stdlib.h
 -
-stdio.h
+unistd.h
 -
 string.h
 -
-ldap.h
--
 sys/time.h
 -
+sys/wait.h
+-
+ldap.h
+-
+w32api/winldap.h
+-
+
+/home/nds/andrej_shell_test/main.c
+header.h
+/home/nds/andrej_shell_test/header.h
 

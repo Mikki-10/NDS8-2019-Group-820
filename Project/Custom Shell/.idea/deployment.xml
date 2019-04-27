@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" serverName="Remote Host (1a8398b8-68ab-483d-93b0-476fd41ea11c)">
     <serverData>
       <paths name="Remote Host (1a8398b8-68ab-483d-93b0-476fd41ea11c)">
         <serverdata>
@@ -10,8 +10,8 @@
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-remote" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-remote" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-remote" />
           </excludedPaths>
         </serverdata>
       </paths>

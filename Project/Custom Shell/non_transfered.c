@@ -1,30 +1,13 @@
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ldap.h>
-#include <sys/time.h>
-
-// https://linux.die.net/man/3/ldap
-
-/*
-  Function Declarations for builtin shell commands:
- */
-//int lsh_cd(char **args);
-int lsh_execute(char **args);
-int lsh_help(char **args);
-int lsh_exit(char **args);
-int lsh_1(char **args);
-int lsh_2(char **args);
+//
+// Created by Andrej on 27.04.2019.
+//
 
 void ldap_debug(LDAP *ptr) {
 
     // https://linux.die.net/man/3/ldap_set_option
-
     printf("LDAP Handler:\n");
     int res;
-    if (LDAP_OPT_SUCCESS == ldap_get_option(ptr, LDAP_OPT_PROTOCOL_VERSION, &res)) {
+    if (LDAP_SUCCESS == ldap_get_option(ptr, LDAP_OPT_PROTOCOL_VERSION, &res)) {
         printf("\tProtocol version: %d\n", res);
     }
     printf("\n");
@@ -38,75 +21,8 @@ void emergency_exit(int ldap_error_number) {
     printf("LDAP Error: %s\n", print_result);
 }
 
-/*
-  List of builtin commands, followed by their corresponding functions.
- */
-char *builtin_str[] = {
-        "help",
-        "exit",
-        "1",
-        "2"
-};
 
-int (*builtin_func[]) (char **) = {
-//  &lsh_cd,
-        &lsh_help,
-        &lsh_exit,
-        &lsh_1,
-        &lsh_2
-};
-
-int lsh_num_builtins() {
-    return sizeof(builtin_str) / sizeof(char *);
-}
-
-/*
-  Builtin function implementations.
-*/
-//int lsh_cd(char **args)
-//{
-//  if (args[1] == NULL) {
-//    fprintf(stderr, "lsh: expected argument to \"cd\"\n");
-//  } else {
-//    if (chdir(args[1]) != 0) {
-//      perror("lsh");
-//    }
-//  }
-//  return 1;
-//}
-
-int lsh_1(char **args)
-{
-    printf("You are going to be redirected to System A");
-    FILE *f = popen( "ssh -t -t nds@192.168.40.1 -p 50222", "r" );
-    return 1;
-}
-
-int lsh_2(char **args)
-{
-    printf("You are going to be redirected to System B");
-    return 1;
-}
-
-int lsh_help(char **args)
-{
-    int i;
-    printf("Test Shell\n");
-    printf("Please type the number corresponding to the system you want to access, and hit enter.\n");
-    printf("The following are built in:\n");
-
-    for (i = 0; i < lsh_num_builtins(); i++) {
-        printf("  %s\n", builtin_str[i]);
-    }
-
-    printf("Use the man command for information on other programs.\n");
-    return 1;
-}
-
-int lsh_exit(char **args)
-{
-    return 0;
-}
+// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
 
 
 int lsh_launch(char **args)
@@ -134,6 +50,8 @@ int lsh_launch(char **args)
     return 1;
 }
 
+
+// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
 
 #define LSH_TOK_BUFSIZE 64
 #define LSH_TOK_DELIM " \t\r\n\a"
@@ -169,14 +87,7 @@ char **lsh_split_line(char *line)
 }
 
 
-//char *lsh_read_line(void)
-//{
-//  char *line = NULL;
-//  ssize_t bufsize = 0; // have getline allocate a buffer for us
-//  getline(&line, &bufsize, stdin);
-//  return line;
-//}
-
+// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
 
 #define LSH_RL_BUFSIZE 1024
 char *lsh_read_line(void)
@@ -216,6 +127,27 @@ char *lsh_read_line(void)
     }
 }
 
+// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
+
+int lsh_execute(char **args)
+{
+    int i;
+
+    if (args[0] == NULL) {
+        // An empty command was entered.
+        return 1;
+    }
+
+    for (i = 0; i < lsh_num_builtins(); i++) {
+        if (strcmp(args[0], builtin_str[i]) == 0) {
+            return (*builtin_func[i])(args);
+        }
+    }
+
+    return lsh_launch(args);
+}
+
+// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
 
 void lsh_loop(void)
 {
@@ -237,24 +169,6 @@ void lsh_loop(void)
     } while (status);
 }
 
-int lsh_execute(char **args)
-{
-    int i;
-
-    if (args[0] == NULL) {
-        // An empty command was entered.
-        return 1;
-    }
-
-    for (i = 0; i < lsh_num_builtins(); i++) {
-        if (strcmp(args[0], builtin_str[i]) == 0) {
-            return (*builtin_func[i])(args);
-        }
-    }
-
-    return lsh_launch(args);
-}
-
 int main(int argc, char **argv)
 {
     // Load config files, if any.
@@ -271,7 +185,7 @@ int main(int argc, char **argv)
         int res;
 
         res = ldap_set_option(ldap_ptr, LDAP_OPT_PROTOCOL_VERSION, &ldap_version);
-        if (LDAP_OPT_SUCCESS != res) emergency_exit(res);
+        if (LDAP_SUCCESS != res) emergency_exit(res);
 
         // https://linux.die.net/man/3/ldap_bind
         res = ldap_simple_bind_s(ldap_ptr, "cn=readonly,dc=example,dc=org", "readonly");
@@ -279,8 +193,7 @@ int main(int argc, char **argv)
     }
 
     {   // Step 2: Make a query
-        int scope = LDAP_SCOPE_BASE;
-        int msgid = ldap_search(ldap_ptr, getlogin(), scope, "system=*" , NULL, 1);
+        int msgid = ldap_search(ldap_ptr, getlogin(), LDAP_SCOPE_BASE, "system=*" , NULL, 1);
 
 
 

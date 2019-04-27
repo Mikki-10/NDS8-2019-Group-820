@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/nds/andrej_shell_test/cmake-build-debug-remote
 CMakeFiles/NDStest.dir/all:
 	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/depend
 	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=1,2 "Built target NDStest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=1,2,3,4 "Built target NDStest"
 .PHONY : CMakeFiles/NDStest.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/NDStest.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/NDStest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/NDStest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles 0
 .PHONY : CMakeFiles/NDStest.dir/rule

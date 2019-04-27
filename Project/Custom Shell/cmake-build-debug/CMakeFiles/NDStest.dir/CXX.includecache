@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp
+Shell.h
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.h
+
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.h
+header.hpp
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/header.hpp
+ShellCommand.h
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/ShellCommand.h
+
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/ShellCommand.h
+header.hpp
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/header.hpp
+
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/header.hpp
+iostream
+-
+vector
+-
+functional
+-
+utility
+-
+memory
+-
+map
+-
+
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp
+header.hpp
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/header.hpp
+ShellCommand.h
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/ShellCommand.h
+Shell.h
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.h
+

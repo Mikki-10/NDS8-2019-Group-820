@@ -34,6 +34,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
@@ -54,6 +57,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
@@ -78,7 +84,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/nds/andrej_shell_test/main.c">
+		<Unit filename="/home/nds/andrej_shell_test/IShellCommand.h">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/LDAPClient.cpp">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/LDAPClient.h">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/Shell.cpp">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/Shell.h">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/ShellCommand.h">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/header.hpp">
+			<Option target="NDStest"/>
+		</Unit>
+		<Unit filename="/home/nds/andrej_shell_test/main.cpp">
 			<Option target="NDStest"/>
 		</Unit>
 		<Unit filename="/home/nds/andrej_shell_test/CMakeLists.txt">
