@@ -2,8 +2,8 @@
 // Custom Shell [ Pierre & Andrej ]
 //
 
-#ifndef NDSTEST_LDAPCLIENT_H
-#define NDSTEST_LDAPCLIENT_H
+#ifndef NDS_LDAPCLIENT_H
+#define NDS_LDAPCLIENT_H
 
 
 class LDAPClient {
@@ -11,4 +11,4 @@ class LDAPClient {
 };
 
 
-#endif //NDSTEST_LDAPCLIENT_H
+#endif //NDS_LDAPCLIENT_H

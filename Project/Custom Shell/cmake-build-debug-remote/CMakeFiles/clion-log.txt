@@ -1,4 +1,4 @@
-CMake executable not found: \usr\bin\cmake Configure
-
-Cannot get compiler information:
-	Cannot run program "\usr\bin\c++" (in directory "C:\Users\Andrej\ClionProjects\NDS_Shell\cmake-build-debug-remote"): CreateProcess error=2, The system cannot find the file specified
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /tmp/tmp.x6G1ZnzXAk
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote

@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nds/andrej_shell_test
+CMAKE_SOURCE_DIR = /tmp/tmp.x6G1ZnzXAk
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nds/andrej_shell_test/cmake-build-debug-remote
+CMAKE_BINARY_DIR = /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

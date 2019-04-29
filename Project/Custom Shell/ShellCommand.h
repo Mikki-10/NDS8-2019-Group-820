@@ -21,11 +21,11 @@ public:
     }
 
     bool operator() () {
-        implementation(nullptr);
+        return implementation(StringVec());
     }
 
-    bool operator() (void * arg) {
-        implementation(arg);
+    bool operator() (StringVec& parameter) {
+        return implementation(parameter);
     }
 
     String getName() {

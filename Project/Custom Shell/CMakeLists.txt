@@ -11,4 +11,4 @@ add_executable(
     ShellCommand.h
 )
 
-# target_link_libraries(NDStest ldap)
+target_link_libraries(NDStest ldap)

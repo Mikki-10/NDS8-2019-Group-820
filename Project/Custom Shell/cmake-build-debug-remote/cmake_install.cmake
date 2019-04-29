@@ -1,4 +1,4 @@
-# Install script for directory: /home/nds/andrej_shell_test
+# Install script for directory: /tmp/tmp.x6G1ZnzXAk
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/nds/andrej_shell_test/cmake-build-debug-remote/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

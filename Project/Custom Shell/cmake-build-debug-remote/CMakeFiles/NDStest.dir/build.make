@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nds/andrej_shell_test
+CMAKE_SOURCE_DIR = /tmp/tmp.x6G1ZnzXAk
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nds/andrej_shell_test/cmake-build-debug-remote
+CMAKE_BINARY_DIR = /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote
 
 # Include any dependencies generated for this target.
 include CMakeFiles/NDStest.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/NDStest.dir/flags.make
 
 CMakeFiles/NDStest.dir/main.cpp.o: CMakeFiles/NDStest.dir/flags.make
 CMakeFiles/NDStest.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NDStest.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/main.cpp.o -c /home/nds/andrej_shell_test/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NDStest.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/main.cpp.o -c /tmp/tmp.x6G1ZnzXAk/main.cpp
 
 CMakeFiles/NDStest.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nds/andrej_shell_test/main.cpp > CMakeFiles/NDStest.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.x6G1ZnzXAk/main.cpp > CMakeFiles/NDStest.dir/main.cpp.i
 
 CMakeFiles/NDStest.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nds/andrej_shell_test/main.cpp -o CMakeFiles/NDStest.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.x6G1ZnzXAk/main.cpp -o CMakeFiles/NDStest.dir/main.cpp.s
 
 CMakeFiles/NDStest.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/NDStest.dir/main.cpp.o.provides.build: CMakeFiles/NDStest.dir/main.cp
 
 CMakeFiles/NDStest.dir/Shell.cpp.o: CMakeFiles/NDStest.dir/flags.make
 CMakeFiles/NDStest.dir/Shell.cpp.o: ../Shell.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NDStest.dir/Shell.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/Shell.cpp.o -c /home/nds/andrej_shell_test/Shell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NDStest.dir/Shell.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/Shell.cpp.o -c /tmp/tmp.x6G1ZnzXAk/Shell.cpp
 
 CMakeFiles/NDStest.dir/Shell.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/Shell.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nds/andrej_shell_test/Shell.cpp > CMakeFiles/NDStest.dir/Shell.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.x6G1ZnzXAk/Shell.cpp > CMakeFiles/NDStest.dir/Shell.cpp.i
 
 CMakeFiles/NDStest.dir/Shell.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/Shell.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nds/andrej_shell_test/Shell.cpp -o CMakeFiles/NDStest.dir/Shell.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.x6G1ZnzXAk/Shell.cpp -o CMakeFiles/NDStest.dir/Shell.cpp.s
 
 CMakeFiles/NDStest.dir/Shell.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/NDStest.dir/Shell.cpp.o.provides.build: CMakeFiles/NDStest.dir/Shell.
 
 CMakeFiles/NDStest.dir/LDAPClient.cpp.o: CMakeFiles/NDStest.dir/flags.make
 CMakeFiles/NDStest.dir/LDAPClient.cpp.o: ../LDAPClient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/LDAPClient.cpp.o -c /home/nds/andrej_shell_test/LDAPClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NDStest.dir/LDAPClient.cpp.o -c /tmp/tmp.x6G1ZnzXAk/LDAPClient.cpp
 
 CMakeFiles/NDStest.dir/LDAPClient.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NDStest.dir/LDAPClient.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nds/andrej_shell_test/LDAPClient.cpp > CMakeFiles/NDStest.dir/LDAPClient.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.x6G1ZnzXAk/LDAPClient.cpp > CMakeFiles/NDStest.dir/LDAPClient.cpp.i
 
 CMakeFiles/NDStest.dir/LDAPClient.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NDStest.dir/LDAPClient.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nds/andrej_shell_test/LDAPClient.cpp -o CMakeFiles/NDStest.dir/LDAPClient.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.x6G1ZnzXAk/LDAPClient.cpp -o CMakeFiles/NDStest.dir/LDAPClient.cpp.s
 
 CMakeFiles/NDStest.dir/LDAPClient.cpp.o.requires:
 
@@ -143,7 +143,7 @@ NDStest: CMakeFiles/NDStest.dir/Shell.cpp.o
 NDStest: CMakeFiles/NDStest.dir/LDAPClient.cpp.o
 NDStest: CMakeFiles/NDStest.dir/build.make
 NDStest: CMakeFiles/NDStest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable NDStest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable NDStest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NDStest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -162,6 +162,6 @@ CMakeFiles/NDStest.dir/clean:
 .PHONY : CMakeFiles/NDStest.dir/clean
 
 CMakeFiles/NDStest.dir/depend:
-	cd /home/nds/andrej_shell_test/cmake-build-debug-remote && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nds/andrej_shell_test /home/nds/andrej_shell_test /home/nds/andrej_shell_test/cmake-build-debug-remote /home/nds/andrej_shell_test/cmake-build-debug-remote /home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/NDStest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /tmp/tmp.x6G1ZnzXAk /tmp/tmp.x6G1ZnzXAk /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote /tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/NDStest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/NDStest.dir/depend
 

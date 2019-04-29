@@ -3,12 +3,9 @@
 //
 
 #include "header.hpp"
-#include "ShellCommand.h"
 #include "Shell.h"
 
 int main() {
     Shell sh;
-    sh.call("exit");
+    sh.loop();
 }
-
-

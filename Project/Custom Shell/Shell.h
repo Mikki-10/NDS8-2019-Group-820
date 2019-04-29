@@ -13,10 +13,19 @@ class Shell {
 private:
     std::map<String, ShellCommand> commands;
     void addCommand(ShellCommand cmd);
+
+    bool token_delimiter[256] = { false };
+    StringVec getInputLine();
+    int execute(const String& commandName, const StringVec& parameters);
+
 public:
-    void call(const String& commandName);
     Shell();
     ~Shell();
+
+    Retval call(const String& commandName, StringVec parameters);
+    Retval call(const String& commandName);
+
+    void loop();
 
 };
 

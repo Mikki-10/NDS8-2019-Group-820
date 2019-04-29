@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/nds/andrej_shell_test/LDAPClient.cpp" "/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
-  "/home/nds/andrej_shell_test/Shell.cpp" "/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/NDStest.dir/Shell.cpp.o"
-  "/home/nds/andrej_shell_test/main.cpp" "/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/NDStest.dir/main.cpp.o"
+  "/tmp/tmp.x6G1ZnzXAk/LDAPClient.cpp" "/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
+  "/tmp/tmp.x6G1ZnzXAk/Shell.cpp" "/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/NDStest.dir/Shell.cpp.o"
+  "/tmp/tmp.x6G1ZnzXAk/main.cpp" "/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/NDStest.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
