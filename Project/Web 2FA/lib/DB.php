@@ -88,16 +88,13 @@ class DB
 		
 		if ($statement->execute($data) === TRUE)
 		{
-			//debugecho("<br>Data added to DB <br>");
-			//debugecho("<br>File: ".__FILE__." Line: ".__LINE__."<br>");
-			return TRUE;
+			$stmt = $this->conn->query("SELECT LAST_INSERT_ID()");
+			$lastId = $stmt->fetchColumn();
+			//my_debug_print($lastId, __FILE__, __LINE__, "on");
+			return $lastId;
 		}
 		else
 		{
-			//include "sqlerror.php"; //Error logger
-			//debugecho("<br>Error adding data to DB <br>");
-			//debugecho("<br>File: ".__FILE__." Line: ".__LINE__."<br>");
-			//echo "nope";
 			return FALSE;
 		}
 
@@ -234,7 +231,14 @@ class DB
 	    $stmt->execute();
 	    $ssh_login = $stmt->fetchAll();
 
-	    return $ssh_login[0];
+	    if (isset($ssh_login) && isset($ssh_login[0])) 
+	    {
+	    	return $ssh_login[0];
+	    }
+	    else
+	    {
+	    	return false;
+	    }
 	}
 
 	function update_ssh_login($id, $bool)

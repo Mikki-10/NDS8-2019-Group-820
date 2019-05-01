@@ -28,8 +28,11 @@ else
 
 function user_login($username, $password)
 {
+	$LDAP = new LDAP();
 	if ($LDAP->check_login($username, $password) === "login ok") 
 	{
+		
+
 		php_session_set_session($_POST["username"]);
 
 		php_session_redirect($msg = NULL);

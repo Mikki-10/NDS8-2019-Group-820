@@ -3,6 +3,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", true);
 
+require_once "lib/debug.php";
 require_once "lib/config.php";
 require_once "lib/session.php";
 require_once "lib/DB.php";

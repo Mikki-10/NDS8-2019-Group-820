@@ -15,27 +15,30 @@ class TOFA
 	}
 
 	//$type = enrollment OR verification
-	function voiceit($username, $id, $type = "verification")
+	function voiceit($username, $id, $random_id, $type = "verification")
 	{
 		$voiceit_user_id = $this->voiceit_user_exists($username);
 
-		if ($this->voiceit_user_is_enrolled($voiceit_user_id)) 
+		if (isset($voiceit_user_id) && $voiceit_user_id != "") 
 		{
-			# code...
-		}
-		else
-		{
-			$type = "enrollment";
+			if ($this->voiceit_user_is_enrolled($username)) 
+			{
+				# code...
+			}
+			else
+			{
+				$type = "enrollment";
+			}
 		}
 
-		$this->record_voice($username, $id, $type);
+		$this->record_voice($username, $id, $random_id, $type);
 
 	}
 
 	function voiceit_user_exists($username)
 	{
-		$DB = new DB();
-		$data = $DB->get_user($username);
+		$LDAP = new LDAP();
+		$data = $LDAP->get_voiceit_user_data($username);
 
 		if (isset($data["voiceit"]) && $data["voiceit"] != "") 
 		{
@@ -45,36 +48,44 @@ class TOFA
 		{
 			$voiceit_data = $this->myVoiceIt->createUser();
 			$voiceit_data = json_decode($voiceit_data, true);
-			$DB->set_voiceit_user($username, $voiceit_data["userId"]);
+						
 			$LDAP = new LDAP();
-			$LDAP->add_voiceit($username, $value);
+			$LDAP->add_voiceit($username, $voiceit_data["userId"]);
 			return $voiceit_data["userId"];
 		}
 	}
 
-	function voiceit_user_is_enrolled($voiceit)
+	function voiceit_user_is_enrolled($username)
 	{
-		$DB = new DB();
-		$data = $DB->get_voiceit_enrolled($voiceit);
-		if ($data["voiceit_enrolled"] == "1") 
+		//my_debug_print(debug_string_backtrace(), __FILE__, __LINE__, "on");
+
+		$LDAP = new LDAP();
+		$data = $LDAP->get_voiceit_user_data($username);
+
+		if ($data === "false") 
 		{
-			return true;
+			die("Error no voiceit user");
 		}
 		else
 		{
-			$data = $this->myVoiceIt->getAllVoiceEnrollments($voiceit);
-			$data = json_decode($data, true);
-
-			//var_dump($data);
-
-			if ($data["count"] >= 3) 
+			if ($data["voiceit_enrolled"] == "1") 
 			{
-				$DB->set_voiceit_enrolled($voiceit, true);
 				return true;
 			}
 			else
 			{
-				return false;
+				$data = $this->myVoiceIt->getAllVoiceEnrollments($data["voiceit"]);
+				$data = json_decode($data, true);
+
+				if ($data["count"] >= 3) 
+				{
+					$LDAP->set_voiceit_enrolled($username, $data["voiceit"]);
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 	}
@@ -122,12 +133,15 @@ class TOFA
 
 
 	//$type = enrollment OR verification
-	function record_voice($username, $id, $type)
+	function record_voice($username, $id, $random_id, $type)
 	{
 		?>
 		<link rel="stylesheet" type="text/css" href="https://addpipe.com/simple-recorderjs-demo/style.css">
 
-		<div id="controls">
+		<div style="text-align:center;">Say the phrase from the terminal if the session id match</div>
+		<div style="text-align:center;">Session id: <?php echo $random_id; ?></div>
+		<br>
+		<div id="controls" style="margin-top: 0px;">
 	  	 <button id="recordButton">Record</button>
 	  	 <button id="pauseButton" disabled>Pause</button>
 	  	 <button id="stopButton" disabled>Stop</button>

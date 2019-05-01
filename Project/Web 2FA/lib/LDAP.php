@@ -18,7 +18,7 @@ class LDAP
 
 	function __destruct()
 	{
-		//ldap_close($this->ldap_link);
+		ldap_close($this->ldap_link);
 	}
 
 	function connect()
@@ -37,8 +37,6 @@ class LDAP
 		ldap_set_option($this->ldap_link, LDAP_OPT_PROTOCOL_VERSION, 3);
 		ldap_set_option($this->ldap_link, LDAP_OPT_REFERRALS, 0);
 		ldap_set_option($this->ldap_link, LDAP_OPT_NETWORK_TIMEOUT, 10);
-
-		//return $this->ldap_link;
 	}
 
 	function check_login($username, $password)
@@ -49,7 +47,7 @@ class LDAP
 		{
 			echo("Login correct");//REPLACE THIS WITH THE CORRECT FUNCTION LIKE A REDIRECT;
 			
-			ldap_close($this->ldap_link);
+			//ldap_close($this->ldap_link);
 			return "login ok";
 		} 
 		else 
@@ -59,11 +57,72 @@ class LDAP
 			echo "<pre>"; var_dump($dn); echo "</pre>";
 			echo "<pre>"; var_dump($bind); echo "</pre>";
 			
-			ldap_close($this->ldap_link);
+			//ldap_close($this->ldap_link);
 			return FALSE;
 		}
 	}
-	function add_voiceit($username, $voiceit_value, $update = false)
+
+
+	function get_voiceit_user_data($username)
+	{
+		//my_debug_print(debug_string_backtrace(), __FILE__, __LINE__, "on");
+
+		//Admin login
+		$dn="cn=".$this->admin_username.",".$this->ldapconfig['basedn'];
+		$bind=ldap_bind($this->ldap_link, $dn, $this->admin_password);
+
+		//User to read value from
+		$dn="cn=".$username.",".$this->ldapconfig['usersdn'].",".$this->ldapconfig['basedn'];
+
+		$filter = "(objectclass=*)"; // this command requires some filter
+		$filter_types = array("description");
+		$sr = ldap_read($this->ldap_link, $dn, $filter, $filter_types);
+		$entry = ldap_get_entries($this->ldap_link, $sr);
+
+		if (isset($entry[0]["description"])) 
+		{
+			$ldap_description_write;
+			foreach ($entry[0]["description"] as $key => $value) 
+			{
+				if ($key === "count") 
+				{
+					//do not do anyting for count
+				}
+				else
+				{
+					$description = json_decode($value, true);
+					if (json_last_error() === JSON_ERROR_NONE) 
+					{
+					    // Valid JSON
+						if (isset($description["voiceit"]) && $description["voiceit"] != "") 
+						{
+							//my_debug_print($description, __FILE__, __LINE__, "on");
+
+							return array(
+										'voiceit' 			=> $description["voiceit"],
+										'voiceit_enrolled' 	=> $description["voiceit_enrolled"],
+										);
+						}
+						else
+						{
+							return "false";
+						}
+					}
+				}
+			}
+		}
+
+		//ldap_close($this->ldap_link);
+	}
+
+	function set_voiceit_enrolled($username, $voiceit_value)
+	{
+		$voiceit_enrolled = "1";
+		$update = true;
+		$this->add_voiceit($username, $voiceit_value, $voiceit_enrolled, $update);
+	}
+
+	function add_voiceit($username, $voiceit_value, $voiceit_enrolled = "0", $update = false)
 	{
 		//Admin login
 		$dn="cn=".$this->admin_username.",".$this->ldapconfig['basedn'];
@@ -91,7 +150,6 @@ class LDAP
 				if ($key === "count") 
 				{
 					//do not do anyting for count
-					//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 				}
 				else
 				{
@@ -107,7 +165,7 @@ class LDAP
 								//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 								$description = array(
 													"voiceit" => $voiceit_value,
-													"voiceit_enrolled" => "0",
+													"voiceit_enrolled" => $voiceit_enrolled,
 													);
 								$json = json_encode($description);
 								$ldap_description_write[$key] = $json;
@@ -123,7 +181,7 @@ class LDAP
 							//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 							$description = array(
 												"voiceit" => $voiceit_value,
-												"voiceit_enrolled" => "0",
+												"voiceit_enrolled" => $voiceit_enrolled,
 												);
 							$json = json_encode($description);
 							$ldap_description_write[$key] = $json;
@@ -153,7 +211,7 @@ class LDAP
 			//Add value 
 			$description = array(
 								"voiceit" => $voiceit_value,
-								"voiceit_enrolled" => "0",
+								"voiceit_enrolled" => $voiceit_enrolled,
 								);
 			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 			//echo "<pre>"; var_dump($description); echo "</pre>";
@@ -172,7 +230,7 @@ class LDAP
 			//echo "<pre>"; var_dump($result); echo "</pre>";
 		}
 
-		ldap_close($this->ldap_link);
+		//ldap_close($this->ldap_link);
 	}
 
 	//Dangerous to use as is
@@ -191,7 +249,7 @@ class LDAP
 		
 		//echo "<pre>"; var_dump($result); echo "</pre>";
 
-		ldap_close($this->ldap_link);
+		//ldap_close($this->ldap_link);
 	}
 }
 

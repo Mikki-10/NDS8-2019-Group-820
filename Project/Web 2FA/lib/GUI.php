@@ -20,18 +20,14 @@ class GUI
 		$DB = new DB();
 		$data = $DB->get_ssh_login($username);
 
-
-		//echo "<pre>"; var_dump($data); echo "</pre>";
-
-
 		$TOFA = new TOFA();
 		$voiceit = $TOFA->voiceit_user_exists($username);
-		if ($TOFA->voiceit_user_is_enrolled($voiceit) == false) 
+		if ($TOFA->voiceit_user_is_enrolled($username) == false) 
 		{
 			?>
 			<div id="response-div"></div>
 			<?php
-			$TOFA->voiceit($username, "0", "enrollment");
+			$TOFA->voiceit($username, "0", "", "enrollment");
 		}
 		elseif ($data["login_validated"] == "0" && $data["timestamp"] + LOGIN_SESION_TIME >= time()) 
 		{
@@ -41,7 +37,7 @@ class GUI
 			<?php
 
 			$TOFA = new TOFA();
-			$TOFA->voiceit($username, $data["id"], "verification");
+			$TOFA->voiceit($username, $data["id"], $data["random_id"], "verification");
 		}
 		else
 		{
