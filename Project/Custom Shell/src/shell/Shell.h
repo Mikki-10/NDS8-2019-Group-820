@@ -5,7 +5,7 @@
 #ifndef NDS_SHELL_H
 #define NDS_SHELL_H
 
-#include "header.hpp"
+#include "../header.hpp"
 #include "ShellCommand.h"
 
 class Shell {

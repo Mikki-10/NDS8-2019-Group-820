@@ -1,4 +1,4 @@
-ToolSet: 3.0.6 (local)@C:\Users\Andrej\cygwin64
+ToolSet: 3.0.7 (local)@C:\Users\Andrej\cygwin64
 Options: 
 
 Options:

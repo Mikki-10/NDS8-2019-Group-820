@@ -123,86 +123,86 @@ NDStest/fast:
 	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/build
 .PHONY : NDStest/fast
 
-LDAPClient.o: LDAPClient.cpp.o
+src/ldap/LDAPClient.o: src/ldap/LDAPClient.cpp.o
 
-.PHONY : LDAPClient.o
-
-# target to build an object file
-LDAPClient.cpp.o:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.o
-.PHONY : LDAPClient.cpp.o
-
-LDAPClient.i: LDAPClient.cpp.i
-
-.PHONY : LDAPClient.i
-
-# target to preprocess a source file
-LDAPClient.cpp.i:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.i
-.PHONY : LDAPClient.cpp.i
-
-LDAPClient.s: LDAPClient.cpp.s
-
-.PHONY : LDAPClient.s
-
-# target to generate assembly for a file
-LDAPClient.cpp.s:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/LDAPClient.cpp.s
-.PHONY : LDAPClient.cpp.s
-
-Shell.o: Shell.cpp.o
-
-.PHONY : Shell.o
+.PHONY : src/ldap/LDAPClient.o
 
 # target to build an object file
-Shell.cpp.o:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.o
-.PHONY : Shell.cpp.o
+src/ldap/LDAPClient.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.o
+.PHONY : src/ldap/LDAPClient.cpp.o
 
-Shell.i: Shell.cpp.i
+src/ldap/LDAPClient.i: src/ldap/LDAPClient.cpp.i
 
-.PHONY : Shell.i
+.PHONY : src/ldap/LDAPClient.i
 
 # target to preprocess a source file
-Shell.cpp.i:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.i
-.PHONY : Shell.cpp.i
+src/ldap/LDAPClient.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.i
+.PHONY : src/ldap/LDAPClient.cpp.i
 
-Shell.s: Shell.cpp.s
+src/ldap/LDAPClient.s: src/ldap/LDAPClient.cpp.s
 
-.PHONY : Shell.s
+.PHONY : src/ldap/LDAPClient.s
 
 # target to generate assembly for a file
-Shell.cpp.s:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/Shell.cpp.s
-.PHONY : Shell.cpp.s
+src/ldap/LDAPClient.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.s
+.PHONY : src/ldap/LDAPClient.cpp.s
 
-main.o: main.cpp.o
+src/main.o: src/main.cpp.o
 
-.PHONY : main.o
+.PHONY : src/main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-main.i: main.cpp.i
+src/main.i: src/main.cpp.i
 
-.PHONY : main.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-main.s: main.cpp.s
+src/main.s: src/main.cpp.s
 
-.PHONY : main.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+src/shell/Shell.o: src/shell/Shell.cpp.o
+
+.PHONY : src/shell/Shell.o
+
+# target to build an object file
+src/shell/Shell.cpp.o:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/shell/Shell.cpp.o
+.PHONY : src/shell/Shell.cpp.o
+
+src/shell/Shell.i: src/shell/Shell.cpp.i
+
+.PHONY : src/shell/Shell.i
+
+# target to preprocess a source file
+src/shell/Shell.cpp.i:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/shell/Shell.cpp.i
+.PHONY : src/shell/Shell.cpp.i
+
+src/shell/Shell.s: src/shell/Shell.cpp.s
+
+.PHONY : src/shell/Shell.s
+
+# target to generate assembly for a file
+src/shell/Shell.cpp.s:
+	$(MAKE) -f CMakeFiles/NDStest.dir/build.make CMakeFiles/NDStest.dir/src/shell/Shell.cpp.s
+.PHONY : src/shell/Shell.cpp.s
 
 # Help Target
 help:
@@ -213,15 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... NDStest"
 	@echo "... edit_cache"
-	@echo "... LDAPClient.o"
-	@echo "... LDAPClient.i"
-	@echo "... LDAPClient.s"
-	@echo "... Shell.o"
-	@echo "... Shell.i"
-	@echo "... Shell.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/ldap/LDAPClient.o"
+	@echo "... src/ldap/LDAPClient.i"
+	@echo "... src/ldap/LDAPClient.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/shell/Shell.o"
+	@echo "... src/shell/Shell.i"
+	@echo "... src/shell/Shell.s"
 .PHONY : help
 
 

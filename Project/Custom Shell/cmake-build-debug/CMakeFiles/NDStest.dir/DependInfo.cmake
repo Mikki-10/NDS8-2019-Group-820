@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/LDAPClient.cpp.o"
-  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/Shell.cpp.o"
-  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/main.cpp.o"
+  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/ldap/LDAPClient.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.o"
+  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/main.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/src/main.cpp.o"
+  "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/shell/Shell.cpp" "/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir/src/shell/Shell.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

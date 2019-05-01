@@ -3,9 +3,9 @@
 //
 
 #include "header.hpp"
-#include "Shell.h"
+#include "shell/Shell.h"
+#include "ldap/LDAPClient.h"
 
 int main() {
-    Shell sh;
-    sh.loop();
+    LDAPClient cl;
 }

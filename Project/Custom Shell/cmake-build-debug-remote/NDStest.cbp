@@ -84,25 +84,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/LDAPClient.cpp">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/header.hpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/LDAPClient.h">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/ldap/LDAPClient.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/Shell.cpp">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/ldap/LDAPClient.h">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/Shell.h">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/main.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/ShellCommand.h">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/shell/Shell.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/header.hpp">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/shell/Shell.h">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.x6G1ZnzXAk/main.cpp">
+		<Unit filename="/tmp/tmp.x6G1ZnzXAk/src/shell/ShellCommand.h">
 			<Option target="NDStest"/>
 		</Unit>
 		<Unit filename="/tmp/tmp.x6G1ZnzXAk/CMakeLists.txt">

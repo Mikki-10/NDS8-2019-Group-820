@@ -80,25 +80,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.cpp">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/header.hpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/LDAPClient.h">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/ldap/LDAPClient.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.cpp">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/ldap/LDAPClient.h">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/Shell.h">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/main.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/ShellCommand.h">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/shell/Shell.cpp">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/header.hpp">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/shell/Shell.h">
 			<Option target="NDStest"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/main.cpp">
+		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/src/shell/ShellCommand.h">
 			<Option target="NDStest"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/CMakeLists.txt">
