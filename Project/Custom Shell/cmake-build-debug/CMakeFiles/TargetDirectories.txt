@@ -1,0 +1,3 @@
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/NDStest.dir
+/cygdrive/c/Users/Andrej/ClionProjects/NDS_Shell/cmake-build-debug/CMakeFiles/edit_cache.dir

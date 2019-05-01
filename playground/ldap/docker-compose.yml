@@ -10,6 +10,8 @@ services:
     volumes:
       - ./data/ldap:/var/lib/ldap
       - ./data/slapd.d:/etc/ldap/slapd.d
+    environment:
+      - LDAP_READONLY_USER=true
   
   phpLDAPadmin:
     container_name: phpLDAPadmin
