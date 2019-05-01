@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/phpqrcode/qrlib.php"; 
-
 /*
 *
 * $qr_eclevel = QR ECC level
@@ -20,14 +18,14 @@ require_once __DIR__ . "/phpqrcode/qrlib.php";
 
 function make_qr_code($data, $QR_ECLEVEL = "H", $qr_size = 10, $size = 300)
 {
+    require_once __DIR__ . "/phpqrcode/qrlib.php";
+
     //set it to writable location, a place for temp generated PNG files
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
     
     //html PNG location prefix
     $PNG_WEB_DIR = __DIR__ . '/../temp/';
 
-    //include_once "qrlib.php";    
-    
     //ofcourse we need rights to create temp dir
     if (!file_exists($PNG_TEMP_DIR))
         mkdir($PNG_TEMP_DIR);
