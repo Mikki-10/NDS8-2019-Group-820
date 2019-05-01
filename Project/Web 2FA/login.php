@@ -26,6 +26,12 @@ else
 	<?php
 }
 
+$TOTP = new TOTP();
+$secret = $TOTP->genSecret(24);
+$secret = $secret["secret"];
+
+var_dump($TOTP->getOTP($secret));
+
 function user_login($username, $password)
 {
 	$LDAP = new LDAP();
