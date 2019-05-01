@@ -123,7 +123,8 @@ class REQUEST_HANDLER
 				$input = $_FILES['audio_data']['tmp_name']; //temporary name that PHP gave to the uploaded file
 				$recording = $input;
 				
-				$user_data = $DB->get_user($data["username"]);
+				$LDAP = new LDAP();
+				$user_data = $LDAP->get_voiceit_user_data($data["username"]);
 				$voiceit_user_id = $user_data["voiceit"];
 				$contentLanguage = "en-US";
 
@@ -143,7 +144,7 @@ class REQUEST_HANDLER
 		}
 		elseif (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] == "enrollment") 
 		{
-			$DB = new DB();
+			$LDAP = new LDAP();
 
 			if (isset($_SESSION["username"])) 
 			{
@@ -159,7 +160,7 @@ class REQUEST_HANDLER
 			    {
 					$recording = $safe_filename;
 					
-					$user_data = $DB->get_user($_SESSION["username"]);
+					$user_data = $LDAP->get_voiceit_user_data($_SESSION["username"]);
 					$voiceit_user_id = $user_data["voiceit"];
 					$contentLanguage = "en-US";
 

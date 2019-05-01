@@ -1,12 +1,12 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set("display_errors", true);
-
-require_once "lib/session.php";
 require_once "lib/config.php";
+require_once "lib/debug.php";
+require_once "lib/session.php";
 require_once "lib/DB.php";
 require_once "lib/LDAP.php";
+require_once "lib/TOTP.php";
+require_once "lib/qr_maker.php";
 
 
 if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["password"])) 
@@ -26,51 +26,52 @@ else
 	<?php
 }
 
-$TOTP = new TOTP();
-$secret = $TOTP->genSecret(24);
-$secret = $secret["secret"];
-
-var_dump($TOTP->getOTP($secret));
 
 function user_login($username, $password)
 {
 	$LDAP = new LDAP();
 	if ($LDAP->check_login($username, $password) === "login ok") 
 	{
-		
+		//Get totp secret from ldap
 
-		php_session_set_session($_POST["username"]);
-
-		php_session_redirect($msg = NULL);
-	}
-}
-
-/*
-function user_login($username, $password)
-{
-	$DB = new DB();
-	$respons = $DB->get_user($username);
-
-	//echo "<pre>"; var_dump($respons); echo "</pre>";
-	
-	if (isset($respons) && $respons != "" && $respons != null && $respons["username"] == $username) 
-	{
-		if (password_verify($password, $respons["password"])) 
+		if (isset($secret) && $secret == "")  
 		{
-		    echo 'Password is valid!';
-		    return "login ok";
-		} 
+			if ($TOTP->verify_totp($secret, trim($_POST["totp"])))
+			{
+				php_session_set_session($_POST["username"]);
+
+				php_session_redirect($msg = NULL);
+			}
+			else
+			{
+				die("2FA not ok");
+			}
+		}
 		else
 		{
-		    echo 'Invalid password.';
-		    return FALSE;
+			//make totp secret and save in ldap
 		}
 	}
-	else
-	{
-		echo "Error";
-	}
 }
-*/
+
+
+$TOTP = new TOTP();
+
+$secret = $TOTP->createSecret();
+$secret = "LHD2AHT2HGW55R5RVFERJQ75WWIVPWHY";
+my_debug_print($secret, __FILE__, __LINE__, "on");
+
+$code = $TOTP->get_totp_code($secret);
+my_debug_print($code, __FILE__, __LINE__, "on");
+
+
+my_debug_print($TOTP->verify_totp($secret, $code), __FILE__, __LINE__, "on");
+
+$label = "Username";
+$issuer = "Telenor.dk";
+$url = $TOTP->make_totp_url($secret, $label, $issuer);
+
+$QR_MAKER = new QR_MAKER();
+echo $QR_MAKER->make_qr_code($url);
 
 ?>

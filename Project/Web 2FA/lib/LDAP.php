@@ -111,8 +111,6 @@ class LDAP
 				}
 			}
 		}
-
-		//ldap_close($this->ldap_link);
 	}
 
 	function set_voiceit_enrolled($username, $voiceit_value)
@@ -136,17 +134,11 @@ class LDAP
 		$sr = ldap_read($this->ldap_link, $dn, $filter, $filter_types);
 		$entry = ldap_get_entries($this->ldap_link, $sr);
 
-		//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-		//echo "<pre>"; var_dump($entry); echo "</pre>";
-
 		if (isset($entry[0]["description"])) 
 		{
 			$ldap_description_write;
 			foreach ($entry[0]["description"] as $key => $value) 
 			{
-				//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-				//echo "<pre>"; var_dump($key); echo "</pre>";
-				//echo $key;
 				if ($key === "count") 
 				{
 					//do not do anyting for count
@@ -157,12 +149,10 @@ class LDAP
 					if (json_last_error() === JSON_ERROR_NONE) 
 					{
 					    // Valid JSON
-					    //echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 						if (isset($description["voiceit"]) && $description["voiceit"] != "") 
 						{
 							if ($update === true) 
 							{
-								//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 								$description = array(
 													"voiceit" => $voiceit_value,
 													"voiceit_enrolled" => $voiceit_enrolled,
@@ -172,13 +162,11 @@ class LDAP
 							}
 							else
 							{
-								//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 								$ldap_description_write[$key] = $value;
 							}
 						}
 						else
 						{
-							//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 							$description = array(
 												"voiceit" => $voiceit_value,
 												"voiceit_enrolled" => $voiceit_enrolled,
@@ -190,21 +178,14 @@ class LDAP
 					else
 					{
 						// Not valid JSON
-						//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
 						$ldap_description_write[$key] = $value;
 					}
 				}
 			}
-			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-			//echo "<pre>"; var_dump($ldap_description_write); echo "</pre>";
 			//Value to change
 			$le = array("description" => array_values($ldap_description_write));
-			//$le = array("description" => array("1", "2"));
 			//Change the value
 			$result = ldap_modify($this->ldap_link, $dn, $le);
-
-			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-			//echo "<pre>"; var_dump($result); echo "</pre>";
 		}
 		else
 		{
@@ -213,24 +194,14 @@ class LDAP
 								"voiceit" => $voiceit_value,
 								"voiceit_enrolled" => $voiceit_enrolled,
 								);
-			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-			//echo "<pre>"; var_dump($description); echo "</pre>";
 			$json = json_encode($description);
-			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-			//echo "<pre>"; var_dump($json); echo "</pre>";
 			$ldap_description_write[0] = $json;
 
 			//Value to change
 			$le = array("description" => array_values($ldap_description_write));
-			//$le = array("description" => array("3", "4"));
 			//Change the value
 			$result = ldap_modify($this->ldap_link, $dn, $le);
-
-			//echo "<br>File: ".__FILE__." Line: ".__LINE__."<br>";
-			//echo "<pre>"; var_dump($result); echo "</pre>";
 		}
-
-		//ldap_close($this->ldap_link);
 	}
 
 	//Dangerous to use as is
@@ -246,10 +217,6 @@ class LDAP
 		$le = array($key => array($value));
 		//Change the value
 		$result = ldap_modify($this->ldap_link, $dn, $le);
-		
-		//echo "<pre>"; var_dump($result); echo "</pre>";
-
-		//ldap_close($this->ldap_link);
 	}
 }
 
