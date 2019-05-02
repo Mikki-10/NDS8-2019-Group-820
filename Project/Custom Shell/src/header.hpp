@@ -16,12 +16,11 @@
 
 
 /** Please don't hate me */
-typedef std::string String;
 typedef std::vector<std::string> StringVec;
+typedef std::string String;
 
 /** accepts any type (void*); returns bool, whether the shell should continue */
 typedef std::function<bool(StringVec)> Command;
-
 
 enum Retval {
     SUCCESS = 1,
@@ -29,20 +28,13 @@ enum Retval {
     NOT_FOUND = -1
 };
 
-
 #define out(in) std::cout << in << std::endl
 #define unused(...) (void)(__VA_ARGS__)
-// #define str(input) std::to_string(input)
 
-//#include <stdio.h>
-//#include <stdlib.h>
-//
-//
-//#include <string.h>
-//
-//#include <sys/time.h>
-//#include <sys/wait.h>
-//
-//
+#ifdef DEBUG
+#define NDS_LDAP_IP_ADDRESS "localhost"
+#else
+#define NDS_LDAP_IP_ADDRESS "192.168.32.2"
+#endif
 
 #endif //NDS_SHELL_HEADER_H

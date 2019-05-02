@@ -16,14 +16,12 @@ LDAPClient::LDAPClient() {
     auto* constraints = new LDAPConstraints;
     constraints->setServerControls(ctrls);
 
-    connection = new LDAPConnection("localhost", 389);
+    connection = new LDAPConnection(NDS_LDAP_IP_ADDRESS, 389);
     connection->setConstraints(constraints);
 
 //    try{
-//
 //        String critical_system_to_join("coffe-access");
 //        String filter = "cn=" + critical_system_to_join;
-//
 //
 //        connection->bind("cn=readonly,dc=example,dc=org", "readonly", constraints);
 //        out("Host: " + connection->getHost());
@@ -34,34 +32,26 @@ LDAPClient::LDAPClient() {
 //        values.add("uniqueMember");
 //        // attrs->addAttribute(LDAPAttribute("objectClass",values));
 //
-//
 //        LDAPSearchResults* entries = connection->search(
 //                "ou=remote-access, dc=example, dc=org",
 //                LDAPConnection::SEARCH_SUB,
 //                filter,
 //                values);
 //
-//
 //        if (entries != nullptr){
 //            LDAPEntry *entry = entries->getNext();
-//            if(entry != nullptr){
-//                out(*entry);
-//            }
+//            if(entry != nullptr){ out(*entry); }
 //            while(entry){
 //                try{
 //                    entry = entries->getNext();
-//                    if(entry != nullptr){
-//                        out(*entry);
-//                    }
+//                    if(entry != nullptr){ out(*entry); }
 //                    delete entry;
 //                }catch(LDAPReferralException& e){
 //                    std::cout << "Caught Referral" << std::endl;
 //                }
 //            }
 //        }
-//
 //        connection->unbind();
-//
 //    }
 //    catch (LDAPException &e) {
 //        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
