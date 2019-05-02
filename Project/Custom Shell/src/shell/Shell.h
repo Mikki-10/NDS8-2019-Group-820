@@ -7,6 +7,7 @@
 
 #include "../header.hpp"
 #include "ShellCommand.h"
+#include "../ldap/LDAPClient.h"
 
 class Shell {
 
@@ -17,6 +18,7 @@ private:
     bool token_delimiter[256] = { false };
     StringVec getInputLine();
     int execute(const String& commandName, const StringVec& parameters);
+    void greet();
 
 public:
     Shell();

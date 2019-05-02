@@ -43,16 +43,25 @@
 #include "../ldaplib/LDAPModification.h"
 #endif
 
+enum QueryResult {
+    REJECTED = 0,
+    VERIFIED = 1,
+    QUERY_ERR = -1
+};
 
 class LDAPClient {
-private:
 
+private:
+    LDAPConnection *connection;
+    String user;
+
+    StringVec parse(const String& line, const char delimiter);
 
 public:
     LDAPClient();
     ~LDAPClient();
+    QueryResult verify(const String& group);
 
-    void test();
 };
 
 

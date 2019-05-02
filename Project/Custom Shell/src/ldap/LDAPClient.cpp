@@ -6,68 +6,171 @@
 
 LDAPClient::LDAPClient() {
 
+    // User on the jump server system
+    user = getlogin();
+    out("LDAPClient constructor: performing validity check on: [" + user + "]");
+
     auto* ctrls = new LDAPControlSet;
     ctrls->add(LDAPCtrl(LDAP_CONTROL_MANAGEDSAIT));
 
-    auto* cons = new LDAPConstraints;
-    cons->setServerControls(ctrls);
+    auto* constraints = new LDAPConstraints;
+    constraints->setServerControls(ctrls);
 
-    LDAPConnection *lc = new LDAPConnection("localhost", 389);
-    lc->setConstraints(cons);
+    connection = new LDAPConnection("localhost", 389);
+    connection->setConstraints(constraints);
 
-    try{
-
-        lc->bind("cn=readonly,dc=example,dc=org", "readonly", cons);
-        //out("Host: " + lc->getHost());
-        // bool result = lc->compare("cn=readonly,dc=example,dc=org", LDAPAttribute("cn","readonly"));
-        // auto* attrs = new LDAPAttributeList();
-        StringList values;
-        values.add("ou");
-        values.add("uniqueMember");
-        // attrs->addAttribute(LDAPAttribute("objectClass",values));
-
-
-        LDAPSearchResults* entries = lc->search(
-                "ou=remote-access, dc=example, dc=org",
-                LDAPConnection::SEARCH_SUB,
-                "cn=*",
-                values);
-
-
-        if (entries != nullptr){
-            LDAPEntry *entry = entries->getNext();
-            if(entry != nullptr){
-                out(*entry);
-            }
-            while(entry){
-                try{
-                    entry = entries->getNext();
-                    if(entry != nullptr){
-                        out(*entry);
-                    }
-                    delete entry;
-                }catch(LDAPReferralException& e){
-                    std::cout << "Caught Referral" << std::endl;
-                }
-            }
-        }
-
-        lc->unbind();
-        delete lc;
-    }
-    catch (LDAPException &e) {
-        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
-        out(e);
-    }
+//    try{
+//
+//        String critical_system_to_join("coffe-access");
+//        String filter = "cn=" + critical_system_to_join;
+//
+//
+//        connection->bind("cn=readonly,dc=example,dc=org", "readonly", constraints);
+//        out("Host: " + connection->getHost());
+//        // bool result = lc->compare("cn=readonly,dc=example,dc=org", LDAPAttribute("cn","readonly"));
+//        // auto* attrs = new LDAPAttributeList();
+//        StringList values;
+//        // values.add("ou");
+//        values.add("uniqueMember");
+//        // attrs->addAttribute(LDAPAttribute("objectClass",values));
+//
+//
+//        LDAPSearchResults* entries = connection->search(
+//                "ou=remote-access, dc=example, dc=org",
+//                LDAPConnection::SEARCH_SUB,
+//                filter,
+//                values);
+//
+//
+//        if (entries != nullptr){
+//            LDAPEntry *entry = entries->getNext();
+//            if(entry != nullptr){
+//                out(*entry);
+//            }
+//            while(entry){
+//                try{
+//                    entry = entries->getNext();
+//                    if(entry != nullptr){
+//                        out(*entry);
+//                    }
+//                    delete entry;
+//                }catch(LDAPReferralException& e){
+//                    std::cout << "Caught Referral" << std::endl;
+//                }
+//            }
+//        }
+//
+//        connection->unbind();
+//
+//    }
+//    catch (LDAPException &e) {
+//        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
+//        out(e);
+//    }
 
 }
 
 LDAPClient::~LDAPClient() {
+    delete connection;
 }
 
-void LDAPClient::test() {
-    out("{");
-    out("}");
+QueryResult LDAPClient::verify(const String& group){
+
+    out("Verifying on group: " + group);
+    out("Eligible users: [");
+
+    try {
+        connection->bind("cn=readonly,dc=example,dc=org", "readonly"); // , constraints
+
+        StringList values; values.add("uniqueMember");
+
+        LDAPSearchResults* entries = connection->search(
+            "ou=remote-access, dc=example, dc=org",
+            LDAPConnection::SEARCH_SUB,
+            "cn=" + group,
+            values);
+
+        // Parsing:
+        if (entries == nullptr) { // Something went wrong: invalid group? compromised system?
+            connection->unbind();
+            return QueryResult::QUERY_ERR;
+        }
+
+        try {
+            for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
+                // out(*entry);
+                const auto& members = entry->getAttributeByName("uniqueMember");
+                if (members == nullptr) {
+                    connection->unbind();
+                    out("]");
+                    return QueryResult::REJECTED;
+                }
+
+                for (const auto &member : members->getValues()) {
+
+                    // cn=someone, ou=org1, ou=org2, ...
+                    auto memberStruct = parse(member, ',');
+
+                    for (auto & s : memberStruct) {
+
+                        // splitting by Equal sign - so we find cn=username
+                        auto item = parse(s, '=');
+                        if (item.at(0) == "cn") {
+                            out(item.at(1));
+                            if (item.at(1) == user) {
+                                return QueryResult::VERIFIED;
+                            }
+                        }
+                    }
+                }
+            }
+
+            out("]");
+
+        }
+        catch(LDAPReferralException& e){
+            out("Caught Referral");
+            return QueryResult::QUERY_ERR;
+        }
+
+        connection->unbind();
+    }
+    catch (LDAPException &e) {
+        out("Exception:");
+        out(e);
+        return QueryResult::QUERY_ERR;
+    }
+
+    return QueryResult::REJECTED;
+}
+
+/**
+ * Parse line by
+ * @param line simple string.
+ * @return vector<string>
+ */
+StringVec LDAPClient::parse(const String& line, const char delimiter) {
+
+    StringVec res;
+    String token;
+
+    for (auto &c : line) {
+        if (c == delimiter) {
+            if (!token.empty()) {
+                res.push_back(token);
+                token.clear();
+            }
+        }
+        else {
+            token += c;
+        }
+    }
+
+    if (!token.empty()) {
+        res.push_back(token);
+    }
+
+    return res;
 }
 
 

@@ -34,22 +34,43 @@ Shell::Shell() {
         }
     ));
 
-    addCommand(ShellCommand("lsh_1",
+    addCommand(ShellCommand("1",
         [] (StringVec p) {
             unused(p);
-            out("You are going to be redirected to System A");
+            out("::::::::::::::::::: START OF DEBUGGING MESSAGES :::::::::::::::::::");
+            out("Checking user validity on system [1]");
+            QueryResult result = LDAPClient().verify("coffe-access");
+            String r = result ? "VERIFIED" : "REJECTED";
+            out("Shellcommand 2: result is: " + r);
+            out(":::::::::::::::::::: END OF DEBUGGING MESSAGES ::::::::::::::::::::");
+            // out("You are going to be redirected to System A");
             //FILE *f = popen( "ssh -t -t nds@192.168.40.1 -p 50222", "r" );
+            return false;
+        }
+    ));
+
+    addCommand(ShellCommand("2",
+        [] (StringVec p) {
+            unused(p);
+            out("::::::::::::::::::: START OF DEBUGGING MESSAGES :::::::::::::::::::");
+            out("Checking user validity on system [2]");
+            QueryResult result = LDAPClient().verify("teset");
+            String r = result ? "VERIFIED" : "REJECTED";
+            out("Shellcommand 2: result is: " + r);
+            out(":::::::::::::::::::: END OF DEBUGGING MESSAGES ::::::::::::::::::::");
+            return false;
+        }
+    ));
+
+    addCommand(ShellCommand("something",
+        [] (StringVec p) {
+            unused(p);
+            out("whatever");
             return true;
         }
     ));
 
-    addCommand(ShellCommand("lsh_2",
-        [] (StringVec p) {
-            unused(p);
-            // out("You are going to be redirected to System B");
-            return true;
-        }
-    ));
+    this->greet();
 
 }
 
@@ -165,4 +186,17 @@ int Shell::execute(const String& commandName, const StringVec& parameters) {
 
 }
 
+void Shell::greet() {
+    out("  ------------------------------------------------------------------------------");
+    out("  | Welcome to jump server                                                     |");
+    out("  | Project for Telenor, created by NDS 8                                      |");
+    out("  | ----------------------------------------                                   |");
+    out("  | Please choose the specified critical system you are authorised to access:  |");
+    out("  | Critical system <1> : press 1                                              |");
+    out("  | Critical system <2> : press 2                                              |");
+    out("  ------------------------------------------------------------------------------");
+
+}
+
 // ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
+

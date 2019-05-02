@@ -7,5 +7,5 @@
 #include "ldap/LDAPClient.h"
 
 int main() {
-    LDAPClient cl;
+    Shell().loop();
 }
