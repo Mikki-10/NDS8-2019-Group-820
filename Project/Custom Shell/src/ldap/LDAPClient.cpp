@@ -4,135 +4,159 @@
 
 #include "LDAPClient.h"
 
+
 LDAPClient::LDAPClient() {
 
-    // User on the jump server system
-    user = getlogin();
-    out("LDAPClient constructor: performing validity check on: [" + user + "]");
-
+    // Setting up LDAP connection
     auto* ctrls = new LDAPControlSet;
     ctrls->add(LDAPCtrl(LDAP_CONTROL_MANAGEDSAIT));
 
     auto* constraints = new LDAPConstraints;
     constraints->setServerControls(ctrls);
 
-    connection = new LDAPConnection(NDS_LDAP_IP_ADDRESS, 389);
-    connection->setConstraints(constraints);
-
-//    try{
-//        String critical_system_to_join("coffe-access");
-//        String filter = "cn=" + critical_system_to_join;
-//
-//        connection->bind("cn=readonly,dc=example,dc=org", "readonly", constraints);
-//        out("Host: " + connection->getHost());
-//        // bool result = lc->compare("cn=readonly,dc=example,dc=org", LDAPAttribute("cn","readonly"));
-//        // auto* attrs = new LDAPAttributeList();
-//        StringList values;
-//        // values.add("ou");
-//        values.add("uniqueMember");
-//        // attrs->addAttribute(LDAPAttribute("objectClass",values));
-//
-//        LDAPSearchResults* entries = connection->search(
-//                "ou=remote-access, dc=example, dc=org",
-//                LDAPConnection::SEARCH_SUB,
-//                filter,
-//                values);
-//
-//        if (entries != nullptr){
-//            LDAPEntry *entry = entries->getNext();
-//            if(entry != nullptr){ out(*entry); }
-//            while(entry){
-//                try{
-//                    entry = entries->getNext();
-//                    if(entry != nullptr){ out(*entry); }
-//                    delete entry;
-//                }catch(LDAPReferralException& e){
-//                    std::cout << "Caught Referral" << std::endl;
-//                }
-//            }
-//        }
-//        connection->unbind();
-//    }
-//    catch (LDAPException &e) {
-//        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
-//        out(e);
-//    }
+    m_connection = new LDAPConnection(NDS_LDAP_IP_ADDRESS, 389);
+    m_connection->setConstraints(constraints);
 
 }
+
 
 LDAPClient::~LDAPClient() {
-    delete connection;
+    delete m_connection;
 }
 
-QueryResult LDAPClient::verify(const String& group){
 
-    out("Verifying on group: " + group);
-    out("Eligible users: [");
+void LDAPClient::connect() {
+    debug("ldap: connecting\n");
+    m_connection->bind("cn=readonly,dc=example,dc=org", "readonly");
+}
+
+
+void LDAPClient::disconnect() {
+    debug("\nldap: disconnecting");
+    m_connection->unbind();
+}
+
+
+StringVec LDAPClient::getRemoteAccessGroups() {
+
+    StringVec grouplist = StringVec();
+
+    StringList values; values.add("cn");
+    LDAPSearchResults* entries = m_connection->search(
+            "ou=remote-access, dc=example, dc=org",
+            LDAPConnection::SEARCH_SUB, "cn=*", values);
+
+    // Parsing:
+    if (entries == nullptr) { // No groups present? TODO: is it OK?
+        return grouplist;
+    }
 
     try {
-        connection->bind("cn=readonly,dc=example,dc=org", "readonly"); // , constraints
-
-        StringList values; values.add("uniqueMember");
-
-        LDAPSearchResults* entries = connection->search(
-            "ou=remote-access, dc=example, dc=org",
-            LDAPConnection::SEARCH_SUB,
-            "cn=" + group,
-            values);
-
-        // Parsing:
-        if (entries == nullptr) { // Something went wrong: invalid group? compromised system?
-            connection->unbind();
-            return QueryResult::QUERY_ERR;
+        for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
+            const auto& cns = entry->getAttributeByName("cn");
+            if (cns == nullptr) continue;
+            for (const auto &value : cns->getValues()) {
+                grouplist.push_back(value);
+            }
         }
+    }
+    catch(LDAPReferralException& e) {
+        debug("Caught Referral");
+        return StringVec();
+    }
 
-        try {
-            for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
-                // out(*entry);
-                const auto& members = entry->getAttributeByName("uniqueMember");
-                if (members == nullptr) {
-                    connection->unbind();
-                    out("]");
-                    return QueryResult::REJECTED;
-                }
+    return grouplist;
+}
 
+
+CritSysContainer LDAPClient::findSystemsByDN(const String &baseDN) {
+
+    CritSysContainer res = CritSysContainer();
+
+    LDAPSearchResults* entries = m_connection->search(baseDN, LDAPConnection::SEARCH_SUB, "cn=*");
+    try {
+        for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
+            // debug(*entry);
+            auto system = CritSys();
+
+            const auto& critsysCN = entry->getAttributeByName("cn");
+            if (critsysCN != nullptr && critsysCN->getNumValues() == 1) {
+                system.setName(*critsysCN->getValues().begin()); // had no other option to fetch out the name;
+            }
+
+            // TODO: ip address / other important information
+            res.add(system);
+
+        }
+    }
+    catch(LDAPReferralException& e){
+        debug("Caught Referral");
+        return res;
+    }
+
+    return res;
+}
+
+
+CritSysContainer LDAPClient::getAccessibleSystems(const String &user, const String &group) {
+
+    // debug("Running LDAPClient::getAccessibleSystems on " + user + ", " + group);
+
+    CritSysContainer container = CritSysContainer();
+    bool isUserInGroup = false;
+
+    StringList values;
+    values.add("ou");           // ou -> to get the group of critical systems
+    values.add("uniqueMember"); // uniqueMember -> to know whether the user is present in the group
+
+    LDAPSearchResults* entries = m_connection->search(
+        "ou=remote-access, dc=example, dc=org", LDAPConnection::SEARCH_SUB,
+        "cn=" + group, values);
+
+    // Parsing:
+    if (entries == nullptr) { // Something went wrong
+        return container;
+    }
+
+    try {
+        for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
+            // out(*entry);
+            // out("");
+
+            // Get member list of this group
+            const auto& members = entry->getAttributeByName("uniqueMember");
+            if (members != nullptr) {
                 for (const auto &member : members->getValues()) {
-
                     // cn=someone, ou=org1, ou=org2, ...
-                    auto memberStruct = parse(member, ',');
-
-                    for (auto & s : memberStruct) {
-
+                    auto memberVec = parse(member, ',');
+                    for (const auto &item : memberVec) {
                         // splitting by Equal sign - so we find cn=username
-                        auto item = parse(s, '=');
-                        if (item.at(0) == "cn") {
-                            out(item.at(1));
-                            if (item.at(1) == user) {
-                                return QueryResult::VERIFIED;
-                            }
+                        auto i = parse(item, '=');
+                        if (i.at(0) == "cn" && i.at(1) == user) {
+                            isUserInGroup = true;  // the current user is inside the member list
                         }
                     }
                 }
             }
 
-            out("]");
-
+            if (isUserInGroup) {
+                const auto& sysGroupAttribute = entry->getAttributeByName("ou");
+                if (sysGroupAttribute != nullptr) {
+                    for (const auto& baseDN : sysGroupAttribute->getValues()) {
+                        container.addAll(this->findSystemsByDN(baseDN));
+                    }
+                }
+            }
         }
-        catch(LDAPReferralException& e){
-            out("Caught Referral");
-            return QueryResult::QUERY_ERR;
-        }
-
-        connection->unbind();
     }
-    catch (LDAPException &e) {
-        out("Exception:");
-        out(e);
-        return QueryResult::QUERY_ERR;
+    catch(LDAPReferralException& e){
+        debug("Caught Referral");
+        return container;
     }
 
-    return QueryResult::REJECTED;
+    return container;
 }
+
 
 /**
  * Parse line by
@@ -162,6 +186,9 @@ StringVec LDAPClient::parse(const String& line, const char delimiter) {
 
     return res;
 }
+
+
+
 
 
 
@@ -244,6 +271,67 @@ StringVec LDAPClient::parse(const String& line, const char delimiter) {
 //    }
 //
 //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//out("LDAPClient constructor: performing validity check on: [" + user + "]");
+
+
+
+//    try{
+//        String critical_system_to_join("coffe-access");
+//        String filter = "cn=" + critical_system_to_join;
+//
+//        connection->bind("cn=readonly,dc=example,dc=org", "readonly", constraints);
+//        out("Host: " + connection->getHost());
+//        // bool result = lc->compare("cn=readonly,dc=example,dc=org", LDAPAttribute("cn","readonly"));
+//        // auto* attrs = new LDAPAttributeList();
+//        StringList values;
+//        // values.add("ou");
+//        values.add("uniqueMember");
+//        // attrs->addAttribute(LDAPAttribute("objectClass",values));
+//
+//        LDAPSearchResults* entries = connection->search(
+//                "ou=remote-access, dc=example, dc=org",
+//                LDAPConnection::SEARCH_SUB,
+//                filter,
+//                values);
+//
+//        if (entries != nullptr){
+//            LDAPEntry *entry = entries->getNext();
+//            if(entry != nullptr){ out(*entry); }
+//            while(entry){
+//                try{
+//                    entry = entries->getNext();
+//                    if(entry != nullptr){ out(*entry); }
+//                    delete entry;
+//                }catch(LDAPReferralException& e){
+//                    std::cout << "Caught Referral" << std::endl;
+//                }
+//            }
+//        }
+//        connection->unbind();
+//    }
+//    catch (LDAPException &e) {
+//        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
+//        out(e);
+//    }
 
 
 

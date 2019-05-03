@@ -1,1 +1,0 @@
-/usr/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/NDStest.dir/src/main.cpp.o CMakeFiles/NDStest.dir/src/shell/Shell.cpp.o CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.o  -o NDStest.exe -Wl,--out-implib,libNDStest.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -lldap -lldapcpp 

@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/NDStest.dir/src/main.cpp.o CMakeFiles/NDStest.dir/src/shell/Shell.cpp.o CMakeFiles/NDStest.dir/src/ldap/LDAPClient.cpp.o  -o NDStest -lldap -lldapcpp 

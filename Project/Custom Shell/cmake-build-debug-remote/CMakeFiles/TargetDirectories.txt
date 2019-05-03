@@ -1,3 +1,0 @@
-/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/rebuild_cache.dir
-/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/NDStest.dir
-/tmp/tmp.x6G1ZnzXAk/cmake-build-debug-remote/CMakeFiles/edit_cache.dir

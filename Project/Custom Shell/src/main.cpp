@@ -7,5 +7,10 @@
 #include "ldap/LDAPClient.h"
 
 int main() {
-    Shell().loop();
+    try {
+        Shell().loop();
+    }
+    catch(LDAPException &e) {
+        out(e);
+    }
 }

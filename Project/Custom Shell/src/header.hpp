@@ -5,7 +5,8 @@
 #ifndef NDS_SHELL_HEADER_H
 #define NDS_SHELL_HEADER_H
 
-#define WINDOWS_DEVELOPMENT
+// #define WINDOWS_DEVELOPMENT
+// #define DEBUG
 
 #include <iostream>
 #include <vector>
@@ -14,12 +15,11 @@
 #include <memory>
 #include <map>
 
-
-/** Please don't hate me */
+/** Please don't hate me for these typedefs */
 typedef std::vector<std::string> StringVec;
 typedef std::string String;
 
-/** accepts any type (void*); returns bool, whether the shell should continue */
+/** accepts words (vector of strings); returns bool, whether the shell should continue */
 typedef std::function<bool(StringVec)> Command;
 
 enum Retval {
@@ -33,8 +33,10 @@ enum Retval {
 
 #ifdef DEBUG
 #define NDS_LDAP_IP_ADDRESS "localhost"
+#define debug(in) std::cout << in << std::endl
 #else
 #define NDS_LDAP_IP_ADDRESS "192.168.32.2"
+#define debug(in)
 #endif
 
 #endif //NDS_SHELL_HEADER_H

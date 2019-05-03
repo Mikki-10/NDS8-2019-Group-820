@@ -7,19 +7,12 @@
 
 #include "../header.hpp"
 
-// If lucky, will be replaced by some modern C++ ldap library
-// https://linux.die.net/man/3/ldap
-// https://www.openldap.org/lists/openldap-technical/201104/msg00030.html
-
 #define LDAP_DEPRECATED 1
 #include <ldap.h>
 #include <unistd.h>
 #include <sstream>
 
-// The ldap_search() routine is deprecated in favor of the
-// ldap_search_ext() routine.  The ldap_search_s() and ldap_search_st()
-// routines are deprecated in favor of the ldap_search_ext_s() routine.
-
+// LDAP lib replaced by modern C++ library
 #include "LDAPConnection.h"
 #include "LDAPConstraints.h"
 #include "LDAPSearchReference.h"
@@ -30,6 +23,7 @@
 #include "LDAPException.h"
 #include "LDAPModification.h"
 
+#include "../shell/CritSys.h"
 
 #ifdef WINDOWS_DEVELOPMENT
 #include "../ldaplib/LDAPConnection.h"
@@ -43,24 +37,24 @@
 #include "../ldaplib/LDAPModification.h"
 #endif
 
-enum QueryResult {
-    REJECTED = 0,
-    VERIFIED = 1,
-    QUERY_ERR = -1
-};
 
 class LDAPClient {
 
 private:
-    LDAPConnection *connection;
-    String user;
-
-    StringVec parse(const String& line, const char delimiter);
+    /** Performs the underlying LDAP query operations. Imported from ldapc++ lib */
+    LDAPConnection *m_connection;
+    StringVec parse(const String& line, char delimiter);
+    CritSysContainer findSystemsByDN(const String &baseDN);
 
 public:
     LDAPClient();
     ~LDAPClient();
-    QueryResult verify(const String& group);
+
+    void connect();
+    void disconnect();
+
+    StringVec getRemoteAccessGroups();
+    CritSysContainer getAccessibleSystems(const String& user, const String& group);
 
 };
 

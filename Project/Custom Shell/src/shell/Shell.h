@@ -8,22 +8,48 @@
 #include "../header.hpp"
 #include "ShellCommand.h"
 #include "../ldap/LDAPClient.h"
+#include "CritSys.h"
 
 class Shell {
 
 private:
-    std::map<String, ShellCommand> commands;
+    /** attr: token delimiter map ; used for getInputLine */
+    bool m_tdmap[256] = { false };
+
+    /** attr: custom command container */
+    std::map<String, ShellCommand> m_commands;
+
+    /** attr: ldap client object */
+    LDAPClient *m_ldap;
+
+    /** Username of current visitor of the jump server */
+    String m_user;
+
+    /** Container of critical systems that user can access */
+    CritSysContainer m_systems;
+
+    // ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
+
+    /** @return captured words from user input (stdin) */
+    StringVec getInputLine();
+
+    /** @param cmd custom command to be added to member container */
     void addCommand(ShellCommand cmd);
 
-    bool token_delimiter[256] = { false };
-    StringVec getInputLine();
+    /** executes given custom command with params */
     int execute(const String& commandName, const StringVec& parameters);
+
+    /** performs greeting to the user */
     void greet();
+
+    /** obvious enough */
+    void setupCustomCommands();
 
 public:
     Shell();
     ~Shell();
 
+    // move to private?
     Retval call(const String& commandName, StringVec parameters);
     Retval call(const String& commandName);
 
