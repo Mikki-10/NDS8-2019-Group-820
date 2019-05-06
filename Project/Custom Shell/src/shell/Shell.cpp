@@ -28,11 +28,25 @@ Shell::Shell() {
     }
 
     for (auto& system : m_systems.getNames()) {
-        addCommand(ShellCommand(system,
-            [system] (StringVec p) {
+        addCommand(ShellCommand(system, "Redirects to system <" + system + ">",
+            [=] (StringVec p) {
                 unused(p);
-                out("Redirecting to system: [" + system + "]");
-                out("TO BE DONE;");
+
+                auto sys = m_systems.get(system);
+
+                out("You are about to be redirected to [" + system + "]");
+                out("System description: " + sys.getDesc());
+                std::cout << "Do you with to proceed? (y/n)  ";
+
+                const auto line = getInputLine();
+                if (line.size() == 1 && (line.at(0) == "y" || line.at(0) == "Y")) {
+                    out("Redirecting... TO BE DONE");
+                    debug("DEBUG: IP=" + sys.getAddr());
+                }
+                else {
+                    out("Redirection aborted.");
+                }
+
                 return true;
             }
         ));
@@ -52,21 +66,6 @@ void Shell::addCommand(ShellCommand cmd) {
 }
 
 
-//// DEPRECATED
-Retval Shell::call(const String& commandName) {
-
-    auto cmd = m_commands.find(commandName);
-    if (cmd != m_commands.end()) {
-        return cmd->second() ? Retval::SUCCESS : Retval::FAILURE;
-    }
-    else {
-        return Retval::NOT_FOUND;
-    }
-
-}
-
-
-//// TODO: MOVE TO PRIVATE METHODS
 Retval Shell::call(const String &commandName, StringVec parameters) {
 
     auto cmd = m_commands.find(commandName);
@@ -185,20 +184,37 @@ void Shell::greet() {
 
 void Shell::setupCustomCommands() {
 
-    addCommand(ShellCommand("exit", [](StringVec p) { unused(p); return false; }));
-    addCommand(ShellCommand("quit", [](StringVec p) { unused(p); return false; }));
+    String quitDesc = "Disconnects from the jumpserver";
+    addCommand(ShellCommand("exit", quitDesc, [](StringVec p) { unused(p); return false; }));
+    addCommand(ShellCommand("quit", quitDesc, [](StringVec p) { unused(p); return false; }));
 
-    addCommand(ShellCommand("help",
-        [&] (StringVec p) {
+    addCommand(ShellCommand("help", "Prints available commands",
+        [=] (StringVec p) {
             unused(p);
 
             out("NDS8 JumpShell");
             out("Please type the number corresponding to the system you want to access, and hit enter.");
             out("The following commands are built in / available:");
             for (auto pair : this->m_commands) {
-                out("  " + pair.second.getName());
+                out("  " + pair.second.getName() + " : " + pair.second.getDesc());
             }
             out("Use the man command for information on other programs.");
+            return true;
+        }
+    ));
+
+    addCommand(ShellCommand("debug", "argument: the name of critical system",
+        [=] (StringVec p) {
+            try {
+                auto sys = m_systems.get(p.at(0));
+                out("Printing debug info about: " + sys.getName());
+                out("IP: " + sys.getAddr());
+                out("Desc: " + sys.getDesc());
+            }
+            catch(std::invalid_argument &e) {
+                out(e.what());
+            }
+
             return true;
         }
     ));
@@ -214,19 +230,6 @@ void Shell::setupCustomCommands() {
 //            out(":::::::::::::::::::: END OF DEBUGGING MESSAGES ::::::::::::::::::::");
 //            // out("You are going to be redirected to System A");
 //            //FILE *f = popen( "ssh -t -t nds@192.168.40.1 -p 50222", "r" );
-//            return false;
-//        }
-//    ));
-//
-//    addCommand(ShellCommand("2",
-//        [] (StringVec p) {
-//            unused(p);
-//            out("::::::::::::::::::: START OF DEBUGGING MESSAGES :::::::::::::::::::");
-//            out("Checking user validity on system [2]");
-//            QueryResult result = LDAPClient().verify("teset");
-//            String r = result ? "VERIFIED" : "REJECTED";
-//            out("Shellcommand 2: result is: " + r);
-//            out(":::::::::::::::::::: END OF DEBUGGING MESSAGES ::::::::::::::::::::");
 //            return false;
 //        }
 //    ));

@@ -2,44 +2,33 @@
 // Custom shell [ Pierre & Andrej ]
 //
 
-#ifndef NDSTEST_CRITSYS_H
-#define NDSTEST_CRITSYS_H
+#ifndef NDS_CRITSYS_H
+#define NDS_CRITSYS_H
 
 #include "../header.hpp"
 
 class CritSys {
 
 private:
-    String name;
-    String inet_address;
+    String m_name;
+    String m_inet_address;
+    String m_description;
     // Posibility to add data
 
 public:
     CritSys() {
-        this->name = "";
-        this->inet_address = "";
+        m_name = "";
+        m_inet_address = "";
+        m_description = "";
     }
 
-    CritSys(const String& name, const String& inet_address) {
-        this->name = name;
-        this->inet_address = inet_address;
-    }
+    void setName(const String& name)                { m_name = name;                  }
+    void setAddress(const String& inet_address)     { m_inet_address = inet_address;  }
+    void setDescription(const String &description)  { m_description = description;    }
 
-    void setName(const String& p_name) {
-        this->name = p_name;
-    }
-
-    void setAddress(const String& p_inet_address) {
-        this->inet_address = p_inet_address;
-    }
-
-    const String& getName() {
-        return this->name;
-    }
-
-    const String& getAddr() {
-        return this->inet_address;
-    }
+    const String& getName() { return m_name;          }
+    const String& getAddr() { return m_inet_address;  }
+    const String& getDesc() { return m_description;   }
 
 };
 
@@ -48,7 +37,8 @@ public:
 class CritSysContainer {
 
 private:
-    std::map<String, CritSys> m_systems;
+    std::map<String, CritSys> m_systems; // maybe vector is enough. not sure
+    StringVec m_names;
 
 public:
     CritSysContainer() {
@@ -56,17 +46,15 @@ public:
     }
 
     void add(CritSys system) {
+        m_names.push_back(system.getName());
         m_systems.insert(std::make_pair(system.getName(), system));
     }
 
     void addAll(CritSysContainer container) {
         for (std::pair<String, CritSys> p : container.m_systems) {
-            this->m_systems.insert(p);
+            m_names.push_back(p.first);
+            m_systems.insert(p);
         }
-    }
-
-    int size() {
-        return m_systems.size();
     }
 
     CritSys get(String name) {
@@ -82,13 +70,9 @@ public:
     }
 
     StringVec getNames() {
-        StringVec res = StringVec();
-        for (std::pair<String, CritSys> p : m_systems) {
-            res.push_back(p.second.getName());
-        }
-        return res;
+        return m_names;
     }
 
 };
 
-#endif //NDSTEST_CRITSYS_H
+#endif //NDS_CRITSYS_H

@@ -10,26 +10,32 @@
 class ShellCommand {
 
 private:
-    String name;
-    Command implementation;
+    String m_name;
+    String m_description;
+    Command m_implementation;
 
 public:
-    ShellCommand(const String& name, Command function) {
+    ShellCommand(const String& name, const String& description, Command function) {
         // interesting. https://en.cppreference.com/w/cpp/utility/move
-        this->name = name;
-        this->implementation = std::move(function);
+        m_name = name;
+        m_description = description;
+        m_implementation = std::move(function);
     }
 
     bool operator() () {
-        return implementation(StringVec());
+        return m_implementation(StringVec());
     }
 
     bool operator() (StringVec& parameter) {
-        return implementation(parameter);
+        return m_implementation(parameter);
     }
 
     String getName() {
-        return this->name;
+        return m_name;
+    }
+
+    String getDesc() {
+        return m_description;
     }
 
 };

@@ -76,17 +76,25 @@ CritSysContainer LDAPClient::findSystemsByDN(const String &baseDN) {
     LDAPSearchResults* entries = m_connection->search(baseDN, LDAPConnection::SEARCH_SUB, "cn=*");
     try {
         for (LDAPEntry *entry = entries->getNext(); entry != nullptr; entry = entries->getNext()) {
-            // debug(*entry);
+            debug(*entry);
             auto system = CritSys();
 
             const auto& critsysCN = entry->getAttributeByName("cn");
             if (critsysCN != nullptr && critsysCN->getNumValues() == 1) {
-                system.setName(*critsysCN->getValues().begin()); // had no other option to fetch out the name;
+                system.setName(*critsysCN->getValues().begin());
             }
 
-            // TODO: ip address / other important information
-            res.add(system);
+            const auto& critsysIP = entry->getAttributeByName("ipNetworkNumber");
+            if (critsysIP != nullptr && critsysIP->getNumValues() == 1) {
+                system.setAddress(*critsysIP->getValues().begin());
+            }
 
+            const auto& critsysDesc = entry->getAttributeByName("description");
+            if (critsysDesc != nullptr && critsysDesc->getNumValues() == 1) {
+                system.setDescription(*critsysDesc->getValues().begin());
+            }
+
+            res.add(system);
         }
     }
     catch(LDAPReferralException& e){
@@ -158,11 +166,6 @@ CritSysContainer LDAPClient::getAccessibleSystems(const String &user, const Stri
 }
 
 
-/**
- * Parse line by
- * @param line simple string.
- * @return vector<string>
- */
 StringVec LDAPClient::parse(const String& line, const char delimiter) {
 
     StringVec res;
@@ -186,152 +189,3 @@ StringVec LDAPClient::parse(const String& line, const char delimiter) {
 
     return res;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    LDAP *ldap_ptr;
-//
-//    {   // Step 1: Initialise the handler object (LDAP *) and bind to server
-//        ldap_initialize(&ldap_ptr, "ldap://127.0.0.1:389");
-//        int ldap_version = 3;
-//        int res;
-//
-//        ldap_debug(ldap_ptr);
-//
-//        res = ldap_set_option(ldap_ptr, LDAP_OPT_PROTOCOL_VERSION, &ldap_version);
-//        if (LDAP_SUCCESS != res) emergency_exit(res);
-//
-//        ldap_debug(ldap_ptr);
-//
-//        // https://linux.die.net/man/3/ldap_bind
-//        res = ldap_simple_bind_s(ldap_ptr, "cn=readonly,dc=example,dc=org", "readonly");
-//        if (LDAP_SUCCESS != res) emergency_exit(res);
-//    }
-//
-//    {   // Step 2: Make a query
-//        int msgid = ldap_search(ldap_ptr, getlogin(), LDAP_SCOPE_BASE, "system=*" , NULL, 1);
-//        //    struct timeval *timeout;
-//        //    timeout=NULL;
-//        //    int resulttype;
-//        //    resulttype = ldap_result(ldap,msgid, 1, timeout,result);
-//        //    LDAPMessage *first_message;
-//        //    first_message=ldap_first_message(ldap,*result);
-//        //    int *errcodep;
-//        //    char **matcheddnp;
-//        //    char **errmsgp;
-//        //    char ***referralsp;
-//        //    LDAPControl ***serverctrlsp;
-//        //    int freeit;
-//        //    int parsed_result;
-//        //    parsed_result = ldap_parse_result(ldap,*result,errcodep,matcheddnp,errmsgp,referralsp,serverctrlsp,freeit);
-//        //    printf("%d",parsed_result);
-//    }
-//
-//void LDAPClient::emergency_exit(int ldap_error_number) {
-//    // https://linux.die.net/man/3/ldap_error
-//    char *print_result = ldap_err2string(ldap_error_number);
-//    out("LDAP Error:" + String(print_result));
-//}
-//
-//void LDAPClient::ldap_debug(LDAP *ptr) {
-//
-//    // https://linux.die.net/man/3/ldap_set_option
-//    out("LDAP Handler:");
-//    int res;
-//    if (LDAP_SUCCESS == ldap_get_option(ptr, LDAP_OPT_PROTOCOL_VERSION, &res)) {
-//        out("\tProtocol version: " + str(res));
-//    }
-//
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//out("LDAPClient constructor: performing validity check on: [" + user + "]");
-
-
-
-//    try{
-//        String critical_system_to_join("coffe-access");
-//        String filter = "cn=" + critical_system_to_join;
-//
-//        connection->bind("cn=readonly,dc=example,dc=org", "readonly", constraints);
-//        out("Host: " + connection->getHost());
-//        // bool result = lc->compare("cn=readonly,dc=example,dc=org", LDAPAttribute("cn","readonly"));
-//        // auto* attrs = new LDAPAttributeList();
-//        StringList values;
-//        // values.add("ou");
-//        values.add("uniqueMember");
-//        // attrs->addAttribute(LDAPAttribute("objectClass",values));
-//
-//        LDAPSearchResults* entries = connection->search(
-//                "ou=remote-access, dc=example, dc=org",
-//                LDAPConnection::SEARCH_SUB,
-//                filter,
-//                values);
-//
-//        if (entries != nullptr){
-//            LDAPEntry *entry = entries->getNext();
-//            if(entry != nullptr){ out(*entry); }
-//            while(entry){
-//                try{
-//                    entry = entries->getNext();
-//                    if(entry != nullptr){ out(*entry); }
-//                    delete entry;
-//                }catch(LDAPReferralException& e){
-//                    std::cout << "Caught Referral" << std::endl;
-//                }
-//            }
-//        }
-//        connection->unbind();
-//    }
-//    catch (LDAPException &e) {
-//        out("---  ---  ---  ---  ---  ---  ---  ---  ---  caught Exception:");
-//        out(e);
-//    }
-
-
-

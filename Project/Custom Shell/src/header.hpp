@@ -5,8 +5,8 @@
 #ifndef NDS_SHELL_HEADER_H
 #define NDS_SHELL_HEADER_H
 
-// #define WINDOWS_DEVELOPMENT
-// #define DEBUG
+//#define WINDOWS_DEVELOPMENT
+//#define DEBUG
 
 #include <iostream>
 #include <vector>

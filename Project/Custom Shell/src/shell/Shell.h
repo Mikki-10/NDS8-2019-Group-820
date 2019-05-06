@@ -45,14 +45,12 @@ private:
     /** obvious enough */
     void setupCustomCommands();
 
+    /** this too */
+    Retval call(const String& commandName, StringVec parameters);
+
 public:
     Shell();
     ~Shell();
-
-    // move to private?
-    Retval call(const String& commandName, StringVec parameters);
-    Retval call(const String& commandName);
-
     void loop();
 
 };
