@@ -21,7 +21,7 @@ class GUI
 		$data = $DB->get_ssh_login($username);
 
 		$TOFA = new TOFA();
-		$voiceit = $TOFA->voiceit_user_exists($username);
+
 		if ($TOFA->voiceit_user_is_enrolled($username) == false) 
 		{
 			?>

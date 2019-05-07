@@ -78,6 +78,7 @@ class REQUEST_HANDLER
 			{
 				#Disallow using http response code 404
 				http_response_code(404);
+				my_debug_print("die()", __FILE__, __LINE__, "on");
 				die("Missing peremters");
 			}
 		}
@@ -100,11 +101,13 @@ class REQUEST_HANDLER
 			}
 			else
 			{
+				my_debug_print("die()", __FILE__, __LINE__, "on");
 				die("Missing peremters");
 			}
 		}
 		else
 		{
+			my_debug_print("die()", __FILE__, __LINE__, "on");
 			die("Server handler error");
 		}
 	}
@@ -139,6 +142,7 @@ class REQUEST_HANDLER
 			}
 			else
 			{
+				my_debug_print("die()", __FILE__, __LINE__, "on");
 				die();
 			}
 		}
@@ -173,6 +177,7 @@ class REQUEST_HANDLER
 			}
 			else
 			{
+				my_debug_print("die()", __FILE__, __LINE__, "on");
 				die();
 			}
 		}

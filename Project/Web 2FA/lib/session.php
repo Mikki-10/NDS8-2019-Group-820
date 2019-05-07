@@ -15,6 +15,38 @@ ini_set('session.use_only_cookies', 1);
 session_start();
 
 // ------------------------------------------------------------------- //
+// Set session for 2fa
+// ------------------------------------------------------------------- //
+function php_session_set_tofa($tofa)
+{
+	$_SESSION["2fa"] = $tofa;
+	$_SESSION["user_ip"] = getUserIP();
+}
+
+// ------------------------------------------------------------------- //
+// get session for 2fa
+// ------------------------------------------------------------------- //
+function php_session_get_tofa()
+{
+	if (isset($_SESSION["2fa"]) && $_SESSION["user_ip"] == getUserIP()) 
+	{
+		return $_SESSION["2fa"];
+	}
+	else
+	{
+		return "";
+	}
+}
+
+// ------------------------------------------------------------------- //
+// remove session for 2fa
+// ------------------------------------------------------------------- //
+function php_session_remove_tofa()
+{
+	$_SESSION["2fa"] = "";
+}
+
+// ------------------------------------------------------------------- //
 // Set session til logget ind
 // ------------------------------------------------------------------- //
 function php_session_set_session($username)
@@ -46,6 +78,10 @@ function php_session_er_session_sat()
 		if($_SESSION['logged_in'] == "ja" && $_SESSION["username"] != NULL && $_SESSION["user_ip"] == getUserIP())
 		{
 			return true;
+		}
+		else
+		{
+			return FALSE;
 		}
 	}
 	return FALSE;

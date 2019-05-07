@@ -19,6 +19,7 @@ class TOFA
 	{
 		$voiceit_user_id = $this->voiceit_user_exists($username);
 
+		/*
 		if (isset($voiceit_user_id) && $voiceit_user_id != "") 
 		{
 			if ($this->voiceit_user_is_enrolled($username)) 
@@ -30,6 +31,14 @@ class TOFA
 				$type = "enrollment";
 			}
 		}
+		*/
+
+		if ($type === "enrollment") 
+		{
+			$data = $this->myVoiceIt->getAllVoiceEnrollments($voiceit_user_id);
+			$data = json_decode($data, true);
+			$random_id = $data["count"];
+		}
 
 		$this->record_voice($username, $id, $random_id, $type);
 
@@ -40,12 +49,15 @@ class TOFA
 		$LDAP = new LDAP();
 		$data = $LDAP->get_voiceit_user_data($username);
 
-		if (isset($data["voiceit"]) && $data["voiceit"] != "") 
+		//my_debug_print($data, __FILE__, __LINE__, "on");
+
+		if (isset($data["voiceit"]) && $data["voiceit"] != "" && $data["voiceit"] != null) 
 		{
 			return $data["voiceit"];
 		}
 		else
 		{
+			//my_debug_print("Making a new voiceit user", __FILE__, __LINE__, "on");
 			$voiceit_data = $this->myVoiceIt->createUser();
 			$voiceit_data = json_decode($voiceit_data, true);
 						
@@ -60,26 +72,43 @@ class TOFA
 		//my_debug_print(debug_string_backtrace(), __FILE__, __LINE__, "on");
 
 		$LDAP = new LDAP();
-		$data = $LDAP->get_voiceit_user_data($username);
+		$ldap_data = $LDAP->get_voiceit_user_data($username);
 
-		if ($data === "false") 
+		if ($ldap_data === "false") 
 		{
+			my_debug_print("die()", __FILE__, __LINE__, "on");
+			$this->voiceit_user_exists($username);
+
+			$auto = 1;
+			?>	
+			<script type="text/javascript">
+			setTimeout(function()
+			{
+			   location.href = "/";
+			}, <?php echo $auto; ?>);
+			</script>
+			<?php
+
 			die("Error no voiceit user");
 		}
 		else
 		{
-			if ($data["voiceit_enrolled"] == "1") 
+			if ($ldap_data["voiceit_enrolled"] == "1") 
 			{
 				return true;
 			}
 			else
 			{
-				$data = $this->myVoiceIt->getAllVoiceEnrollments($data["voiceit"]);
+				//my_debug_print(debug_string_backtrace(), __FILE__, __LINE__, "on");
+
+				$data = $this->myVoiceIt->getAllVoiceEnrollments($ldap_data["voiceit"]);
 				$data = json_decode($data, true);
 
+				//my_debug_print($data, __FILE__, __LINE__, "on");
+				
 				if ($data["count"] >= 3) 
 				{
-					$LDAP->set_voiceit_enrolled($username, $data["voiceit"]);
+					$LDAP->set_voiceit_enrolled($username, $ldap_data["voiceit"]);
 					return true;
 				}
 				else
@@ -95,15 +124,17 @@ class TOFA
 		$data = $this->myVoiceIt->createVoiceEnrollment($voiceit_user_id, $contentLanguage, $phrase, $recording);
 		$data = json_decode($data, true);
 
+		//my_debug_print($data, __FILE__, __LINE__, "on");
+
 		if ($data["responseCode"] == "SUCC") 
 		{
 			//Remove me later
-			$auto = 1 * 1000;
+			$auto = 1;
 			?>	
 			<script type="text/javascript">
 			setTimeout(function()
 			{
-			   location.href = "/?ok";
+			   location.href = "/?ok&textConfidence=" + <?php echo $data["textConfidence"] ?>;
 			}, <?php echo $auto; ?>);
 			</script>
 			<?php
@@ -117,12 +148,12 @@ class TOFA
 			$DB = new DB();
 			$data = $DB->ssh_validated($_POST["id"]);
 
-			$auto = 1 * 1000;
+			$auto = 1;
 			?>	
 			<script type="text/javascript">
 			setTimeout(function()
 			{
-			   location.href = "/?fail";
+			   location.href = "/?fail&message=" + <?php echo $data["message"] ?>;
 			}, <?php echo $auto; ?>);
 			</script>
 			<?php
@@ -138,8 +169,25 @@ class TOFA
 		?>
 		<link rel="stylesheet" type="text/css" href="https://addpipe.com/simple-recorderjs-demo/style.css">
 
-		<div style="text-align:center;">Say the phrase from the terminal if the session id match</div>
-		<div style="text-align:center;">Session id: <?php echo $random_id; ?></div>
+		<?php
+		if ($type === "verification") 
+		{
+			?>
+			<div style="text-align:center;">Say the phrase from the terminal if the session id match</div>
+			<div style="text-align:center;">Session id: <?php echo $random_id; ?></div>
+			<?php
+		}
+		elseif ($type === "enrollment") 
+		{
+			?>
+			<div style="text-align:center;">Enrollment left: <?php echo 3-$random_id; ?></div>
+			<?php
+		}
+		{
+
+		}
+
+		?>
 		<br>
 		<div id="controls" style="margin-top: 0px;">
 	  	 <button id="recordButton">Record</button>
@@ -163,6 +211,7 @@ class TOFA
 			echo "Error";
 			echo "<br>NDS Stack trace<br>File: ".__FILE__." Function: ADD Line: ".__LINE__."<br>";
 
+			my_debug_print("die()", __FILE__, __LINE__, "on");
 			die();
 		}
 		else
@@ -174,7 +223,7 @@ class TOFA
 		if ($data["responseCode"] == "SUCC") 
 		{
 			//Remove me later
-			$auto = 1 * 1000;
+			$auto = 1;
 			?>	
 			<script type="text/javascript">
 			setTimeout(function()
@@ -193,7 +242,7 @@ class TOFA
 			$DB = new DB();
 			$data = $DB->ssh_validated($_POST["id"]);
 
-			$auto = 1 * 1000;
+			$auto = 1;
 			?>	
 			<script type="text/javascript">
 			setTimeout(function()
