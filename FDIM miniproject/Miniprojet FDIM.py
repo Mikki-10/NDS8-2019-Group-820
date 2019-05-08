@@ -47,6 +47,7 @@ def A(t):
 def R(t):
     return np.dot(np.dot(Ini,expm(Qr*t)),[0,0,0,0,1,0,1,1,1,0,0,1,1,0,1,1])
 
+T=[i for i in range(2000)]
         
 A=[(1-A(t)) for t in T]
 R=[(1-R(t)) for t in T]
