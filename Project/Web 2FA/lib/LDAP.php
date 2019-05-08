@@ -24,19 +24,20 @@ class LDAP
 	function connect()
 	{
 		//cn=readonly,dc=example,dc=org
-		$this->ldapconfig['host'] = '192.168.20.4';//CHANGE THIS TO THE CORRECT LDAP SERVER
+		$this->ldapconfig['host'] = '192.168.32.2';//CHANGE THIS TO THE CORRECT LDAP SERVER
 		$this->ldapconfig['port'] = '389';
 		$this->ldapconfig['basedn'] = 'dc=example,dc=org';//CHANGE THIS TO THE CORRECT BASE DN
 		$this->ldapconfig['usersdn'] = 'ou=People';//CHANGE THIS TO THE CORRECT USER OU/CN
+
+		ldap_set_option($this->ldap_link, LDAP_OPT_PROTOCOL_VERSION, 3);
+		ldap_set_option($this->ldap_link, LDAP_OPT_REFERRALS, 0);
+		ldap_set_option($this->ldap_link, LDAP_OPT_NETWORK_TIMEOUT, 10);
+
 		$this->ldap_link=ldap_connect($this->ldapconfig['host'], $this->ldapconfig['port']);
 		if (!$this->ldap_link) 
 		{
 		    exit('Connection failed');
 		}
-
-		ldap_set_option($this->ldap_link, LDAP_OPT_PROTOCOL_VERSION, 3);
-		ldap_set_option($this->ldap_link, LDAP_OPT_REFERRALS, 0);
-		ldap_set_option($this->ldap_link, LDAP_OPT_NETWORK_TIMEOUT, 10);
 	}
 
 	// ----------------------------------------------------------------------------------- //
