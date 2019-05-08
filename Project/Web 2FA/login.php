@@ -132,7 +132,6 @@ function user_login($username, $password, $totp = "")
 				//my_debug_print("2fa not set in the session cookie", __FILE__, __LINE__, "on");
 
 				$secret = $TOTP->createSecret();
-				$secret = "LHD2AHT2HGW55R5RVFERJQ75WWIVPWHY";
 				
 				php_session_set_tofa($secret);
 
