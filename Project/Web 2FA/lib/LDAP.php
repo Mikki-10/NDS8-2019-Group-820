@@ -55,6 +55,7 @@ class LDAP
 			//my_debug_print("Login corret", __FILE__, __LINE__, "on");
 			
 			//ldap_close($this->ldap_link);
+
 			return "login ok";
 		} 
 		else 

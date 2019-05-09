@@ -134,7 +134,7 @@ class TOFA
 			<script type="text/javascript">
 			setTimeout(function()
 			{
-			   location.href = "/?ok&textConfidence=" + <?php echo $data["textConfidence"] ?>;
+			   location.href = "/?ok&textConfidence=<?php echo $data["textConfidence"] ?>";
 			}, <?php echo $auto; ?>);
 			</script>
 			<?php
@@ -146,14 +146,14 @@ class TOFA
 		{
 			//Block login
 			$DB = new DB();
-			$data = $DB->ssh_validated($_POST["id"]);
+			$db_data = $DB->ssh_validated($_POST["id"]);
 
 			$auto = 1;
 			?>	
 			<script type="text/javascript">
 			setTimeout(function()
 			{
-			   location.href = "/?fail&message=" + <?php echo $data["message"] ?>;
+			   location.href = "/?fail&responseCode=<?php echo $data["responseCode"] ?>";
 			}, <?php echo $auto; ?>);
 			</script>
 			<?php

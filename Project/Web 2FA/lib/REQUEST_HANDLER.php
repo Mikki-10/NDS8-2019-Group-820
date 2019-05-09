@@ -23,6 +23,8 @@ class REQUEST_HANDLER
 		$fuldstreng = $ua['userAgent'];
 		$osbit = $ua['bit'];
 
+		//file_put_contents(__DIR__ . "/bowser.txt", $fuldstreng);
+		
 		if ($fuldstreng == "python-requests/2.18.4") 
 		{
 			return "server";
@@ -115,13 +117,15 @@ class REQUEST_HANDLER
 	function client_handler()
 	{
 		php_session_beskyt();
-			
+		
+		//my_debug_print($_POST, __FILE__, __LINE__, "on");
+
 		if (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] == "verification") 
 		{
 			$DB = new DB();
 			$data = $DB->get_ssh_login_username($_POST["id"]);
 
-			if ($data["username"] == $_SESSION["username"]) 
+			if (strtoupper($data["username"]) == strtoupper($_SESSION["username"])) 
 			{
 				$input = $_FILES['audio_data']['tmp_name']; //temporary name that PHP gave to the uploaded file
 				$recording = $input;
