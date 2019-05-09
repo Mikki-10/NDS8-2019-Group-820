@@ -76,7 +76,7 @@ class TOFA
 
 		if ($ldap_data === "false") 
 		{
-			my_debug_print("die()", __FILE__, __LINE__, "on");
+			//my_debug_print("die()", __FILE__, __LINE__, "on");
 			$this->voiceit_user_exists($username);
 
 			$auto = 1;
