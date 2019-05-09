@@ -7,6 +7,9 @@
 
 LDAPClient::LDAPClient() {
 
+    m_ldap_ip_address = "192.168.32.2";
+    m_ldap_port = 389;
+
     // Setting up LDAP connection
     auto* ctrls = new LDAPControlSet;
     ctrls->add(LDAPCtrl(LDAP_CONTROL_MANAGEDSAIT));
@@ -14,7 +17,7 @@ LDAPClient::LDAPClient() {
     auto* constraints = new LDAPConstraints;
     constraints->setServerControls(ctrls);
 
-    m_connection = new LDAPConnection(NDS_LDAP_IP_ADDRESS, 389);
+    m_connection = new LDAPConnection(m_ldap_ip_address, m_ldap_port);
     m_connection->setConstraints(constraints);
 
 }

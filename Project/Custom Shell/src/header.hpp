@@ -19,23 +19,19 @@
 typedef std::vector<std::string> StringVec;
 typedef std::string String;
 
-/** accepts words (vector of strings); returns bool, whether the shell should continue */
-typedef std::function<bool(StringVec)> Command;
-
 enum Retval {
     SUCCESS = 1,
     FAILURE = 0,
     NOT_FOUND = -1
 };
 
-#define out(in) std::cout << in << std::endl
+// sout == Standard OUTput
+#define sout(in) std::cout << in << std::endl
 #define unused(...) (void)(__VA_ARGS__)
 
 #ifdef DEBUG
-#define NDS_LDAP_IP_ADDRESS "localhost"
 #define debug(in) std::cout << in << std::endl
 #else
-#define NDS_LDAP_IP_ADDRESS "192.168.32.2"
 #define debug(in)
 #endif
 

@@ -11,6 +11,6 @@ int main() {
         Shell().loop();
     }
     catch(LDAPException &e) {
-        out(e);
+        sout(e);
     }
 }

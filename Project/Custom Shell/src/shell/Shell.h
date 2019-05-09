@@ -6,9 +6,12 @@
 #define NDS_SHELL_H
 
 #include "../header.hpp"
+#include "CritSys.h"
 #include "ShellCommand.h"
 #include "../ldap/LDAPClient.h"
-#include "CritSys.h"
+#include "../thirdparty/pstream/pstream.h"
+
+typedef redi::ipstream ProcessStream;
 
 class Shell {
 

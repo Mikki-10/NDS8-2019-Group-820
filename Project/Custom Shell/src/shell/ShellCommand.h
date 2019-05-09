@@ -7,6 +7,9 @@
 
 #include "../header.hpp"
 
+/** accepts words (vector of strings); returns bool, whether the shell should continue */
+typedef std::function<bool(StringVec)> Command;
+
 class ShellCommand {
 
 private:

@@ -28,23 +28,22 @@ Shell::Shell() {
     }
 
     for (auto& system : m_systems.getNames()) {
-        addCommand(ShellCommand(system, "Redirects to system <" + system + ">",
+        addCommand(ShellCommand(system, "Redirects to system [" + system + "]",
             [=] (StringVec p) {
                 unused(p);
 
                 auto sys = m_systems.get(system);
 
-                out("You are about to be redirected to [" + system + "]");
-                out("System description: " + sys.getDesc());
-                std::cout << "Do you with to proceed? (y/n)  ";
+                sout("   You are about to be redirected to [" + system + "]");
+                sout("   System description: " + sys.getDesc());
+                std::cout << "   Do you with to proceed? (y/n)  ";
 
                 const auto line = getInputLine();
                 if (line.size() == 1 && (line.at(0) == "y" || line.at(0) == "Y")) {
-                    out("Redirecting... TO BE DONE");
-                    debug("DEBUG: IP=" + sys.getAddr());
+                    sout("   Redirecting... TO BE DONE");
                 }
                 else {
-                    out("Redirection aborted.");
+                    sout("   Redirection aborted.");
                 }
 
                 return true;
@@ -83,10 +82,8 @@ Retval Shell::call(const String &commandName, StringVec parameters) {
 
 StringVec Shell::getInputLine() {
 
-    String line;
     StringVec res;
-    String token;
-
+    String line, token;
     std::getline(std::cin, line);
 
     for (auto &c : line) {
@@ -98,15 +95,11 @@ StringVec Shell::getInputLine() {
                 token.clear();
             }
         }
-        else {
-            token += c;
-        }
+        else token += c;
     }
-
     if (!token.empty()) {
         res.push_back(token);
     }
-
     return res;
 
 }
@@ -114,9 +107,8 @@ StringVec Shell::getInputLine() {
 
 void Shell::loop() {
 
-    int status;
+    int status = 1;
     do {
-
         std::cout << ":> ";
 
         StringVec line = getInputLine();
@@ -126,12 +118,6 @@ void Shell::loop() {
         line.erase(line.begin());
 
         status = execute(cmd, line);
-//        out(cmd + " returned " + str(status));
-//        std::cout << "<<" << cmd << ">> ";
-//        for (const auto& item : line) {
-//            std::cout << "[" << item << "] ";
-//        }
-//        out("");
 
     } while (status);
 
@@ -142,17 +128,8 @@ int Shell::execute(const String& commandName, const StringVec& parameters) {
 
     Retval r = call(commandName, parameters);
     if (r == Retval::NOT_FOUND) {
-        // call external bash shell, let's go low
-        String assembled = String(commandName) + " ";
-        for (auto& p : parameters) {
-            assembled += String(p) + " ";
-        }
-
-        // https://www.geeksforgeeks.org/system-call-in-c/
-        // TODO: is int system(char*) viable?
-        system(assembled.c_str());
+        sout("Command not found. Please type \"help\" to see list of available commands.");
         return Retval::SUCCESS;
-
     }
     return r;
 
@@ -161,23 +138,45 @@ int Shell::execute(const String& commandName, const StringVec& parameters) {
 
 void Shell::greet() {
 
-    out("  ------------------------------------------------------------------------------");
-    out("  | Welcome to jump server, " + m_user);
-    out("  | This is jump shell from project for Telenor, created by NDS 8");
-    out("  | ----------------------------------------------------------------------------");
-    out("  | Please choose the specified critical system you are authorised to access:");
+    sout("");
+    using namespace std;
+
+    short size = 75; // real length of wall
+    auto fill = [size](String line) {
+        int len = size - line.length();
+        for (int i = 0; i < len; i++) {
+            std::cout << " ";
+        }
+    };
+
+    String off("   ");
+    String wall("═══════════════════════════════════════════════════════════════════════════");
+
+    StringVec motd;
+    motd.push_back(" Welcome to jump server, " + m_user);
+    motd.push_back(" This is JumpShell, created by NDS8") ;
+    motd.push_back(" To see list of available commands, use \"help\".");
+    motd.push_back(" Please choose the specified critical system you are authorised to access:");
 
     auto names = m_systems.getNames();
     if (names.empty()) {
-        out ("  | <!> None systems available. Please contact your administrator.");
+        motd.push_back(" <!> None systems available. Please contact your administrator.");
     }
     else {
         for (auto &sys : m_systems.getNames()) {
-            out("  | <" + sys + ">");
+            motd.push_back("   <" + sys + ">");
         }
     }
 
-    out("  ------------------------------------------------------------------------------");
+    // ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
+
+    for (size_t i = 0; i < motd.size(); i++) {
+        if (i == 0) cout << off << "╔" << wall << "╗" << endl;
+        if (i == 3) cout << off << "╠" << wall << "╣" << endl;
+        cout << off << "║" << motd[i]; fill(motd[i]); cout << "║" << endl;
+        if (i == motd.size() - 1) cout << off << "╚" + wall + "╝" << endl;
+    }
+    sout("");
 
 }
 
@@ -191,14 +190,15 @@ void Shell::setupCustomCommands() {
     addCommand(ShellCommand("help", "Prints available commands",
         [=] (StringVec p) {
             unused(p);
-
-            out("NDS8 JumpShell");
-            out("Please type the number corresponding to the system you want to access, and hit enter.");
-            out("The following commands are built in / available:");
+            String off("   ");
+            sout("   ╔══════════════════╗");
+            sout("   ║  NDS8 JumpShell  ║");
+            sout("   ╚══════════════════╝");
+            sout(off + "The following commands are built in / available:");
             for (auto pair : this->m_commands) {
-                out("  " + pair.second.getName() + " : " + pair.second.getDesc());
+                sout(off + "  " + pair.second.getName() + " : " + pair.second.getDesc());
             }
-            out("Use the man command for information on other programs.");
+            sout("");
             return true;
         }
     ));
@@ -207,31 +207,56 @@ void Shell::setupCustomCommands() {
         [=] (StringVec p) {
             try {
                 auto sys = m_systems.get(p.at(0));
-                out("Printing debug info about: " + sys.getName());
-                out("IP: " + sys.getAddr());
-                out("Desc: " + sys.getDesc());
+                sout("Printing debug info about: " + sys.getName());
+                sout("IP: " + sys.getAddr());
+                sout("Desc: " + sys.getDesc());
             }
             catch(std::invalid_argument &e) {
-                out(e.what());
+                sout(e.what());
             }
 
             return true;
         }
     ));
 
-//    addCommand(ShellCommand("1",
-//        [] (StringVec p) {
-//            unused(p);
-//            out("::::::::::::::::::: START OF DEBUGGING MESSAGES :::::::::::::::::::");
-//            out("Checking user validity on system [1]");
-//            QueryResult result = LDAPClient().verify("coffe-access");
-//            String r = result ? "VERIFIED" : "REJECTED";
-//            out("Shellcommand 2: result is: " + r);
-//            out(":::::::::::::::::::: END OF DEBUGGING MESSAGES ::::::::::::::::::::");
-//            // out("You are going to be redirected to System A");
-//            //FILE *f = popen( "ssh -t -t nds@192.168.40.1 -p 50222", "r" );
-//            return false;
-//        }
-//    ));
+    addCommand(ShellCommand("jump", "debugging command: jumps to nds@192.168.40.1:50222",
+        [=] (StringVec p) {
+            unused(p);
+
+            {   // New block in order to destroy the process and have a chance to do something after
+                ProcessStream process;
+                process.open("ssh nds@192.168.40.1 -p 50222 -i /creds/id_rsa");
+
+                char c;
+                String quitphrase("logout");
+                unsigned iterator = 0;
+
+                while (true) {
+                    c = static_cast<char>(process.out().get());
+                    std::cout << c << std::flush;
+
+                    // TODO: possibility to store everything into file (what happened here)
+                    // TODO: Log into 127.0.0.1 : unknown port
+
+                    if (c == quitphrase[iterator]) {
+                        iterator++;
+                        if (iterator == quitphrase.length()) {
+                            break;
+                        }
+                    }
+                    else iterator = 0;
+                }
+                std::cout << std::endl << std::flush;
+            }
+
+            sout("");
+            sout("   ╔══════════════════════════╗");
+            sout("   ║  Returning to JumpShell  ║");
+            sout("   ╚══════════════════════════╝");
+            sout("");
+            return true;
+
+        }
+    ));
 
 }

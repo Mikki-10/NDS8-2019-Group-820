@@ -43,6 +43,9 @@ class LDAPClient {
 private:
     /** Performs the underlying LDAP query operations. Imported from ldapc++ lib */
     LDAPConnection *m_connection;
+    String m_ldap_ip_address;
+    int m_ldap_port;
+
     StringVec parse(const String& line, char delimiter);
     CritSysContainer findSystemsByDN(const String &baseDN);
 
