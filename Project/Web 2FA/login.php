@@ -93,9 +93,9 @@ function user_login($username, $password, $totp = "")
 						$url = $TOTP->make_totp_url(php_session_get_tofa(), $label, $issuer);
 
 						$QR_MAKER = new QR_MAKER();
-						$QR_CODE_URL = $QR_MAKER->make_qr_code($url);	
+						$qr_code_img_url = $QR_MAKER->make_qr_code($url);	
 
-						show_login_form($QR_CODE_URL);
+						show_login_form($qr_code_img_url, $url);
 					}
 				}
 				else
@@ -108,9 +108,9 @@ function user_login($username, $password, $totp = "")
 					$url = $TOTP->make_totp_url(php_session_get_tofa(), $label, $issuer);
 
 					$QR_MAKER = new QR_MAKER();
-					$QR_CODE_URL = $QR_MAKER->make_qr_code($url);	
+					$qr_code_img_url = $QR_MAKER->make_qr_code($url);	
 
-					show_login_form($QR_CODE_URL);
+					show_login_form($qr_code_img_url, $url);
 				}
 			}
 			else
@@ -126,16 +126,16 @@ function user_login($username, $password, $totp = "")
 				$url = $TOTP->make_totp_url($secret, $label, $issuer);
 
 				$QR_MAKER = new QR_MAKER();
-				$qr_code_url = $QR_MAKER->make_qr_code($url);
+				$qr_code_img_url = $QR_MAKER->make_qr_code($url);
 
-				show_login_form($qr_code_url);
+				show_login_form($qr_code_img_url, $url);
 			}
 		}
 	}
 }
 
 
-function show_login_form($qr_code_url = null)
+function show_login_form($qr_code_img_url = null, $qr_code_url = null)
 {
 	/*
 	<form action="/login.php" method="post">
@@ -196,9 +196,7 @@ function show_login_form($qr_code_url = null)
 						</span>
 
 						<div>
-						<?php
-						echo "$qr_code_url";
-						?>
+						<a href="<?php echo "$qr_code_url"; ?>"><?php echo "$qr_code_img_url"; ?></a>
 						</div>
 						<br>
 
