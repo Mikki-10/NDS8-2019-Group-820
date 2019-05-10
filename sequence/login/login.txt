@@ -1,0 +1,33 @@
+@startuml
+
+skinparam monochrome true
+
+hide footbox
+autonumber
+
+actor Supporter as human
+participant "Jump-server" as comp
+participant "LDAP server" as ldap
+
+activate human
+human -> comp: SSH: user@jmphost
+activate comp
+
+comp -> ldap: NSS lookup
+activate ldap
+ldap -> comp: User profile
+deactivate ldap
+
+comp -> ldap: PAM-LDAP auth
+activate ldap
+ldap -> comp: Ack
+deactivate ldap
+
+comp --> : PAM 2FA
+
+comp <-- : 2FA Ack
+
+comp -> human: Authenticated
+deactivate comp
+
+@enduml
