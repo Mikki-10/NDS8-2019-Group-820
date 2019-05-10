@@ -1,3 +1,0 @@
-/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/rebuild_cache.dir
-/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/NDStest.dir
-/home/nds/andrej_shell_test/cmake-build-debug-remote/CMakeFiles/edit_cache.dir

@@ -1,4 +1,0 @@
-ToolSet: 2.9.0 (local)@C:\Users\Andrej\cygwin64
-Options: 
-
-Options:
