@@ -139,7 +139,7 @@ class REQUEST_HANDLER
 				$phrase = $login_data["random_text"];
 
 				$TOFA = new TOFA();
-				if ($TOFA->validate_voice($voiceit_user_id, $contentLanguage, $phrase, $recording))
+				if ($TOFA->validate_voice($voiceit_user_id, $contentLanguage, $phrase, $recording, $data["id"]))
 				{
 					$DB->update_ssh_login($_POST["id"], true);
 				}

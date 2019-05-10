@@ -204,7 +204,7 @@ class TOFA
 	}
 
 
-	function validate_voice($voiceit_user_id, $contentLanguage, $phrase, $recording)
+	function validate_voice($voiceit_user_id, $contentLanguage, $phrase, $recording, $db_id)
 	{
 		if ($this->myVoiceIt == null) 
 		{
@@ -222,6 +222,8 @@ class TOFA
 
 		if ($data["responseCode"] == "SUCC") 
 		{
+			$DB = new DB();
+			$DB->update_confidence($db_id, $data["confidence"], $data["textConfidence"]);
 			//Remove me later
 			$auto = 1;
 			?>	

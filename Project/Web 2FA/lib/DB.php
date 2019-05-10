@@ -268,5 +268,30 @@ class DB
 		$stmt->execute();
 	}
 
+	function update_confidence($id, $voice_c, $text_c)
+	{
+		$sql = 'UPDATE `logins` SET `voice_c` = :voice_c WHERE id = :id';
+
+		$stmt = $this->conn->prepare($sql);
+
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':voice_c', $voice_c);
+
+		//echo "<pre>"; var_dump($stmt); echo "</pre>";
+
+		$stmt->execute();
+
+		$sql = 'UPDATE `logins` SET `text_c` = :text_c WHERE id = :id';
+
+		$stmt = $this->conn->prepare($sql);
+
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':text_c', $text_c);
+
+		//echo "<pre>"; var_dump($stmt); echo "</pre>";
+
+		$stmt->execute();
+	}
+
 }
 ?>
