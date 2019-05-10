@@ -9,3 +9,4 @@ services:
 
     ports:
       - 6514:6514/udp
+    restart: unless-stopped

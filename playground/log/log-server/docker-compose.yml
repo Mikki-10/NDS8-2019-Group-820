@@ -20,6 +20,7 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=nDs2018
       - INFLUXDB_USER=ifuser
       - INFLUXDB_USER_PASSWORD=nDs2018
+    restart: unless-stopped
 
 
   chronograf:
@@ -32,3 +33,4 @@ services:
       - 8888:8888
     depends_on:
       - influxdb
+    restart: unless-stopped

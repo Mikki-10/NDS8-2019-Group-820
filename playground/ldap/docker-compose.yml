@@ -12,6 +12,7 @@ services:
       - ./data/slapd.d:/etc/ldap/slapd.d
     environment:
       - LDAP_READONLY_USER=true
+    restart: unless-stopped
   
   phpLDAPadmin:
     container_name: phpLDAPadmin
@@ -21,3 +22,4 @@ services:
       - PHPLDAPADMIN_LDAP_HOSTS=ldap-service
     ports:
       - 443:443
+    restart: unless-stopped
