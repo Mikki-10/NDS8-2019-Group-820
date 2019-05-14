@@ -1,0 +1,324 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+ width="900px" height="861px"
+ viewBox="0 0 900 861"
+ xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"
+ stroke-width="1" text-rendering="geometricPrecision">
+<polygon fill="white" points="19,7 129,7 129,16 19,16"/>
+<text x="75" y="16" textLength="108" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+User SSH Client *A*
+</text>
+<polygon fill="white" points="182,7 266,7 266,16 182,16"/>
+<text x="225" y="16" textLength="83" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Jumpserver *B*
+</text>
+<polygon fill="white" points="347,7 401,7 401,16 347,16"/>
+<text x="375" y="16" textLength="53" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+LDAP *C*
+</text>
+<polygon fill="white" points="493,7 555,7 555,16 493,16"/>
+<text x="525" y="16" textLength="61" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Voice It *D*
+</text>
+<polygon fill="white" points="634,7 714,7 714,16 634,16"/>
+<text x="675" y="16" textLength="79" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Webserver *E*
+</text>
+<polygon fill="white" points="771,7 877,7 877,16 771,16"/>
+<text x="825" y="16" textLength="105" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+User phone app *F*
+</text>
+<line x1="75" y1="22" x2="75" y2="47" stroke="black"/>
+<line x1="225" y1="22" x2="225" y2="47" stroke="black"/>
+<line x1="375" y1="22" x2="375" y2="47" stroke="black"/>
+<line x1="525" y1="22" x2="525" y2="47" stroke="black"/>
+<line x1="675" y1="22" x2="675" y2="47" stroke="black"/>
+<line x1="825" y1="22" x2="825" y2="47" stroke="black"/>
+<line x1="75" y1="47" x2="75" y2="83" stroke="black"/>
+<line x1="225" y1="47" x2="225" y2="83" stroke="black"/>
+<line x1="375" y1="47" x2="375" y2="83" stroke="black"/>
+<line x1="525" y1="47" x2="525" y2="83" stroke="black"/>
+<line x1="675" y1="47" x2="675" y2="83" stroke="black"/>
+<line x1="825" y1="47" x2="825" y2="83" stroke="black"/>
+<line x1="75" y1="58" x2="225" y2="66" stroke="black"/>
+<polygon fill="black" points="225,66 215,72 215,60"/>
+<polygon fill="white" points="104,52 195,52 195,61 104,61"/>
+<text x="105" y="61" textLength="89" font-family="Helvetica" font-size="12" fill="black">
+Start Connection
+</text>
+<line x1="75" y1="83" x2="75" y2="119" stroke="black"/>
+<line x1="225" y1="83" x2="225" y2="119" stroke="black"/>
+<line x1="375" y1="83" x2="375" y2="119" stroke="black"/>
+<line x1="525" y1="83" x2="525" y2="119" stroke="black"/>
+<line x1="675" y1="83" x2="675" y2="119" stroke="black"/>
+<line x1="825" y1="83" x2="825" y2="119" stroke="black"/>
+<line x1="225" y1="94" x2="75" y2="102" stroke="black"/>
+<polygon fill="black" points="75,102 85,108 85,96"/>
+<polygon fill="white" points="71,88 227,88 227,97 71,97"/>
+<text x="72" y="97" textLength="154" font-family="Helvetica" font-size="12" fill="black">
+Ask for user login credentials
+</text>
+<line x1="75" y1="119" x2="75" y2="155" stroke="black"/>
+<line x1="225" y1="119" x2="225" y2="155" stroke="black"/>
+<line x1="375" y1="119" x2="375" y2="155" stroke="black"/>
+<line x1="525" y1="119" x2="525" y2="155" stroke="black"/>
+<line x1="675" y1="119" x2="675" y2="155" stroke="black"/>
+<line x1="825" y1="119" x2="825" y2="155" stroke="black"/>
+<line x1="75" y1="130" x2="225" y2="138" stroke="black"/>
+<polygon fill="black" points="225,138 215,144 215,132"/>
+<polygon fill="white" points="67,124 232,124 232,133 67,133"/>
+<text x="68" y="133" textLength="163" font-family="Helvetica" font-size="12" fill="black">
+Send username and password
+</text>
+<line x1="75" y1="155" x2="75" y2="191" stroke="black"/>
+<line x1="225" y1="155" x2="225" y2="191" stroke="black"/>
+<line x1="375" y1="155" x2="375" y2="191" stroke="black"/>
+<line x1="525" y1="155" x2="525" y2="191" stroke="black"/>
+<line x1="675" y1="155" x2="675" y2="191" stroke="black"/>
+<line x1="825" y1="155" x2="825" y2="191" stroke="black"/>
+<line x1="225" y1="166" x2="375" y2="174" stroke="black"/>
+<polygon fill="black" points="375,174 365,180 365,168"/>
+<polygon fill="white" points="267,160 332,160 332,169 267,169"/>
+<text x="268" y="169" textLength="63" font-family="Helvetica" font-size="12" fill="black">
+Check login
+</text>
+<line x1="75" y1="191" x2="75" y2="227" stroke="black"/>
+<line x1="225" y1="191" x2="225" y2="227" stroke="black"/>
+<line x1="375" y1="191" x2="375" y2="227" stroke="black"/>
+<line x1="525" y1="191" x2="525" y2="227" stroke="black"/>
+<line x1="675" y1="191" x2="675" y2="227" stroke="black"/>
+<line x1="825" y1="191" x2="825" y2="227" stroke="black"/>
+<line x1="375" y1="202" x2="225" y2="210" stroke="black"/>
+<polygon fill="black" points="225,210 235,216 235,204"/>
+<polygon fill="white" points="267,196 331,196 331,205 267,205"/>
+<text x="268" y="205" textLength="62" font-family="Helvetica" font-size="12" fill="black">
+Return 'OK'
+</text>
+<line x1="75" y1="227" x2="75" y2="263" stroke="black"/>
+<line x1="225" y1="227" x2="225" y2="263" stroke="black"/>
+<line x1="375" y1="227" x2="375" y2="263" stroke="black"/>
+<line x1="525" y1="227" x2="525" y2="263" stroke="black"/>
+<line x1="675" y1="227" x2="675" y2="263" stroke="black"/>
+<line x1="825" y1="227" x2="825" y2="263" stroke="black"/>
+<line x1="225" y1="238" x2="675" y2="246" stroke="black"/>
+<polygon fill="black" points="675,246 665,252 665,240"/>
+<polygon fill="white" points="357,232 542,232 542,241 357,241"/>
+<text x="358" y="241" textLength="183" font-family="Helvetica" font-size="12" fill="black">
+Ask for 2FA phrase and session id
+</text>
+<line x1="75" y1="263" x2="75" y2="299" stroke="black"/>
+<line x1="225" y1="263" x2="225" y2="299" stroke="black"/>
+<line x1="375" y1="263" x2="375" y2="299" stroke="black"/>
+<line x1="525" y1="263" x2="525" y2="299" stroke="black"/>
+<line x1="675" y1="263" x2="675" y2="299" stroke="black"/>
+<line x1="825" y1="263" x2="825" y2="299" stroke="black"/>
+<line x1="675" y1="274" x2="225" y2="282" stroke="black"/>
+<polygon fill="black" points="225,282 235,288 235,276"/>
+<polygon fill="white" points="358,268 541,268 541,277 358,277"/>
+<text x="359" y="277" textLength="181" font-family="Helvetica" font-size="12" fill="black">
+Return 2FA phrase and session id
+</text>
+<line x1="75" y1="299" x2="75" y2="335" stroke="black"/>
+<line x1="225" y1="299" x2="225" y2="335" stroke="black"/>
+<line x1="375" y1="299" x2="375" y2="335" stroke="black"/>
+<line x1="525" y1="299" x2="525" y2="335" stroke="black"/>
+<line x1="675" y1="299" x2="675" y2="335" stroke="black"/>
+<line x1="825" y1="299" x2="825" y2="335" stroke="black"/>
+<line x1="225" y1="310" x2="75" y2="318" stroke="black"/>
+<polygon fill="black" points="75,318 85,324 85,312"/>
+<polygon fill="white" points="73,304 225,304 225,313 73,313"/>
+<text x="74" y="313" textLength="150" font-family="Helvetica" font-size="12" fill="black">
+Show phrase and session id
+</text>
+<line x1="75" y1="335" x2="75" y2="360" stroke="black"/>
+<line x1="225" y1="335" x2="225" y2="360" stroke="black"/>
+<line x1="375" y1="335" x2="375" y2="360" stroke="black"/>
+<line x1="525" y1="335" x2="525" y2="360" stroke="black"/>
+<line x1="675" y1="335" x2="675" y2="360" stroke="black"/>
+<line x1="825" y1="335" x2="825" y2="360" stroke="black"/>
+<line x1="37" y1="340" x2="863" y2="340" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="white" points="390,340 508,340 508,349 390,349"/>
+<text x="391" y="349" textLength="116" font-family="Helvetica" font-size="12" fill="black">
+*B* Wait for 2FA login
+</text>
+<line x1="75" y1="360" x2="75" y2="396" stroke="black"/>
+<line x1="225" y1="360" x2="225" y2="396" stroke="black"/>
+<line x1="375" y1="360" x2="375" y2="396" stroke="black"/>
+<line x1="525" y1="360" x2="525" y2="396" stroke="black"/>
+<line x1="675" y1="360" x2="675" y2="396" stroke="black"/>
+<line x1="825" y1="360" x2="825" y2="396" stroke="black"/>
+<line x1="825" y1="371" x2="675" y2="379" stroke="black"/>
+<polygon fill="black" points="675,379 685,385 685,373"/>
+<polygon fill="white" points="632,365 866,365 866,374 632,374"/>
+<text x="633" y="374" textLength="232" font-family="Helvetica" font-size="12" fill="black">
+Send username, password, static 2FA code
+</text>
+<line x1="75" y1="396" x2="75" y2="432" stroke="black"/>
+<line x1="225" y1="396" x2="225" y2="432" stroke="black"/>
+<line x1="375" y1="396" x2="375" y2="432" stroke="black"/>
+<line x1="525" y1="396" x2="525" y2="432" stroke="black"/>
+<line x1="675" y1="396" x2="675" y2="432" stroke="black"/>
+<line x1="825" y1="396" x2="825" y2="432" stroke="black"/>
+<line x1="675" y1="407" x2="375" y2="415" stroke="black"/>
+<polygon fill="black" points="375,415 385,421 385,409"/>
+<polygon fill="white" points="442,401 607,401 607,410 442,410"/>
+<text x="443" y="410" textLength="163" font-family="Helvetica" font-size="12" fill="black">
+Send username and password
+</text>
+<line x1="75" y1="432" x2="75" y2="468" stroke="black"/>
+<line x1="225" y1="432" x2="225" y2="468" stroke="black"/>
+<line x1="375" y1="432" x2="375" y2="468" stroke="black"/>
+<line x1="525" y1="432" x2="525" y2="468" stroke="black"/>
+<line x1="675" y1="432" x2="675" y2="468" stroke="black"/>
+<line x1="825" y1="432" x2="825" y2="468" stroke="black"/>
+<line x1="375" y1="443" x2="675" y2="451" stroke="black"/>
+<polygon fill="black" points="675,451 665,457 665,445"/>
+<polygon fill="white" points="497,437 552,437 552,446 497,446"/>
+<text x="498" y="446" textLength="53" font-family="Helvetica" font-size="12" fill="black">
+return 'ok'
+</text>
+<line x1="75" y1="468" x2="75" y2="504" stroke="black"/>
+<line x1="225" y1="468" x2="225" y2="504" stroke="black"/>
+<line x1="375" y1="468" x2="375" y2="504" stroke="black"/>
+<line x1="525" y1="468" x2="525" y2="504" stroke="black"/>
+<line x1="675" y1="468" x2="675" y2="504" stroke="black"/>
+<line x1="825" y1="468" x2="825" y2="504" stroke="black"/>
+<line x1="675" y1="479" x2="375" y2="487" stroke="black"/>
+<polygon fill="black" points="375,487 385,493 385,481"/>
+<polygon fill="white" points="483,473 566,473 566,482 483,482"/>
+<text x="484" y="482" textLength="81" font-family="Helvetica" font-size="12" fill="black">
+Get 2FA secret
+</text>
+<line x1="75" y1="504" x2="75" y2="540" stroke="black"/>
+<line x1="225" y1="504" x2="225" y2="540" stroke="black"/>
+<line x1="375" y1="504" x2="375" y2="540" stroke="black"/>
+<line x1="525" y1="504" x2="525" y2="540" stroke="black"/>
+<line x1="675" y1="504" x2="675" y2="540" stroke="black"/>
+<line x1="825" y1="504" x2="825" y2="540" stroke="black"/>
+<line x1="375" y1="515" x2="675" y2="523" stroke="black"/>
+<polygon fill="black" points="675,523 665,529 665,517"/>
+<polygon fill="white" points="477,509 572,509 572,518 477,518"/>
+<text x="478" y="518" textLength="93" font-family="Helvetica" font-size="12" fill="black">
+retrun 2FA secret
+</text>
+<line x1="75" y1="540" x2="75" y2="576" stroke="black"/>
+<line x1="225" y1="540" x2="225" y2="576" stroke="black"/>
+<line x1="375" y1="540" x2="375" y2="576" stroke="black"/>
+<line x1="525" y1="540" x2="525" y2="576" stroke="black"/>
+<line x1="675" y1="540" x2="675" y2="576" stroke="black"/>
+<line x1="825" y1="540" x2="825" y2="576" stroke="black"/>
+<line x1="675" y1="551" x2="825" y2="559" stroke="black"/>
+<polygon fill="black" points="825,559 815,565 815,553"/>
+<polygon fill="white" points="693,545 806,545 806,554 693,554"/>
+<text x="694" y="554" textLength="111" font-family="Helvetica" font-size="12" fill="black">
+show ssh login if any
+</text>
+<line x1="75" y1="576" x2="75" y2="612" stroke="black"/>
+<line x1="225" y1="576" x2="225" y2="612" stroke="black"/>
+<line x1="375" y1="576" x2="375" y2="612" stroke="black"/>
+<line x1="525" y1="576" x2="525" y2="612" stroke="black"/>
+<line x1="675" y1="576" x2="675" y2="612" stroke="black"/>
+<line x1="825" y1="576" x2="825" y2="612" stroke="black"/>
+<line x1="825" y1="587" x2="675" y2="595" stroke="black"/>
+<polygon fill="black" points="675,595 685,601 685,589"/>
+<polygon fill="white" points="712,581 787,581 787,590 712,590"/>
+<text x="713" y="590" textLength="73" font-family="Helvetica" font-size="12" fill="black">
+Get new login
+</text>
+<line x1="75" y1="612" x2="75" y2="648" stroke="black"/>
+<line x1="225" y1="612" x2="225" y2="648" stroke="black"/>
+<line x1="375" y1="612" x2="375" y2="648" stroke="black"/>
+<line x1="525" y1="612" x2="525" y2="648" stroke="black"/>
+<line x1="675" y1="612" x2="675" y2="648" stroke="black"/>
+<line x1="825" y1="612" x2="825" y2="648" stroke="black"/>
+<line x1="675" y1="623" x2="825" y2="631" stroke="black"/>
+<polygon fill="black" points="825,631 815,637 815,625"/>
+<polygon fill="white" points="719,617 780,617 780,626 719,626"/>
+<text x="720" y="626" textLength="59" font-family="Helvetica" font-size="12" fill="black">
+Show login
+</text>
+<line x1="75" y1="648" x2="75" y2="673" stroke="black"/>
+<line x1="225" y1="648" x2="225" y2="673" stroke="black"/>
+<line x1="375" y1="648" x2="375" y2="673" stroke="black"/>
+<line x1="525" y1="648" x2="525" y2="673" stroke="black"/>
+<line x1="675" y1="648" x2="675" y2="673" stroke="black"/>
+<line x1="825" y1="648" x2="825" y2="673" stroke="black"/>
+<line x1="37" y1="653" x2="863" y2="653" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="white" points="396,653 503,653 503,662 396,662"/>
+<text x="397" y="662" textLength="105" font-family="Helvetica" font-size="12" fill="black">
+Read phrase to app
+</text>
+<line x1="75" y1="673" x2="75" y2="709" stroke="black"/>
+<line x1="225" y1="673" x2="225" y2="709" stroke="black"/>
+<line x1="375" y1="673" x2="375" y2="709" stroke="black"/>
+<line x1="525" y1="673" x2="525" y2="709" stroke="black"/>
+<line x1="675" y1="673" x2="675" y2="709" stroke="black"/>
+<line x1="825" y1="673" x2="825" y2="709" stroke="black"/>
+<line x1="825" y1="684" x2="675" y2="692" stroke="black"/>
+<polygon fill="black" points="675,692 685,698 685,686"/>
+<polygon fill="white" points="718,678 781,678 781,687 718,687"/>
+<text x="719" y="687" textLength="61" font-family="Helvetica" font-size="12" fill="black">
+Send Voice
+</text>
+<line x1="75" y1="709" x2="75" y2="745" stroke="black"/>
+<line x1="225" y1="709" x2="225" y2="745" stroke="black"/>
+<line x1="375" y1="709" x2="375" y2="745" stroke="black"/>
+<line x1="525" y1="709" x2="525" y2="745" stroke="black"/>
+<line x1="675" y1="709" x2="675" y2="745" stroke="black"/>
+<line x1="825" y1="709" x2="825" y2="745" stroke="black"/>
+<line x1="675" y1="720" x2="525" y2="728" stroke="black"/>
+<polygon fill="black" points="525,728 535,734 535,722"/>
+<polygon fill="white" points="568,714 631,714 631,723 568,723"/>
+<text x="569" y="723" textLength="61" font-family="Helvetica" font-size="12" fill="black">
+Send Voice
+</text>
+<line x1="75" y1="745" x2="75" y2="781" stroke="black"/>
+<line x1="225" y1="745" x2="225" y2="781" stroke="black"/>
+<line x1="375" y1="745" x2="375" y2="781" stroke="black"/>
+<line x1="525" y1="745" x2="525" y2="781" stroke="black"/>
+<line x1="675" y1="745" x2="675" y2="781" stroke="black"/>
+<line x1="825" y1="745" x2="825" y2="781" stroke="black"/>
+<line x1="525" y1="756" x2="675" y2="764" stroke="black"/>
+<polygon fill="black" points="675,764 665,770 665,758"/>
+<polygon fill="white" points="450,750 748,750 748,759 450,759"/>
+<text x="451" y="759" textLength="296" font-family="Helvetica" font-size="12" fill="black">
+Return 'validated', text confidence and voice confidence
+</text>
+<line x1="75" y1="781" x2="75" y2="817" stroke="black"/>
+<line x1="225" y1="781" x2="225" y2="817" stroke="black"/>
+<line x1="375" y1="781" x2="375" y2="817" stroke="black"/>
+<line x1="525" y1="781" x2="525" y2="817" stroke="black"/>
+<line x1="675" y1="781" x2="675" y2="817" stroke="black"/>
+<line x1="825" y1="781" x2="825" y2="817" stroke="black"/>
+<line x1="675" y1="792" x2="225" y2="800" stroke="black"/>
+<polygon fill="black" points="225,800 235,806 235,794"/>
+<polygon fill="white" points="377,786 521,786 521,795 377,795"/>
+<text x="378" y="795" textLength="142" font-family="Helvetica" font-size="12" fill="black">
+retrun 'ok' to 2FA ssh login
+</text>
+<line x1="75" y1="817" x2="75" y2="853" stroke="black"/>
+<line x1="225" y1="817" x2="225" y2="853" stroke="black"/>
+<line x1="375" y1="817" x2="375" y2="853" stroke="black"/>
+<line x1="525" y1="817" x2="525" y2="853" stroke="black"/>
+<line x1="675" y1="817" x2="675" y2="853" stroke="black"/>
+<line x1="825" y1="817" x2="825" y2="853" stroke="black"/>
+<line x1="225" y1="828" x2="75" y2="836" stroke="black"/>
+<polygon fill="black" points="75,836 85,842 85,830"/>
+<polygon fill="white" points="98,822 200,822 200,831 98,831"/>
+<text x="99" y="831" textLength="100" font-family="Helvetica" font-size="12" fill="black">
+Show custom shell
+</text>
+<line x1="75" y1="839" x2="75" y2="861" stroke="black"/>
+<line x1="225" y1="839" x2="225" y2="861" stroke="black"/>
+<line x1="375" y1="839" x2="375" y2="861" stroke="black"/>
+<line x1="525" y1="839" x2="525" y2="861" stroke="black"/>
+<line x1="675" y1="839" x2="675" y2="861" stroke="black"/>
+<line x1="825" y1="839" x2="825" y2="861" stroke="black"/>
+</svg>
