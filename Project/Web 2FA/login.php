@@ -13,11 +13,11 @@ if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["passwor
 {
 	if (isset($_POST["2fa"]) && $_POST["2fa"] != "") 
 	{
-		user_login(trim($_POST["username"]), trim($_POST["password"]), trim($_POST["2fa"]));
+		user_login(trim(ldap_escape(trim($_POST["username"]), null, LDAP_ESCAPE_FILTER)), trim($_POST["password"]), trim($_POST["2fa"]));
 	}
 	else
 	{
-		user_login(trim($_POST["username"]), trim($_POST["password"]));
+		user_login(trim(ldap_escape(trim($_POST["username"]), null, LDAP_ESCAPE_FILTER)), trim($_POST["password"]));
 		//my_debug_print("Username and password set", __FILE__, __LINE__, "on");
 	}
 }
@@ -31,11 +31,12 @@ function user_login($username, $password, $totp = "")
 {
 	$LDAP = new LDAP();
 	$TOTP = new TOTP();
+	$username_for_LDAP = trim(ldap_escape($username));
 
-	if ($LDAP->check_login($username, $password) === "login ok") 
+	if ($LDAP->check_login($username_for_LDAP, $password) === "login ok") 
 	{
 		//Get totp secret from ldap
-		$secret = $LDAP->get_2fa_user_data($username);
+		$secret = $LDAP->get_2fa_user_data($username_for_LDAP);
 
 		//my_debug_print("secret: " . $secret, __FILE__, __LINE__, "on");
 
@@ -70,7 +71,7 @@ function user_login($username, $password, $totp = "")
 				{
 					if ($TOTP->verify_totp(php_session_get_tofa(), $totp)) 
 					{
-						$LDAP->add_2fa($username, php_session_get_tofa());
+						$LDAP->add_2fa($username_for_LDAP, php_session_get_tofa());
 						//my_debug_print("2fa set in ldap", __FILE__, __LINE__, "on");
 						php_session_remove_tofa();
 

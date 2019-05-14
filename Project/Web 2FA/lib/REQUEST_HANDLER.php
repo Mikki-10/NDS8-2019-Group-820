@@ -120,7 +120,7 @@ class REQUEST_HANDLER
 		
 		//my_debug_print($_POST, __FILE__, __LINE__, "on");
 
-		if (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] == "verification") 
+		if (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] === "verification") 
 		{
 			$DB = new DB();
 			$data = $DB->get_ssh_login_username($_POST["id"]);
@@ -150,7 +150,7 @@ class REQUEST_HANDLER
 				die();
 			}
 		}
-		elseif (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] == "enrollment") 
+		elseif (isset($_POST["login-ssh"]) && isset($_POST["id"]) && isset($_POST["type"]) && $_POST["type"] === "enrollment") 
 		{
 			$LDAP = new LDAP();
 
