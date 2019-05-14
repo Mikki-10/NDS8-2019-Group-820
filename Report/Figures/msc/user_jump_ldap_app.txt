@@ -1,0 +1,33 @@
+# MSC for some fictional process
+msc {
+  hscale = "1.5", arcgradient = "8", wordwraparcs = "1";
+
+  a[label="User SSH Client *A*"],b[label="Jumpserver *B*"],c[label="LDAP *C*"],d[label="Voice It *D*"],e[label="Webserver *E*"],f[label="User phone app *F*"];
+
+  |||;
+  a=>b [label="Start Connection"];
+  b=>a [label="Ask for user login credentials"];
+  a=>b [label="Send username and password"];
+  b=>c [label="Check login"];
+  c=>b [label="Return 'OK'"];
+  b=>e [label="Ask for 2FA phrase and session id"];
+  e=>b [label="Return 2FA phrase and session id"];
+  b=>a [label="Show phrase and session id"];
+  --- [label="*B* Wait for 2FA login"];
+  f=>e [label="Send username, password, static 2FA code"];
+  e=>c [label="Send username and password"];
+  c=>e [label="return 'ok'"];
+  e=>c [label="Get 2FA secret"];
+  c=>e [label="retrun 2FA secret"];
+  e=>f [label="show ssh login if any"];
+  f=>e [label="Get new login"];
+  e=>f [label="Show login"];
+  --- [label="Read phrase to app"];
+  f=>e [label="Send Voice"];
+  e=>d [label="Send Voice"];
+  d=>e [label="Return 'validated', text confidence and voice confidence"];
+  e=>b [label="retrun 'ok' to 2FA ssh login"];
+  b=>a [label="Show custom shell"];
+  
+  
+}
