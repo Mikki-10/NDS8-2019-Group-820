@@ -81,7 +81,7 @@ class LOGIN_VALIDATION
 				{
 					$timeout = false;
 
-					$DB->ssh_validated($data["id"]);
+					$DB->ssh_clear_timestamp($data["id"]);
 
 					$login_validated = true;
 

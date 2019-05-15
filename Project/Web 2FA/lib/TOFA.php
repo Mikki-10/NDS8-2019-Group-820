@@ -146,7 +146,7 @@ class TOFA
 		{
 			//Block login
 			$DB = new DB();
-			$db_data = $DB->ssh_validated($_POST["id"]);
+			$db_data = $DB->ssh_clear_timestamp($_POST["id"]);
 
 			$auto = 1;
 			?>	
@@ -223,8 +223,8 @@ class TOFA
 		if ($data["responseCode"] == "SUCC") 
 		{
 			$DB = new DB();
-			$DB->update_confidence($db_id, $data["confidence"], $data["textConfidence"]);
-			//Remove me later
+			$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
+
 			$auto = 1;
 			?>	
 			<script type="text/javascript">
@@ -242,7 +242,8 @@ class TOFA
 		{
 			//Block login
 			$DB = new DB();
-			$data = $DB->ssh_validated($_POST["id"]);
+			$data = $DB->ssh_clear_timestamp($_POST["id"]);
+			$DB->update_table($db_id, $data["message"], $data["responseCode"], "0", "0");
 
 			$auto = 1;
 			?>	
@@ -434,9 +435,9 @@ class TOFA
 				  var fd=new FormData();
 				  fd.append("audio_data",blob, filename);
 				  fd.append("login-ssh", "login");
-				  fd.append("id", "<?php echo $id ?>");
-				  fd.append("username", "<?php echo $username ?>");
-				  fd.append("type", "<?php echo $type ?>");
+				  fd.append("id", "<?php //echo $id ?>");
+				  fd.append("username", "<?php //echo $username ?>");
+				  fd.append("type", "<?php //echo $type ?>");
 				  xhr.open("POST","index.php",true);
 				  xhr.send(fd);
 			})

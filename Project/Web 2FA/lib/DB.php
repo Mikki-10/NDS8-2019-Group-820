@@ -255,7 +255,7 @@ class DB
 		$stmt->execute();
 	}
 
-	function ssh_validated($id)
+	function ssh_clear_timestamp($id)
 	{
 	    $sql = 'UPDATE `logins` SET `timestamp` = "0" WHERE id = :id';
 
@@ -268,8 +268,30 @@ class DB
 		$stmt->execute();
 	}
 
-	function update_confidence($id, $voice_c, $text_c)
+	function update_confidence($id, $message, $responseCode, $voice_c, $text_c)
 	{
+		$sql = 'UPDATE `logins` SET `message` = :message WHERE id = :id';
+
+		$stmt = $this->conn->prepare($sql);
+
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':message', $message);
+
+		//echo "<pre>"; var_dump($stmt); echo "</pre>";
+
+		$stmt->execute();
+
+		$sql = 'UPDATE `logins` SET `responseCode` = :responseCode WHERE id = :id';
+
+		$stmt = $this->conn->prepare($sql);
+
+		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':responseCode', $responseCode);
+
+		//echo "<pre>"; var_dump($stmt); echo "</pre>";
+
+		$stmt->execute();
+
 		$sql = 'UPDATE `logins` SET `voice_c` = :voice_c WHERE id = :id';
 
 		$stmt = $this->conn->prepare($sql);
