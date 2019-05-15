@@ -268,7 +268,7 @@ class DB
 		$stmt->execute();
 	}
 
-	function update_confidence($id, $message, $responseCode, $voice_c, $text_c)
+	function update_table($id, $message, $responseCode, $voice_c, $text_c)
 	{
 		$sql = 'UPDATE `logins` SET `message` = :message WHERE id = :id';
 
