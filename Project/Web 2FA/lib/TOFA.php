@@ -242,8 +242,8 @@ class TOFA
 		{
 			//Block login
 			$DB = new DB();
-			$data = $DB->ssh_clear_timestamp($_POST["id"]);
-			$DB->update_table($db_id, $data["message"], $data["responseCode"], "0", "0");
+			$DB->ssh_clear_timestamp($_POST["id"]);
+			$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
 
 			$auto = 1;
 			?>	
@@ -254,7 +254,8 @@ class TOFA
 			}, <?php echo $auto; ?>);
 			</script>
 			<?php
-			//echo "<pre>"; var_dump($data); echo "</pre>";
+
+			//my_debug_print($data, __FILE__, __LINE__, "on");
 			return false;
 		}
 	}
