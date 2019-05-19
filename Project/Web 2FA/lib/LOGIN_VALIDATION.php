@@ -34,6 +34,7 @@ class LOGIN_VALIDATION
 		$id = $DB->add($sqlstruktur, $sqlvalues, $data, $dbtable);
 
 		//my_debug_print($id, __FILE__, __LINE__, "on");
+		//my_debug_print($_SESSION, __FILE__, __LINE__, "on");
 
 		if ($id != "") 
 		{

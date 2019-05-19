@@ -106,7 +106,7 @@ class TOFA
 
 				//my_debug_print($data, __FILE__, __LINE__, "on");
 				
-				if ($data["count"] >= 3) 
+				if ($data["count"] >= NUMBER_OF_ENROLLMENTS) 
 				{
 					$LDAP->set_voiceit_enrolled($username, $ldap_data["voiceit"]);
 					return true;
@@ -220,43 +220,47 @@ class TOFA
 			$data = json_decode($data, true);
 		}
 
-		if ($data["responseCode"] == "SUCC") 
+		$DB = new DB();
+		$ssh_login_information = $DB->get_ssh_login_username($_POST["id"]);
+
+		if ($ssh_login_information["timestamp"] + LOGIN_SESION_TIME >= time()) 
 		{
-			$DB = new DB();
-			$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
-
-			$auto = 1;
-			?>	
-			<script type="text/javascript">
-			setTimeout(function()
+			if ($data["responseCode"] == "SUCC") 
 			{
-			   location.href = "/?ok";
-			}, <?php echo $auto; ?>);
-			</script>
-			<?php
-			//echo "Login ok";
-			//echo "<pre>"; var_dump($data); echo "</pre>";
-			return true;
-		}
-		else
-		{
-			//Block login
-			$DB = new DB();
-			$DB->ssh_clear_timestamp($_POST["id"]);
-			$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
+				$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
 
-			$auto = 1;
-			?>	
-			<script type="text/javascript">
-			setTimeout(function()
+				$auto = 1;
+				?>	
+				<script type="text/javascript">
+				setTimeout(function()
+				{
+				   location.href = "/?ok";
+				}, <?php echo $auto; ?>);
+				</script>
+				<?php
+				//echo "Login ok";
+				//echo "<pre>"; var_dump($data); echo "</pre>";
+				return true;
+			}
+			else
 			{
-			   location.href = "/?fail";
-			}, <?php echo $auto; ?>);
-			</script>
-			<?php
+				//Block login
+				$DB->ssh_clear_timestamp($_POST["id"]);
+				$DB->update_table($db_id, $data["message"], $data["responseCode"], $data["confidence"], $data["textConfidence"]);
 
-			//my_debug_print($data, __FILE__, __LINE__, "on");
-			return false;
+				$auto = 1;
+				?>	
+				<script type="text/javascript">
+				setTimeout(function()
+				{
+				   location.href = "/?fail";
+				}, <?php echo $auto; ?>);
+				</script>
+				<?php
+
+				//my_debug_print($data, __FILE__, __LINE__, "on");
+				return false;
+			}
 		}
 	}
 
