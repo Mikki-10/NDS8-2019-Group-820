@@ -2,9 +2,18 @@
 
 CC=g++
 BIN=ndsShell
-SRC=src/main.cpp src/shell/Shell.cpp src/ldap/LDAPClient.cpp
+DEV=devShell
 LIBS=-lldap -lldapcpp
 FLAGS=-std=c++14 -Wall -Wextra -pedantic
+
+# ###  ###  ###  ###  ###  ###  ###  ###  ###  ###  ###  Sources
+
+MDIR=src/main.cpp
+SHDIR=src/shell/Shell.cpp src/shell/Terminal.cpp
+LCDIR=src/ldap/LDAPClient.cpp
+LGDIR=src/logging/Logger.cpp
+
+SRC=$(MDIR) $(SHDIR) $(LCDIR) $(LGDIR)
 
 # ###  ###  ###  ###  ###  ###  ###  ###  ###  ###  ###  ###  ###
 
@@ -14,8 +23,11 @@ all:
 debug:
 	$(CC) -o $(BIN) $(SRC) $(FLAGS) -DDEBUG $(LIBS)
 
+dev:
+	$(CC) -o $(DEV) $(SRC) $(FLAGS) -DDEBUG $(LIBS)
+
 clean:
-	rm -rf $(BIN)
+	rm -rf $(BIN) $(DEV)
 
 deploy:
 	sudo cp ./$(BIN) /bin/$(BIN)

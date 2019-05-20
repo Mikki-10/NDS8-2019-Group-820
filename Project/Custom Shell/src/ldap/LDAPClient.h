@@ -1,6 +1,7 @@
-//
-// Custom Shell [ Pierre & Andrej ]
-//
+///
+/// Custom Shell: the JumpShell
+/// Made by Andrej, Pierre and Sebastian
+///
 
 #ifndef NDS_LDAPCLIENT_H
 #define NDS_LDAPCLIENT_H
@@ -26,22 +27,22 @@
 #include "../shell/CritSys.h"
 
 #ifdef WINDOWS_DEVELOPMENT
-#include "../ldaplib/LDAPConnection.h"
-#include "../ldaplib/LDAPConstraints.h"
-#include "../ldaplib/LDAPSearchReference.h"
-#include "../ldaplib/LDAPSearchResults.h"
-#include "../ldaplib/LDAPAttribute.h"
-#include "../ldaplib/LDAPAttributeList.h"
-#include "../ldaplib/LDAPEntry.h"
-#include "../ldaplib/LDAPException.h"
-#include "../ldaplib/LDAPModification.h"
+#include "../thirdparty/ldaplib/LDAPConnection.h"
+#include "../thirdparty/ldaplib/LDAPConstraints.h"
+#include "../thirdparty/ldaplib/LDAPSearchReference.h"
+#include "../thirdparty/ldaplib/LDAPSearchResults.h"
+#include "../thirdparty/ldaplib/LDAPAttribute.h"
+#include "../thirdparty/ldaplib/LDAPAttributeList.h"
+#include "../thirdparty/ldaplib/LDAPEntry.h"
+#include "../thirdparty/ldaplib/LDAPException.h"
+#include "../thirdparty/ldaplib/LDAPModification.h"
 #endif
 
 
 class LDAPClient {
 
 private:
-    /** Performs the underlying LDAP query operations. Imported from ldapc++ lib */
+    /// Performs the underlying LDAP query operations. Imported from ldapc++ lib
     LDAPConnection *m_connection;
     String m_ldap_ip_address;
     int m_ldap_port;

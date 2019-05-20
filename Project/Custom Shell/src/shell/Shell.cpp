@@ -1,20 +1,21 @@
-//
-// Custom Shell [ Pierre & Andrej ]
-//
+///
+/// Custom Shell: the JumpShell
+/// Made by Andrej, Pierre and Sebastian
+///
 
 #include "Shell.h"
 
 
 Shell::Shell() {
 
-    // Setting up input parsing variables
-    for (bool & t : m_tdmap) t = false;
-    for (auto & c : " \t\r\n\a") m_tdmap[static_cast<int>(c)] = true;
-
-    // Setting up LDAP-themed items
     m_user = getlogin();
-    m_systems = CritSysContainer();
+    m_logger.setLogin(m_user);
     m_ldap = new LDAPClient();
+    m_systems = CritSysContainer();
+
+    char hostname[128];
+    gethostname(hostname, 128);
+    m_logger.setSystem(String(hostname));
 
     try {
         m_ldap->connect();
@@ -28,7 +29,7 @@ Shell::Shell() {
     }
 
     for (auto& system : m_systems.getNames()) {
-        addCommand(ShellCommand(system, "Redirects to system [" + system + "]",
+        addCommand(ShellCommand(system, JUMP, "Redirects to system [" + system + "]",
             [=] (StringVec p) {
                 unused(p);
 
@@ -38,9 +39,10 @@ Shell::Shell() {
                 sout("   System description: " + sys.getDesc());
                 std::cout << "   Do you with to proceed? (y/n)  ";
 
-                const auto line = getInputLine();
+                const auto line = m_terminal.getInputLine();
                 if (line.size() == 1 && (line.at(0) == "y" || line.at(0) == "Y")) {
-                    sout("   Redirecting... TO BE DONE");
+                    sout("   Redirecting...");
+                    jump(sys);
                 }
                 else {
                     sout("   Redirection aborted.");
@@ -77,42 +79,16 @@ Retval Shell::call(const String &commandName, StringVec parameters) {
 
 }
 
-// ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---
-
-
-StringVec Shell::getInputLine() {
-
-    StringVec res;
-    String line, token;
-    std::getline(std::cin, line);
-
-    for (auto &c : line) {
-
-        // iterate over each char and check for delimiter
-        if (c >= 0 && m_tdmap[static_cast<int>(c)]) {
-            if (!token.empty()) {
-                res.push_back(token);
-                token.clear();
-            }
-        }
-        else token += c;
-    }
-    if (!token.empty()) {
-        res.push_back(token);
-    }
-    return res;
-
-}
-
 
 void Shell::loop() {
 
     int status = 1;
     do {
         std::cout << ":> ";
-
-        StringVec line = getInputLine();
+        StringVec line = m_terminal.getInputLine();
         if (line.empty()) continue;
+
+        m_logger.send(m_terminal.joinLine(line));
 
         String cmd = line.at(0);
         line.erase(line.begin());
@@ -184,10 +160,18 @@ void Shell::greet() {
 void Shell::setupCustomCommands() {
 
     String quitDesc = "Disconnects from the jumpserver";
-    addCommand(ShellCommand("exit", quitDesc, [](StringVec p) { unused(p); return false; }));
-    addCommand(ShellCommand("quit", quitDesc, [](StringVec p) { unused(p); return false; }));
+    addCommand(ShellCommand("exit", BASIC, quitDesc, [](StringVec p) { unused(p); return false; }));
+    addCommand(ShellCommand("quit", BASIC, quitDesc, [](StringVec p) { unused(p); return false; }));
 
-    addCommand(ShellCommand("help", "Prints available commands",
+    addCommand((ShellCommand("greet", BASIC, "Greets you again. If you like it.",
+        [=] (StringVec p) { unused(p); greet(); return true; }
+    )));
+
+    addCommand(ShellCommand("clear", BASIC, "Clears the console.",
+        [=] (StringVec p) { unused(p); system("clear"); return true; }
+    ));
+
+    addCommand(ShellCommand("help", BASIC, "Prints available commands",
         [=] (StringVec p) {
             unused(p);
             String off("   ");
@@ -196,14 +180,19 @@ void Shell::setupCustomCommands() {
             sout("   ╚══════════════════╝");
             sout(off + "The following commands are built in / available:");
             for (auto pair : this->m_commands) {
-                sout(off + "  " + pair.second.getName() + " : " + pair.second.getDesc());
+                if (pair.second.getType() == BASIC) {
+                    sout(off + "  " + pair.second.getName() + " : " + pair.second.getDesc());
+                }
+                else {
+                    sout(off + "  [=>] " + pair.second.getName() + " : " + pair.second.getDesc());
+                }
             }
             sout("");
             return true;
         }
     ));
 
-    addCommand(ShellCommand("debug", "argument: the name of critical system",
+    addCommand(ShellCommand("debug", BASIC, "argument: the name of critical system",
         [=] (StringVec p) {
             try {
                 auto sys = m_systems.get(p.at(0));
@@ -219,44 +208,75 @@ void Shell::setupCustomCommands() {
         }
     ));
 
-    addCommand(ShellCommand("jump", "debugging command: jumps to nds@192.168.40.1:50222",
+    addCommand(ShellCommand("jump", BASIC, "debugging command: jumps to nds@192.168.40.1:50222",
         [=] (StringVec p) {
             unused(p);
+            CritSys c;
+            c.setAddress("192.168.40.1");
+            c.setName("critical-system");
 
-            {   // New block in order to destroy the process and have a chance to do something after
-                ProcessStream process;
-                process.open("ssh nds@192.168.40.1 -p 50222 -i /creds/id_rsa");
+            jump(c);
 
-                char c;
-                String quitphrase("logout");
-                unsigned iterator = 0;
-
-                while (true) {
-                    c = static_cast<char>(process.out().get());
-                    std::cout << c << std::flush;
-
-                    // TODO: possibility to store everything into file (what happened here)
-                    // TODO: Log into 127.0.0.1 : unknown port
-
-                    if (c == quitphrase[iterator]) {
-                        iterator++;
-                        if (iterator == quitphrase.length()) {
-                            break;
-                        }
-                    }
-                    else iterator = 0;
-                }
-                std::cout << std::endl << std::flush;
-            }
-
-            sout("");
-            sout("   ╔══════════════════════════╗");
-            sout("   ║  Returning to JumpShell  ║");
-            sout("   ╚══════════════════════════╝");
-            sout("");
             return true;
 
         }
     ));
+
+}
+
+
+void Shell::jump(CritSys &system) {
+
+    /// Set the critical system in logs
+    m_logger.setSystem(system.getName());
+
+    /// Restore the terminal to original state one so the SSH won't be scrapped
+    m_terminal.restoreTerminal();
+
+    {   // New block in order to destroy the process and have a chance to do something after
+        String command = "ssh nds@" + system.getAddr() + " -p 50222 -i /creds/id_rsa";
+
+        /// Creating the proces
+        ProcessStream process;
+        process.open("ssh nds@192.168.40.1 -p 50222 -i /creds/id_rsa");
+
+        char c;                         /// the main storage of each character for stdio in the ssh
+        String quitphrase("logout");    /// a quitphrase to shut down the infinite loop
+        unsigned iterator = 0;          /// a counter to indicate whether the quitphrase has been reached
+
+
+        // ---
+
+        while (true) {
+            c = static_cast<char>(process.out().get());
+
+            /// => print it
+            std::cout << c << std::flush;
+            /// and log it baby
+            m_logger.addCharToLog(c);
+
+            if (c == quitphrase[iterator]) {
+                iterator++;
+                if (iterator == quitphrase.length()) break;
+            }
+            else iterator = 0;
+        }
+        std::cout << std::endl << std::flush;
+
+    }
+
+    /// Go back to previous terminal mode (in the jumpserver)
+    m_terminal.enterSCMode();
+
+    /// Set the logging variable back to jumpserver
+    char hostname[128];
+    gethostname(hostname, 128);
+    m_logger.setSystem(String(hostname));
+
+    sout("");
+    sout("   ╔══════════════════════════╗");
+    sout("   ║  Returning to JumpShell  ║");
+    sout("   ╚══════════════════════════╝");
+    sout("");
 
 }

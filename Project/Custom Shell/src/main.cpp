@@ -1,10 +1,10 @@
-//
-// Custom Shell [ Pierre & Andrej ]
-//
+///
+/// Custom Shell: the JumpShell
+/// Made by Andrej, Pierre and Sebastian
+///
 
 #include "header.hpp"
 #include "shell/Shell.h"
-#include "ldap/LDAPClient.h"
 
 int main() {
     try {

@@ -1,23 +1,24 @@
 # Custom shell for Telenor project
 
-* Made by Pierre
-* Modified by Andrej
+* Made by Andrej, Pierre and Sebastian
 
 #### Shell Functionality
 
-* What should the shell allow? what should be forbidden?
-  * current codebase allows altering any linux command to do what we want
+* Displays user the available critical systems (LDAP client module) and handles the choice (Shell module)
+* Logs all activity the remote supporter does (Logging module)
 
-* Choices on how to execute linux commands
-  * Exec [die.net](<https://linux.die.net/man/3/execvp>), [stackoverflow](<https://stackoverflow.com/questions/27541910/how-to-use-execvp>)
-  * System [some site](<https://www.geeksforgeeks.org/system-call-in-c/>)
 
-* Do we want some advanced mechanics, as command history?
-  * [SO](<https://stackoverflow.com/questions/8435923/getting-arrow-keys-from-cin>)
 
 #### LDAP
 
 * phpLDAPadmin: https://192.168.20.4:8443
+  * <https://github.com/osixia/docker-openldap>
+  * <https://hub.docker.com/search?q=openldap&type=image>
+
+* <https://stackoverflow.com/questions/45511696/creating-a-new-objectclass-and-attribute-in-openldap>
+* https://guillaumemaka.com/2013/07/17/openldap-create-a-custom-ldap-schema.html
+
+
 
 * Some good-looking query
   ![](readme_img/query_001.png)
@@ -48,8 +49,9 @@
     * sudo make install
     * sudo ldconfig
 
-    
 * LDAP documentation
 
   * [Index](<https://linux.die.net/man/3/ldap>), [Extended Synchronous LDAP Search](<https://linux.die.net/man/3/ldap_search_ext_s>) - shouldn't be required anymore
 
+* Logging, JSON
+  * <https://github.com/nlohmann/json>

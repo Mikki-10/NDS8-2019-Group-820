@@ -1,6 +1,7 @@
-//
-// Custom Shell [ Pierre & Andrej ]
-//
+///
+/// Custom Shell: the JumpShell
+/// Made by Andrej, Pierre and Sebastian
+///
 
 #include "LDAPClient.h"
 

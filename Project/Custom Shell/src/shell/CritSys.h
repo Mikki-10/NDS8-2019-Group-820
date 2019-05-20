@@ -1,11 +1,13 @@
-//
-// Custom shell [ Pierre & Andrej ]
-//
+///
+/// Custom Shell: the JumpShell
+/// Made by Andrej, Pierre and Sebastian
+///
 
 #ifndef NDS_CRITSYS_H
 #define NDS_CRITSYS_H
 
 #include "../header.hpp"
+#include <map>
 
 class CritSys {
 
@@ -13,7 +15,8 @@ private:
     String m_name;
     String m_inet_address;
     String m_description;
-    // Posibility to add data
+    // <!> Posibility to add data <!>
+    // TODO: to be discussed: port number
 
 public:
     CritSys() {
@@ -22,10 +25,12 @@ public:
         m_description = "";
     }
 
+    /// Setters
     void setName(const String& name)                { m_name = name;                  }
     void setAddress(const String& inet_address)     { m_inet_address = inet_address;  }
     void setDescription(const String &description)  { m_description = description;    }
 
+    /// Getters
     const String& getName() { return m_name;          }
     const String& getAddr() { return m_inet_address;  }
     const String& getDesc() { return m_description;   }
