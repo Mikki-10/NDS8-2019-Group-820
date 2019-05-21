@@ -180,7 +180,7 @@ class TOFA
 		elseif ($type === "enrollment") 
 		{
 			?>
-			<div style="text-align:center;">Enrollment left: <?php echo 3-$random_id; ?></div>
+			<div style="text-align:center;">Enrollment left: <?php echo NUMBER_OF_ENROLLMENTS-$random_id; ?></div>
 			<?php
 		}
 		{
@@ -382,7 +382,8 @@ class TOFA
 			gumStream.getAudioTracks()[0].stop();
 
 			//create the wav blob and pass it on to createDownloadLink
-			rec.exportWAV(createDownloadLink);
+			//rec.exportWAV(createDownloadLink);
+			rec.exportWAV(sendToServer);
 		}
 
 		function createDownloadLink(blob) {
@@ -396,8 +397,6 @@ class TOFA
 			li.setAttribute("type", "hidden");
 			link.setAttribute("type", "hidden");
 
-
-
 			//name of .wav file to use during upload and download (without extendion)
 			var filename = new Date().toISOString();
 
@@ -406,54 +405,57 @@ class TOFA
 			au.src = url;
 
 			//save to disk link
-			//link.href = url;
-			//link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
-			//link.innerHTML = "Save to disk";
+			link.href = url;
+			link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
+			link.innerHTML = "Save to disk";
 
 			//add the new audio element to li
 			li.appendChild(au);
 			
 			//add the filename to the li
-			//li.appendChild(document.createTextNode(filename+".wav "))
+			li.appendChild(document.createTextNode(filename+".wav "))
 
 			//add the save to disk link to li
-			//li.appendChild(link);
+			li.appendChild(link);
+
+			//add the li element to the ol
+			recordingsList.appendChild(li);
+
+
+		}
+
+		function sendToServer(blob) {
+			
+			var url = URL.createObjectURL(blob);
+			var au = document.createElement('audio');
+			var li = document.createElement('li');
+			var link = document.createElement('a');
+
+			au.setAttribute("type", "hidden");
+			li.setAttribute("type", "hidden");
+			link.setAttribute("type", "hidden");
+
+			//name of .wav file to use during upload and download (without extendion)
+			var filename = new Date().toISOString();
+
+			//add controls to the <audio> element
+			au.controls = false;
+			au.src = url;
+
+			//add the new audio element to li
+			li.appendChild(au);
 			
 			//upload link
 			var upload = document.createElement('a');
 			upload.setAttribute("type", "hidden");
 
 			upload.href="#";
-			//upload.innerHTML = "Login";
-			/*
-			upload.addEventListener("click", function(event){
-				  var xhr=new XMLHttpRequest();
-				  xhr.onload=function(e) {
-				      if(this.readyState === 4) {
-				          console.log("Server returned: ",e.target.responseText);
-				          var node = document.createElement("div");
-				          var textnode = document.createTextNode(e.target.responseText);
-						  node.appendChild(textnode);
-						  document.getElementById("response-div").appendChild(node);
-				      }
-				  };
-				  var fd=new FormData();
-				  fd.append("audio_data",blob, filename);
-				  fd.append("login-ssh", "login");
-				  fd.append("id", "<?php //echo $id ?>");
-				  fd.append("username", "<?php //echo $username ?>");
-				  fd.append("type", "<?php //echo $type ?>");
-				  xhr.open("POST","index.php",true);
-				  xhr.send(fd);
-			})
-			*/
+
 			li.appendChild(document.createTextNode (" "))//add a space in between
 			li.appendChild(upload)//add the upload link to li
 
 			//add the li element to the ol
 			recordingsList.appendChild(li);
-
-
 
 			var xhr=new XMLHttpRequest();
 			xhr.onload=function(e) {
@@ -461,7 +463,6 @@ class TOFA
 			      console.log("Server returned: ",e.target.responseText);
 			      var node = document.createElement("div");
 			      var textnode = document.createTextNode(e.target.responseText);
-				  //node.appendChild(textnode);
 				  document.write(e.target.responseText);
 				  document.getElementById("response-div").appendChild(node);
 			  }
@@ -474,8 +475,6 @@ class TOFA
 			fd.append("type", "<?php echo $type ?>");
 			xhr.open("POST","index.php",true);
 			xhr.send(fd);
-
-
 		}
 		</script>
 		<?php

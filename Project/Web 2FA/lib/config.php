@@ -1,7 +1,7 @@
 <?php
 
 define("LOGIN_SESION_TIME", 20);
-define("NUMBER_OF_ENROLLMENTS", 3);
+define("NUMBER_OF_ENROLLMENTS", 10);
 
 define("DB_SERVER", "localhost");
 define("DB_NAME", "c1nds");
