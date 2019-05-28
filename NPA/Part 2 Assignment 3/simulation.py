@@ -14,16 +14,16 @@ for i in range (len(files_number)):
     log_fs.append(math.log(files_number[i]))
     log_fn.append(math.log(files_size[i]))
     
-alpha = -np.polyfit(log_fs,log_fn,1)[1]
+alpha = -np.polyfit(log_fn,log_fs,1)[0]
 
-plt.plot(log_fs,log_fn)
+plt.plot(log_fn,log_fs)
 plt.show()
 
 def mg_simulation (alpha, xm = 0.1):
     limit_t=100
     t=0
     queue=[]
-    l=10
+    l=0.2
     next_ser=10000
     p=rd.random()
     next_arr=t+(-math.log(1-p)/l)
@@ -34,21 +34,20 @@ def mg_simulation (alpha, xm = 0.1):
             queue=[1]+queue
             if len(queue)==1:
                 p=rd.random()
-                next_ser=t+(xm/(1-p)**alpha)
+                next_ser=t+(xm/(1-p)**(1/alpha))
         if t>=next_ser:
             queue.pop()
             if len(queue)!=0:
                 p=rd.random()
-                next_ser=t+(xm/(1-p)**alpha)
+                next_ser=t+(xm/(1-p)**(1/alpha))
             else:
                 next_ser=100000
         t+=1/100
-        print(len(queue))
     print("La longueur de la queue en fin de simulation est de "+str((len(queue))))
             
         
-        
-#mg_simulation(alpha)       
+print(alpha)
+mg_simulation(alpha)       
     
 def compute_L (l,mu,V):
     ro=l/mu
@@ -83,4 +82,4 @@ def mm_simulation (alpha, xm = 0.1):
         print(len(queue))
     print("La longueur de la queue en fin de simulation est de "+str((len(queue))))
     
-mm_simulation(alpha)
+#mm_simulation(alpha)       
