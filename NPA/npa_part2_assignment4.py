@@ -15,7 +15,7 @@ A0=np.array([[-a,a],[b,-(b+l)]])
 
 def find_R():
     R=np.array([[0,0],[0,0]])
-    for i in range(100):
+    for i in range(1000):
         R=-np.dot((C+np.dot(np.dot(R,R),B)),np.linalg.inv(A))
     return(R)
 
