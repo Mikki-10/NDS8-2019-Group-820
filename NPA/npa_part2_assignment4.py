@@ -4,8 +4,8 @@ import scipy.linalg as lin
 l=1
 T=1
 mu=l/5
-a=1/T
-b=1/(9*T)
+a=1/(9*T)
+b=1/(T)
 
 A=np.array([[-(mu+a),a],[b,-(mu+b+l)]])
 B=np.array([[mu,0],[0,mu]])
