@@ -23,6 +23,8 @@ R=find_R()
 
 P0=lin.null_space(np.transpose(A0+np.dot(R,B)))
 print(A0+np.dot(R,B))
+
+P0 = P0/np.sum(P0)
 print(P0)
 
 Pi=lin.null_space(np.transpose(C+np.dot(R,B)+np.dot(R,np.dot(R,B))))
