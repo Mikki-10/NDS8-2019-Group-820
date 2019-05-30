@@ -2,9 +2,10 @@ import numpy as np
 import scipy.linalg as lin
 
 l=1
+T=1
 mu=l/5
-b=l
-a=l/9
+a=1/T
+b=1/(9*T)
 
 A=np.array([[-(mu+a),a],[b,-(mu+b+l)]])
 B=np.array([[mu,0],[0,mu]])
@@ -23,3 +24,6 @@ R=find_R()
 P0=lin.null_space(np.transpose(A0+np.dot(R,B)))
 print(A0+np.dot(R,B))
 print(P0)
+
+Pi=lin.null_space(np.transpose(C+np.dot(R,B)+np.dot(R,np.dot(R,B))))
+print(Pi)
