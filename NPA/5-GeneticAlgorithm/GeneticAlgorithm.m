@@ -6,9 +6,17 @@ function [solution, weight, price] = GeneticAlgorithm(Initpop,Items,Iterations,M
 %       iterations
 %       max amount to spend
 %
-solution = 0;
-weight = 0;
-price = 0;
-
+CurrentPop=Initpop;
+for iter = 1:iterations
+    % Find the best in our current gen
+    % Get the probability of each
+    % Find the parents set based on their probability
+    % Mix the parents
+        % Crossover
+    % New population
+    % Remove all illigal (based on maxspend)
+    % Find the best chromosones of generation
+    % Set currentpop to newpop with best chromosones
+end
 
 end
