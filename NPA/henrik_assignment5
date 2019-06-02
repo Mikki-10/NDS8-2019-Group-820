@@ -1,0 +1,59 @@
+import math
+import matplotlib.pyplot as plt
+
+def estimation (alpha,k,tmax,tmin) :
+    T=[t/10000 for t in range(tmin*10000,tmax*100000)]
+    s=0
+    for t in T:
+        s+=t**(-alpha)*1/10000
+    K=1/s
+    c=tmax/2-0.01
+    b=2
+    L=[]
+    P=[]
+    C=[c]
+    for i in range(k-1):
+        sum=0
+        sumb=0
+        for j in range(i):
+            sum+=P[j]*math.exp(-L[j]*C[j])
+            sumb+=P[j]*math.exp(-L[j]*C[j]*b)
+        L.append(1/((b-1)*c)*math.log((K*(1/c)**alpha-sum)/(K*(1/(b*c))**alpha-sumb)))
+        P.append((K*(1/c)**alpha-sum)*math.exp(L[i]*c))
+        c=c/10
+        C.append(c)
+    p=1
+    for i in range(len(P)):
+        p-=P[i]
+    P.append(p)
+    sum=0
+    for j in range(len(L)):
+        sum+=P[j]*math.exp(-L[j]*C[j])
+    L.append(1/c*math.log(p/(K*(1/c)**alpha-sum)))
+    return L,P
+
+print(estimation(1.4,3,100,1)) #les p sont plus grands que 1, mais c'est totalement normal en fait il faut scaler la distribution avec un paramètre K
+
+def hyperexpo(L,P,t):
+    k=len(P)
+    S=0
+    for i in range(k):
+        S+=P[i]*math.exp(-L[i]*t)
+    return S
+
+def plot(tmin,tmax,alpha,k):
+    T=[t/10000 for t in range(tmin*10000,tmax*100000)]
+    s=0
+    for t in T:
+        s+=t**(-alpha)*1/10000
+    K=1/s
+    L,P=estimation(alpha,k,tmax,tmin)
+    T=[t/100 for t in range(tmin*100,tmax*100)]
+    powertail=[K*t**(-alpha) for t in T]
+    hyper=[hyperexpo(L,P,t) for t in T]
+    plt.close("all")
+    plt.plot(T,powertail,"r")
+    plt.plot(T,hyper,"b")
+    plt.show()
+
+plot(1,100,1.2,3)
