@@ -1,0 +1,147 @@
+import random as rd
+import copy
+
+n=10 #quantité population
+m=5 #quantité mutations
+nombre_cycle=200
+P=[60,20,49,57,49,35,51,61,44,64,81,46]
+W=[438,544,537,351,719,164,574,884,161,767,889,318]
+
+def random_gen(n):
+    pop=[]
+    while len(pop)!=n:
+        E=[]
+        x=rd.randint(1,7)
+        for i in range(x):
+            a=rd.randint(0,11)
+            if a not in E:
+                E.append(a)
+        S=[]
+        for i in range (12):
+            if i in E:
+                S.append(1)
+            else:
+                S.append(0)
+        if faisable(S):
+            pop.append(S)
+    return pop
+    
+def faisable(S):
+    value=0
+    for i in range(12):
+        value+=S[i]*P[i]
+    if value<250:
+        return True
+    else:
+        return False
+            
+def f(S):
+    value=0
+    for i in range(12):
+        value+=S[i]*W[i]
+    return value
+
+def cross(S1,S2):
+    S=[]
+    i1=rd.randint(1,11)
+    S+=S1[:i1]
+    i=i1
+    while sum(S)<7 and i<11:
+        S.append(S2[i])
+        i+=1
+    while len(S)<12:
+        S.append(0)
+    return S
+    
+
+def mutation(S):
+    Sn=copy.deepcopy(S)
+    i1=rd.randint(0,11)
+    i2=rd.randint(0,11)
+    Sn[i1],Sn[i2]=Sn[i2],Sn[i1]
+    return Sn
+    
+def assexual(S):
+    Sn=copy.deepcopy(S)
+    i1=rd.randint(1,11)
+    i2=i1
+    while i2==i1:
+        i2=rd.randint(0,11)
+    if i1>i2:
+        i1,i2=i2,i1
+    S=Sn[i2:]+Sn[:i1]+Sn[i1:i2]
+    return S
+    
+def f_popu(pop):
+    f_pop=[]
+    for i in range(len(pop)):
+        f_pop.append(f(pop[i]))
+    return f_pop
+
+def selection_parent(pop):
+    f_pop=f_popu(pop)
+    p=[]
+    for i in range(len(pop)):
+        if i==0:
+            p.append(f_pop[i]/sum(f_pop))
+        else:
+            p.append(p[i-1]+f_pop[i]/sum(f_pop))
+    picked=rd.random()
+    for i in range(len(pop)):
+        if picked<p[i]:
+            return i
+            
+def elimination(pop,n):
+    f_pop=f_popu(pop)
+    elimine=[]
+    for i in range(len(pop)-n):
+        elimine.append(f_pop.index(min(f_pop)))
+        f_pop[f_pop.index(min(f_pop))]=10000000
+    new_pop=[]
+    for i in range(len(pop)):
+        if i not in elimine:
+            new_pop.append(pop[i])
+    return new_pop
+    
+def main():
+    pop=random_gen(n)
+    for j in range(nombre_cycle):
+        for i in range (m):
+            a=rd.randint(1,3)
+            if a==1:
+                flag=False
+                cpt=0
+                while flag==False and cpt<100:
+                    S=mutation(pop[selection_parent(pop)])
+                    if faisable(S):
+                        pop.append(S)
+                        flag=True
+                    cpt+=1
+            elif a==2:
+                flag=False
+                cpt=0
+                while flag==False and cpt<100:
+                    S=assexual(pop[selection_parent(pop)])
+                    if faisable(S):
+                        pop.append(S)
+                        flag=True
+                    cpt+=1
+            else:
+                flag=False
+                cpt=0
+                while flag==False and cpt<100:
+                    p1=pop[selection_parent(pop)]
+                    p2=pop[selection_parent(pop)]
+                    S=cross(p1,p2)
+                    if faisable(S):
+                        pop.append(S)
+                        flag=True
+                    cpt+=1
+        pop=elimination(pop,n)
+        f_pop=f_popu(pop)
+        print(max(f_pop))
+    f_pop=f_popu(pop)
+    return pop[f_pop.index(max(f_pop))]
+
+        
+print(main())
