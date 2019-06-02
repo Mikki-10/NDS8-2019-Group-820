@@ -1,0 +1,64 @@
+import copy #this program only do the colouring part of the problem: it doesn't look for shortest paths between links...
+
+A=[[0,1,0,1],[1,0,1,1],[0,1,0,1],[1,1,1,0]]
+
+def calcul_deg (A):
+    D=[]
+    for i in range (len(A)):
+        d=0
+        for j in range(len(A[i])):
+            d+=A[i][j]
+        D.append(d)
+    return D
+    
+def neighbours (A,i):
+    N=[]
+    for j in range(len(A[i])):
+        if A[i][j]!=0:
+            N.append(j)
+    return N
+    
+def order (A):
+    A=copy.deepcopy(A)
+    M=[]
+    colors=[0 for i in range(len(A))]
+    D=calcul_deg(A)
+    for i in range(len(A)):
+        j=D.index(max(D))
+        M.append(min(i+1,1+D[j]))
+        D[j]=0
+        c=1
+        while c in [colors[x] for x in neighbours(A,j)]:
+            c+=1
+        colors[j]=c
+    return max(M),colors
+        
+print(order(A))
+    
+def alt_order (A):
+    B=copy.deepcopy(A)
+    M=[]
+    deleted=[]
+    colors=[0 for i in range(len(A))]
+    for i in range(len(A)):
+        D=calcul_deg(B)
+        j=D.index(min(D))
+        M.append(D[j])
+        D.pop(j)
+        B.pop(j)
+        for k in range(len(B)):
+            B[k].pop(j)
+        c=1
+        k=0
+        while k <= (j+1):
+            if k in deleted:
+                j+=1
+            k+=1
+        while c in [colors[x] for x in neighbours(A,j)]:
+            c+=1
+        colors[j]=c
+        deleted.append(j)
+    return 1+max(M),colors
+    
+print(alt_order(A))
+        
