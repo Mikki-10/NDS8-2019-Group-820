@@ -3,20 +3,20 @@ import math
 
 N=[]
 
-for i in range (20) :
+for i in range (20) : #create the nodes
     N.append([rd.random()*50,rd.random()*50])
 
-E=[]
+E=[] #initialization of the edges matrix
 for i in range (20):
     E.append([])
     for j in range(20):
         E[i].append(0)
         
-for i in range(19):
+for i in range(19): #first set of links to make the graph connected
     E[i][i+1]=math.sqrt((N[i][0]-N[i+1][0])**2+(N[i][1]-N[i+1][1])**2)
     E[i+1][i]=math.sqrt((N[i][0]-N[i+1][0])**2+(N[i][1]-N[i+1][1])**2)
     
-for cpt in range (31):
+for cpt in range (31): #other randomly chosen links
     i=0
     j=0
     while i==j or E[i][j]!=0 :
@@ -25,16 +25,16 @@ for cpt in range (31):
     E[i][j]=math.sqrt((N[i][0]-N[j][0])**2+(N[i][1]-N[j][1])**2)
     E[j][i]=math.sqrt((N[i][0]-N[j][0])**2+(N[i][1]-N[j][1])**2)
 
-nb_usagers=[]
+nb_usagers=[] #numbers of users
 for i in range (20):
     nb_usagers=rd.randint(1,100)
     
-root=rd.randint(1,19)    
+root=rd.randint(1,19) #picking a root  
     
 def take_first(A):
     return A[0]
     
-def Kruskal_alg(E):
+def Kruskal_alg(E): 
     V=[]
     L=[]
     A=[]
@@ -83,7 +83,7 @@ def Dijkstra_alg (E):
     
             
         
-def trench_length(A) :
+def trench_length(A) : 
     T=0
     for i in range(len(A)):
         T+=A[i][0]
@@ -104,7 +104,7 @@ K_E=[]
 
 
 
-for i in range(20):
+for i in range(20): #this is necessary to use Dijkstra on the MST 
     K_E.append([])
     for j in range(20):
         K_E[i].append(0)
