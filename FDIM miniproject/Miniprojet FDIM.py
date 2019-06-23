@@ -31,9 +31,39 @@ repair=0.05
 
 #Q is the transition matrix corresponding to our markov chain
 
-Q=np.array([[-(vpn_d+ldap_d+jmphost_d+cs_d),vpn_d,0,0,0,0,0,0,0,ldap_d,0,0,0,jmphost_d,0,cs_d],[repair,-(repair+ldap_d+2*jmphost_d+cs_d),ldap_d,2*jmphost_d,cs_d,0,0,0,0,0,0,0,0,0,0,0],[0,repair,-(2*repair+4*jmphost_d+cs_d),0,0,2*jmphost_d,cs_d,0,0,repair,0,0,0,0,0,0],[0,repair,0,-(2*repair+ldap_d+2*cs_d),0,ldap_d,0,2*cs_d,0,0,0,0,0,repair,0,0],[0,repair,0,0,-(2*repair+ldap_d+2*jmphost_d),0,ldap_d,2*jmphost_d,0,0,0,0,0,0,0,repair],[0,0,repair,repair,0,-(3*repair+2*cs_d),0,0,2*cs_d,0,repair,0,0,0,0,0],[0,0,repair,0,repair,0,-(3*repair+4*jmphost_d),0,4*jmphost_d,0,0,repair,0,0,0,0],[0,0,0,repair,repair,0,0,-(3*repair+ldap_d),ldap_d,0,0,0,0,0,repair,0],[0,0,0,0,0,repair,repair,repair,-4*repair,0,0,0,repair,0,0,0],[repair,0,vpn_d,0,0,0,0,0,0,-(repair+vpn_d+2*jmphost_d+cs_d),2*jmphost_d,cs_d,0,0,0,0],[0,0,0,0,0,vpn_d,0,0,0,repair,-(2*repair+2*cs_d+vpn_d),0,2*cs_d,repair,0,0],[0,0,0,0,0,0,vpn_d,0,0,repair,0,-(2*repair+2*jmphost_d+vpn_d),2*jmphost_d,0,0,repair],[0,0,0,0,0,0,0,0,vpn_d,0,repair,repair,-(3*repair+vpn_d),0,repair,0],[repair,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,-(repair+vpn_d+ldap_d+2*cs_d),2*cs_d,0],[0,0,0,0,0,0,vpn_d,0,0,0,0,0,ldap_d,repair,-(2*repair+vpn_d+ldap_d),repair],[repair,0,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,jmphost_d,-(repair+jmphost_d+vpn_d+ldap_d)]])
+Q=np.array([[-(vpn_d+ldap_d+jmphost_d+cs_d),vpn_d,0,0,0,0,0,0,0,ldap_d,0,0,0,jmphost_d,0,cs_d],
+            [repair,-(repair+ldap_d+2*jmphost_d+cs_d),ldap_d,2*jmphost_d,cs_d,0,0,0,0,0,0,0,0,0,0,0],
+            [0,repair,-(2*repair+4*jmphost_d+cs_d),0,0,2*jmphost_d,cs_d,0,0,repair,0,0,0,0,0,0],
+            [0,repair,0,-(2*repair+ldap_d+2*cs_d),0,ldap_d,0,2*cs_d,0,0,0,0,0,repair,0,0],
+            [0,repair,0,0,-(2*repair+ldap_d+2*jmphost_d),0,ldap_d,2*jmphost_d,0,0,0,0,0,0,0,repair],
+            [0,0,repair,repair,0,-(3*repair+2*cs_d),0,0,2*cs_d,0,repair,0,0,0,0,0],
+            [0,0,repair,0,repair,0,-(3*repair+4*jmphost_d),0,4*jmphost_d,0,0,repair,0,0,0,0],
+            [0,0,0,repair,repair,0,0,-(3*repair+ldap_d),ldap_d,0,0,0,0,0,repair,0],
+            [0,0,0,0,0,repair,repair,repair,-4*repair,0,0,0,repair,0,0,0],
+            [repair,0,vpn_d,0,0,0,0,0,0,-(repair+vpn_d+2*jmphost_d+cs_d),2*jmphost_d,cs_d,0,0,0,0],
+            [0,0,0,0,0,vpn_d,0,0,0,repair,-(2*repair+2*cs_d+vpn_d),0,2*cs_d,repair,0,0],
+            [0,0,0,0,0,0,vpn_d,0,0,repair,0,-(2*repair+2*jmphost_d+vpn_d),2*jmphost_d,0,0,repair],
+            [0,0,0,0,0,0,0,0,vpn_d,0,repair,repair,-(3*repair+vpn_d),0,repair,0],
+            [repair,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,-(repair+vpn_d+ldap_d+2*cs_d),2*cs_d,0],
+            [0,0,0,0,0,0,vpn_d,0,0,0,0,0,ldap_d,repair,-(2*repair+vpn_d+ldap_d),repair],
+            [repair,0,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,jmphost_d,-(repair+jmphost_d+vpn_d+ldap_d)]])
 
-Qr=np.array([[-(vpn_d+ldap_d+jmphost_d+cs_d),vpn_d,0,0,0,0,0,0,0,ldap_d,0,0,0,jmphost_d,0,cs_d],[repair,-(repair+ldap_d+2*jmphost_d+cs_d),ldap_d,2*jmphost_d,cs_d,0,0,0,0,0,0,0,0,0,0,0],[0,repair,-(2*repair+4*jmphost_d+cs_d),0,0,2*jmphost_d,cs_d,0,0,repair,0,0,0,0,0,0],[0,repair,0,-(2*repair+ldap_d+2*cs_d),0,ldap_d,0,2*cs_d,0,0,0,0,0,repair,0,0],[0,0,0,0,-(repair+ldap_d+2*jmphost_d),0,ldap_d,2*jmphost_d,0,0,0,0,0,0,0,repair],[0,0,repair,repair,0,-(3*repair+2*cs_d),0,0,2*cs_d,0,repair,0,0,0,0,0],[0,0,0,0,0,0,-(4*jmphost_d),0,4*jmphost_d,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,-(ldap_d),ldap_d,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[repair,0,vpn_d,0,0,0,0,0,0,-(repair+vpn_d+2*jmphost_d+cs_d),2*jmphost_d,cs_d,0,0,0,0],[0,0,0,0,0,vpn_d,0,0,0,repair,-(2*repair+2*cs_d+vpn_d),0,2*cs_d,repair,0,0],[0,0,0,0,0,0,vpn_d,0,0,0,0,-(2*jmphost_d+vpn_d),2*jmphost_d,0,0,0],[0,0,0,0,0,0,0,0,vpn_d,0,0,0,-(vpn_d),0,0,0],[repair,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,-(repair+vpn_d+ldap_d+2*cs_d),2*cs_d,0],[0,0,0,0,0,0,vpn_d,0,0,0,0,0,ldap_d,0,-(vpn_d+ldap_d),0],[repair,0,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,jmphost_d,-(repair+jmphost_d+vpn_d+ldap_d)]])
+Qr=np.array([[-(vpn_d+ldap_d+jmphost_d+cs_d),vpn_d,0,0,0,0,0,0,0,ldap_d,0,0,0,jmphost_d,0,cs_d],
+             [repair,-(repair+ldap_d+2*jmphost_d+cs_d),ldap_d,2*jmphost_d,cs_d,0,0,0,0,0,0,0,0,0,0,0],
+             [0,repair,-(2*repair+4*jmphost_d+cs_d),0,0,2*jmphost_d,cs_d,0,0,repair,0,0,0,0,0,0],
+             [0,repair,0,-(2*repair+ldap_d+2*cs_d),0,ldap_d,0,2*cs_d,0,0,0,0,0,repair,0,0],
+             [0,0,0,0,-(repair+ldap_d+2*jmphost_d),0,ldap_d,2*jmphost_d,0,0,0,0,0,0,0,repair],
+             [0,0,repair,repair,0,-(3*repair+2*cs_d),0,0,2*cs_d,0,repair,0,0,0,0,0],
+             [0,0,0,0,0,0,-(4*jmphost_d),0,4*jmphost_d,0,0,0,0,0,0,0],
+             [0,0,0,0,0,0,0,-(ldap_d),ldap_d,0,0,0,0,0,0,0],
+             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+             [repair,0,vpn_d,0,0,0,0,0,0,-(repair+vpn_d+2*jmphost_d+cs_d),2*jmphost_d,cs_d,0,0,0,0],
+             [0,0,0,0,0,vpn_d,0,0,0,repair,-(2*repair+2*cs_d+vpn_d),0,2*cs_d,repair,0,0],
+             [0,0,0,0,0,0,vpn_d,0,0,0,0,-(2*jmphost_d+vpn_d),2*jmphost_d,0,0,0],
+             [0,0,0,0,0,0,0,0,vpn_d,0,0,0,-(vpn_d),0,0,0],
+             [repair,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,-(repair+vpn_d+ldap_d+2*cs_d),2*cs_d,0],
+             [0,0,0,0,0,0,vpn_d,0,0,0,0,0,ldap_d,0,-(vpn_d+ldap_d),0],
+             [repair,0,0,0,vpn_d,0,0,0,0,0,0,ldap_d,0,0,jmphost_d,-(repair+jmphost_d+vpn_d+ldap_d)]])
 
 #this is the initial state vector at which we begin
 
