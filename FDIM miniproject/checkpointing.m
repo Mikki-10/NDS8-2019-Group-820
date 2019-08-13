@@ -2,7 +2,7 @@ clear all; close all;
 
 T = 5;             % Task Duration
 C = 0.2;            % Duration per checkpoint
-mu = 0.01;           % Error rate
+mu = 0.1;           % Error rate
 N = 1:20;           % Number of checkpoints
 mdur = zeros(1,length(N)); % Mean duration
 
